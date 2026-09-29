@@ -11,6 +11,22 @@
 <script src="./config.js"></script>
 <script src="./api.js"></script>
 <style>
+
+/* Background Animation Layers */
+.bg-layer { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: -1; }
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(45,217,232,0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(45,217,232,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: bgScroll 40s linear infinite;
+}
+.bg-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(139,107,240,0.02) 0%, transparent 60%);
+  animation: pulseGlow 10s ease-in-out infinite alternate;
+}
+@keyframes bgScroll { from { background-position: 0 0; } to { background-position: -400px -400px; } }
+@keyframes pulseGlow { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.5); opacity: 1; } }
+
 /* ============ DESIGN TOKENS (IEEE AI CYBERSECURITY SOC) ============ */
 :root{
   --void:#080b12;
@@ -833,6 +849,9 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
 </style>
 </head>
 <body data-theme="dark">
+<div class="bg-layer bg-grid"></div>
+<div class="bg-layer bg-glow"></div>
+
 
 <!-- ============ BACKEND OFFLINE ALERT BANNER ============ -->
 <div id="backendOfflineBanner" style="display:none; background:linear-gradient(90deg, #dc2626, #b91c1c); color:#ffffff; padding:9px 18px; text-align:center; font-size:12.5px; font-weight:600; z-index:9999; position:sticky; top:0; box-shadow:0 4px 15px rgba(220,38,38,0.4);">
@@ -1818,6 +1837,11 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
         </div>
         <div class="card card-pad">
           <label class="field-label">Message or Post Content</label>
+          <div class="dropzone" data-accept="text/plain,text/csv,application/json" data-kind="scamTextFile" style="padding:15px; margin-bottom:10px; min-height:80px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px; height:24px; margin-bottom:4px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"></path><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"></path></svg>
+            <h4 style="font-size:13px; margin:0;">Drop Dataset or Text File</h4>
+            <p style="font-size:11px; margin:0;">TXT, CSV, JSON</p>
+          </div>
           <textarea class="textarea" id="scamText" placeholder="Paste suspicious SMS, WhatsApp message, extortion email, or fraudulent text..."></textarea>
           <div class="action-row">
             <button class="btn btn-primary" id="scamAnalyzeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>Analyze Message</button>
@@ -1850,6 +1874,11 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             </div>
           </div>
           <label class="field-label">Email Body Content</label>
+          <div class="dropzone" data-accept="text/plain,text/csv,application/json" data-kind="emailTextFile" style="padding:15px; margin-bottom:10px; min-height:80px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px; height:24px; margin-bottom:4px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"></path><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"></path></svg>
+            <h4 style="font-size:13px; margin:0;">Drop Dataset or Text File</h4>
+            <p style="font-size:11px; margin:0;">TXT, CSV, JSON</p>
+          </div>
           <textarea class="textarea" id="emailBody" rows="7" placeholder="Paste complete email message body..."></textarea>
           <div class="action-row">
             <button class="btn btn-primary" id="emailAnalyzeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Analyze Email</button>
@@ -1894,7 +1923,12 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             </div>
             <div>
               <label class="field-label">Job / Internship Description or Offer Letter Text</label>
-              <textarea class="textarea" id="jobDesc" placeholder="Paste job offer description, requirements, or appointment letter text..."></textarea>
+              <div class="dropzone" data-accept="text/plain,text/csv,application/json" data-kind="jobTextFile" style="padding:15px; margin-bottom:10px; min-height:80px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px; height:24px; margin-bottom:4px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"></path><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"></path></svg>
+            <h4 style="font-size:13px; margin:0;">Drop Dataset or Text File</h4>
+            <p style="font-size:11px; margin:0;">TXT, CSV, JSON</p>
+          </div>
+          <textarea class="textarea" id="jobDesc" placeholder="Paste job offer description, requirements, or appointment letter text..."></textarea>
             </div>
             <div class="grid g2">
               <div>
@@ -2025,6 +2059,11 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             <button class="plat-card" data-plat="Telegram" style="border:1px solid var(--line); border-radius:8px; padding:8px 14px; background:var(--panel-2); color:var(--text-dim); cursor:pointer;">Telegram</button>
           </div>
           <label class="field-label">Social Post Content</label>
+          <div class="dropzone" data-accept="text/plain,text/csv,application/json" data-kind="socialTextFile" style="padding:15px; margin-bottom:10px; min-height:80px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px; height:24px; margin-bottom:4px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"></path><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"></path></svg>
+            <h4 style="font-size:13px; margin:0;">Drop Dataset or Text File</h4>
+            <p style="font-size:11px; margin:0;">TXT, CSV, JSON</p>
+          </div>
           <textarea class="textarea" id="socialText" placeholder="Paste social media post text, tweet, or influencer giveaway message..."></textarea>
           <div style="margin-top:10px;">
             <label class="field-label">Embedded Link / Bio URL (Optional)</label>
@@ -2712,6 +2751,22 @@ function renderUnifiedResultCard(norm, opts) {
 
   return `
     <style>
+
+/* Background Animation Layers */
+.bg-layer { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: -1; }
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(45,217,232,0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(45,217,232,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: bgScroll 40s linear infinite;
+}
+.bg-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(139,107,240,0.02) 0%, transparent 60%);
+  animation: pulseGlow 10s ease-in-out infinite alternate;
+}
+@keyframes bgScroll { from { background-position: 0 0; } to { background-position: -400px -400px; } }
+@keyframes pulseGlow { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.5); opacity: 1; } }
+
       .soc-draw-line { stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       @keyframes drawLine { to { stroke-dashoffset: 0; } }
       .soc-fade-in { opacity: 0; animation: fadeIn 1s ease 1s forwards; }
@@ -3235,6 +3290,28 @@ function wireDropzone(zone){
 document.querySelectorAll('.dropzone').forEach(wireDropzone);
 
 function handleFile(file, kind){
+  // Universal Text/Dataset file drop parsing
+  if (['scamTextFile', 'emailTextFile', 'urlTextFile', 'jobTextFile', 'socialTextFile'].includes(kind)) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const text = e.target.result;
+      let targetId = '';
+      if (kind === 'scamTextFile') targetId = 'scamText';
+      if (kind === 'emailTextFile') targetId = 'emailBody';
+      if (kind === 'urlTextFile') targetId = 'urlInput';
+      if (kind === 'jobTextFile') targetId = 'jobDesc';
+      if (kind === 'socialTextFile') targetId = 'socialText';
+      
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.value = text.length > 5000 ? text.substring(0, 5000) + '\n...[TRUNCATED]' : text;
+        toast('File Loaded', `Loaded content from ${file.name}`, 'info');
+      }
+    };
+    reader.readAsText(file);
+    return;
+  }
+
   filesStore[kind] = file;
   const prev = document.getElementById(`prev-${kind}`) || document.getElementById(`prev-up-${kind}`);
   if(prev){
@@ -4106,23 +4183,39 @@ function updateDashboardStats(){
         return { x, y, score: h.score };
       });
       
-      let pathD = \`M \${points[0].x} \${points[0].y}\`;
+      let pathD = `M ${points[0].x} ${points[0].y}`;
       for(let i = 1; i < points.length; i++) {
         const prev = points[i-1];
         const curr = points[i];
         // Smooth curve
         const cx = (prev.x + curr.x) / 2;
-        pathD += \` C \${cx} \${prev.y} \${cx} \${curr.y} \${curr.x} \${curr.y}\`;
+        pathD += ` C ${cx} ${prev.y} ${cx} ${curr.y} ${curr.x} ${curr.y}`;
       }
       
-      let areaD = pathD + \` L 100 100 L 0 100 Z\`;
+      let areaD = pathD + ` L 100 100 L 0 100 Z`;
       
       const circles = points.map(p => 
-        \`<circle cx="\${p.x}" cy="\${p.y}" r="2" fill="var(--panel)" stroke="var(--cyan)" stroke-width="1.5"><title>Risk: \${p.score}</title></circle>\`
+        `<circle cx="${p.x}" cy="${p.y}" r="2" fill="var(--panel)" stroke="var(--cyan)" stroke-width="1.5"><title>Risk: ${p.score}</title></circle>`
       ).join('');
 
-      chHist.innerHTML = \`
+      chHist.innerHTML = `
         <style>
+
+/* Background Animation Layers */
+.bg-layer { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: -1; }
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(45,217,232,0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(45,217,232,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: bgScroll 40s linear infinite;
+}
+.bg-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(139,107,240,0.02) 0%, transparent 60%);
+  animation: pulseGlow 10s ease-in-out infinite alternate;
+}
+@keyframes bgScroll { from { background-position: 0 0; } to { background-position: -400px -400px; } }
+@keyframes pulseGlow { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.5); opacity: 1; } }
+
           .soc-hist-line { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawHistLine 1.5s ease forwards; }
           @keyframes drawHistLine { to { stroke-dashoffset: 0; } }
           .soc-hist-points { opacity: 0; animation: fadeHist 0.5s ease 1s forwards; }
@@ -4145,18 +4238,18 @@ function updateDashboardStats(){
             <text x="-5" y="104" fill="var(--text-faint)" font-size="6" text-anchor="end">0</text>
             
             <!-- Area -->
-            <path d="\${areaD}" fill="var(--cyan)" class="soc-hist-area" />
+            <path d="${areaD}" fill="var(--cyan)" class="soc-hist-area" />
             
             <!-- Line -->
-            <path d="\${pathD}" fill="none" stroke="var(--cyan)" stroke-width="2" class="soc-hist-line" style="filter: drop-shadow(0 0 3px var(--cyan));" />
+            <path d="${pathD}" fill="none" stroke="var(--cyan)" stroke-width="2" class="soc-hist-line" style="filter: drop-shadow(0 0 3px var(--cyan));" />
             
             <!-- Points -->
             <g class="soc-hist-points">
-              \${circles}
+              ${circles}
             </g>
           </svg>
         </div>
-      \`;
+      `;
     }
   }
 
