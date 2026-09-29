@@ -888,9 +888,78 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
         font-weight: 600 !important;
         opacity: 0.8 !important;
     }
+
+    /* --- TRUSTGUARD PROFESSIONAL ANIMATIONS --- */
+    
+    /* Background Keyframes */
+    @keyframes slowGradientMove { 0% { transform: translate(0, 0); } 100% { transform: translate(5%, 5%); } }
+    @keyframes gridDrift { 0% { background-position: 0px 0px; } 100% { background-position: -50px -50px; } }
+    @keyframes pulseAmbient { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+    @keyframes horizontalScan { 0% { top: -10%; } 100% { top: 110%; } }
+
+    /* Page & Card Entrance */
+    .page.active { animation: pageFadeIn 0.3s ease-out forwards; }
+    @keyframes pageFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .bento-card, .unified-card, .det-tile, .module-card {
+        animation: cardEntrance 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+    }
+    .bento-card:nth-child(1) { animation-delay: 0.05s; }
+    .bento-card:nth-child(2) { animation-delay: 0.1s; }
+    .bento-card:nth-child(3) { animation-delay: 0.15s; }
+    .bento-card:nth-child(4) { animation-delay: 0.2s; }
+    @keyframes cardEntrance { from { opacity: 0; transform: translateY(15px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* Button Animations */
+    .btn { transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1) !important; position: relative; overflow: hidden; }
+    .btn:active { transform: translateY(1px) scale(0.98) !important; }
+    
+    .btn.analyzing {
+        pointer-events: none;
+        opacity: 0.9;
+        background: var(--panel) !important;
+        color: var(--cyan) !important;
+        border: 1px solid var(--cyan) !important;
+        box-shadow: 0 0 15px rgba(45,217,232,0.2) !important;
+    }
+    .btn.analyzing::after {
+        content: ''; position: absolute; top:0; left:-100%; width:100%; height:100%;
+        background: linear-gradient(90deg, transparent, rgba(45,217,232,0.2), transparent);
+        animation: scanningSweep 1.5s infinite linear;
+    }
+    @keyframes scanningSweep { to { left: 100%; } }
+
+    /* AI Assistant Hover/Pulse */
+    .assist-fab { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important; animation: breathGlow 4s ease-in-out infinite alternate; }
+    .assist-fab:hover { transform: scale(1.08) !important; box-shadow: 0 0 25px rgba(139,107,240,0.6) !important; animation: none; }
+    @keyframes breathGlow { from { box-shadow: 0 0 10px rgba(139,107,240,0.3); } to { box-shadow: 0 0 25px rgba(139,107,240,0.8); } }
+
+    /* Pipeline Animation */
+    .pipe-step { transition: opacity 0.3s, transform 0.3s; }
+    .pipe-step.active .step-icon { animation: spinPulse 2s linear infinite; color: var(--cyan); }
+    @keyframes spinPulse { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+
+    /* Result Animation */
+    .result-card.show { animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    @keyframes resultPop { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+    /* --- END ANIMATIONS --- */
 </style>
 </head>
 <body data-theme="dark">
+  <!-- Animated Background System -->
+  <div class="bg-layer" id="appBackground" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-10; pointer-events:none; overflow:hidden;">
+    <div class="bg-gradient" style="position:absolute; width:200%; height:200%; top:-50%; left:-50%; background:radial-gradient(circle at center, rgba(16,21,34,1) 0%, rgba(10,14,23,1) 100%); animation: slowGradientMove 30s infinite alternate;"></div>
+    <div class="bg-grid" style="position:absolute; width:100%; height:100%; background-image: linear-gradient(rgba(45,217,232,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(45,217,232,0.03) 1px, transparent 1px); background-size: 50px 50px; animation: gridDrift 60s linear infinite;"></div>
+    <div class="bg-glow" style="position:absolute; width:100%; height:100%; background: radial-gradient(circle at 30% 70%, rgba(139,107,240,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(45,217,232,0.04) 0%, transparent 50%); animation: pulseAmbient 15s ease-in-out infinite alternate;"></div>
+    <canvas id="bgCanvas" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.5;"></canvas>
+    <div class="bg-scanline" style="position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg, transparent, rgba(45,217,232,0.3), transparent); animation: horizontalScan 8s linear infinite; opacity:0.4;"></div>
+  </div>
+
 <div class="bg-layer bg-grid"></div>
 <div class="bg-layer bg-glow"></div>
 
@@ -2471,6 +2540,14 @@ async function parseSafeResponse(response, endpoint) {
 }
 
 async function apiPost(endpoint, body, isFormData = false, timeoutMs = 60000) {
+  const activeBtn = document.activeElement;
+  let originalHtml = '';
+  if (activeBtn && activeBtn.tagName === 'BUTTON' && !activeBtn.classList.contains('analyzing')) {
+      originalHtml = activeBtn.innerHTML;
+      activeBtn.classList.add('analyzing');
+      activeBtn.innerHTML = 'ANALYZING...';
+  }
+
   if (endpoint.includes('/video')) {
     timeoutMs = Math.max(timeoutMs, 120000);
   }
@@ -2485,7 +2562,13 @@ async function apiPost(endpoint, body, isFormData = false, timeoutMs = 60000) {
       signal: controller.signal
     });
     clearTimeout(timer);
+    
+    if (activeBtn && originalHtml) {
+        activeBtn.classList.remove('analyzing');
+        activeBtn.innerHTML = originalHtml;
+    }
     return await parseSafeResponse(response, endpoint);
+
   } catch (err) {
     clearTimeout(timer);
     if (err.name === 'AbortError') {
@@ -2494,7 +2577,13 @@ async function apiPost(endpoint, body, isFormData = false, timeoutMs = 60000) {
     if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('fetch failed'))) {
       throw new Error(`TrustGuard AI local backend is not running at ${baseUrl}. Start the FastAPI server on port 8000 and try again.`);
     }
+    
+    if (activeBtn && originalHtml) {
+        activeBtn.classList.remove('analyzing');
+        activeBtn.innerHTML = originalHtml;
+    }
     throw err;
+
   }
 }
 
@@ -2504,12 +2593,24 @@ async function apiGet(endpoint) {
     const response = await fetch(`${baseUrl}${endpoint}`, {
       headers: getAuthHeaders(false)
     });
+    
+    if (activeBtn && originalHtml) {
+        activeBtn.classList.remove('analyzing');
+        activeBtn.innerHTML = originalHtml;
+    }
     return await parseSafeResponse(response, endpoint);
+
   } catch (err) {
     if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('fetch failed'))) {
       throw new Error(`TrustGuard AI local backend is not running at ${baseUrl}. Start the FastAPI server on port 8000 and try again.`);
     }
+    
+    if (activeBtn && originalHtml) {
+        activeBtn.classList.remove('analyzing');
+        activeBtn.innerHTML = originalHtml;
+    }
     throw err;
+
   }
 }
 
@@ -2521,12 +2622,24 @@ async function apiPut(endpoint, body) {
       headers: getAuthHeaders(false),
       body: JSON.stringify(body)
     });
+    
+    if (activeBtn && originalHtml) {
+        activeBtn.classList.remove('analyzing');
+        activeBtn.innerHTML = originalHtml;
+    }
     return await parseSafeResponse(response, endpoint);
+
   } catch (err) {
     if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('fetch failed'))) {
       throw new Error(`TrustGuard AI local backend is not running at ${baseUrl}. Start the FastAPI server on port 8000 and try again.`);
     }
+    
+    if (activeBtn && originalHtml) {
+        activeBtn.classList.remove('analyzing');
+        activeBtn.innerHTML = originalHtml;
+    }
     throw err;
+
   }
 }
 
@@ -3358,7 +3471,7 @@ function handleFile(file, kind){
 }
 
 /* ============ MODULE 0: MULTIMODAL DEEPFAKE DETECTION ============ */
-document.getElementById('deepfakeAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('deepfakeAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('deepfakeAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const f = filesStore['deepfake'];
   const txt = document.getElementById('deepfakeText')?.value || '';
   const u = document.getElementById('deepfakeUrl')?.value || '';
@@ -3425,7 +3538,7 @@ document.getElementById('deepfakeResetBtn')?.addEventListener('click', ()=>{
 });
 
 /* ============ MODULE 1: IMAGE DEEPFAKE ============ */
-document.getElementById('imgAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('imgAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('imgAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const f = filesStore['image'];
   if(!f){ toast('No image selected', 'Upload an image first', 'warn'); return; }
   const pipe = document.getElementById('imgPipeline');
@@ -3451,7 +3564,7 @@ document.getElementById('imgAnalyzeBtn')?.addEventListener('click', async ()=>{
 document.getElementById('imgResetBtn')?.addEventListener('click', ()=>{ delete filesStore['image']; const p=document.getElementById('prev-image'); if(p) p.innerHTML=''; const r=document.getElementById('imgResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 2: VIDEO DEEPFAKE (FRAME-BY-FRAME) ============ */
-document.getElementById('vidAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('vidAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('vidAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const f = filesStore['video'];
   if(!f){ toast('No video selected', 'Upload an MP4/MOV video first', 'warn'); return; }
   const pipe = document.getElementById('vidPipeline');
@@ -3482,7 +3595,7 @@ document.getElementById('vidAnalyzeBtn')?.addEventListener('click', async ()=>{
 document.getElementById('vidResetBtn')?.addEventListener('click', ()=>{ delete filesStore['video']; const p=document.getElementById('prev-video'); if(p) p.innerHTML=''; const r=document.getElementById('vidResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 3: AUDIO DEEPFAKE (SPECTRAL WINDOWS) ============ */
-document.getElementById('audAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('audAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('audAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const f = filesStore['audio'];
   if(!f){ toast('No audio selected', 'Upload a WAV/MP3 audio file first', 'warn'); return; }
   const pipe = document.getElementById('audPipeline');
@@ -3512,7 +3625,7 @@ document.getElementById('audAnalyzeBtn')?.addEventListener('click', async ()=>{
 document.getElementById('audResetBtn')?.addEventListener('click', ()=>{ delete filesStore['audio']; const p=document.getElementById('prev-audio'); if(p) p.innerHTML=''; const r=document.getElementById('audResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 4: TEXT SCAM ============ */
-document.getElementById('scamAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('scamAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('scamAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const txt = document.getElementById('scamText')?.value || '';
   if(!txt.trim()){ toast('Empty text', 'Paste a message first', 'warn'); return; }
   const resWrap = document.getElementById('scamResult');
@@ -3532,7 +3645,7 @@ document.getElementById('scamAnalyzeBtn')?.addEventListener('click', async ()=>{
 document.getElementById('scamResetBtn')?.addEventListener('click', ()=>{ const t=document.getElementById('scamText'); if(t) t.value=''; const r=document.getElementById('scamResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 4b: EMAIL PHISHING ============ */
-document.getElementById('emailAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('emailAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('emailAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const body = document.getElementById('emailBody')?.value || '';
   const subject = document.getElementById('emailSubject')?.value || '';
   const sender = document.getElementById('emailSender')?.value || '';
@@ -3569,7 +3682,7 @@ document.querySelectorAll('#jobModeTabs .tab-btn').forEach(btn => {
     activeJobMode = btn.dataset.jobmode || 'job';
   });
 });
-document.getElementById('jobAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('jobAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('jobAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const title = document.getElementById('jobTitle')?.value || '';
   const company = document.getElementById('jobCompany')?.value || '';
   const salary = document.getElementById('jobSalary')?.value || '';
@@ -3608,7 +3721,7 @@ document.getElementById('jobResetBtn')?.addEventListener('click', ()=>{
 });
 
 /* ============ MODULE 6: URL SCANNER ============ */
-document.getElementById('urlAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('urlAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('urlAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const u = document.getElementById('urlInput')?.value || '';
   if(!u.trim()){ toast('No URL', 'Paste a link first', 'warn'); return; }
   const resWrap = document.getElementById('urlResult');
@@ -3628,7 +3741,7 @@ document.getElementById('urlAnalyzeBtn')?.addEventListener('click', async ()=>{
 document.getElementById('urlResetBtn')?.addEventListener('click', ()=>{ const u=document.getElementById('urlInput'); if(u) u.value=''; const r=document.getElementById('urlResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 7: OCR SCANNER ============ */
-document.getElementById('ocrRunBtn')?.addEventListener('click', async ()=>{
+document.getElementById('ocrRunBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('ocrRunBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const f = filesStore['ocr'];
   if(!f){ toast('No image uploaded', 'Upload a poster or screenshot first', 'warn'); return; }
   const resWrap = document.getElementById('ocrResult');
@@ -3682,7 +3795,7 @@ document.getElementById('ocrRunBtn')?.addEventListener('click', async ()=>{
 document.getElementById('ocrResetBtn')?.addEventListener('click', ()=>{ delete filesStore['ocr']; const p=document.getElementById('prev-ocr'); if(p) p.innerHTML=''; const r=document.getElementById('ocrResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 8: COMPANY VERIFICATION ============ */
-document.getElementById('compVerifyBtn')?.addEventListener('click', async ()=>{
+document.getElementById('compVerifyBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('compVerifyBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'VERIFYING...'; } try {
   const cn = document.getElementById('compName')?.value || '';
   const cd = document.getElementById('compDomain')?.value || '';
   const ce = document.getElementById('compEmail')?.value || '';
@@ -3712,7 +3825,7 @@ document.querySelectorAll('.plat-card').forEach(btn => {
     activePlatform = btn.dataset.plat || 'General';
   });
 });
-document.getElementById('socialAnalyzeBtn')?.addEventListener('click', async ()=>{
+document.getElementById('socialAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('socialAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
   const st = document.getElementById('socialText')?.value || '';
   const su = document.getElementById('socialUrl')?.value || '';
   if(!st.trim() && !su.trim()){ toast('No content', 'Paste a social post or link', 'warn'); return; }
@@ -4128,15 +4241,32 @@ function pushHistory(entry){
   setTimeout(fetchDashboardStats, 500);
 }
 
+
+function animateValue(obj, start, end, duration) {
+  if (!obj) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { obj.textContent = end; return; }
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    // easing out
+    const ease = 1 - Math.pow(1 - progress, 3);
+    obj.textContent = Math.floor(ease * (end - start) + start);
+    if (progress < 1) window.requestAnimationFrame(step);
+    else obj.textContent = end;
+  };
+  window.requestAnimationFrame(step);
+}
+
 function updateDashboardStats(){
   // Card 1: TOTAL SCANS
-  ['dStat1','landStat1'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.scans; });
+  ['dStat1','landStat1'].forEach(id=>{ const el=document.getElementById(id); if(el) animateValue(el, parseInt(el.textContent)||0, statCounters.scans, 1000); });
   // Card 2: AI-GENERATED / SYNTHETIC DETECTED
-  ['dStat2','landStat2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.ai_generated ?? statCounters.deepfakes ?? 0; });
+  ['dStat2','landStat2'].forEach(id=>{ const el=document.getElementById(id); if(el) animateValue(el, parseInt(el.textContent)||0, statCounters.ai_generated ?? statCounters.deepfakes ?? 0, 1000); });
   // Card 3: SUSPICIOUS / FRAUD DETECTED
-  ['dStat3','landStat3'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.suspicious ?? statCounters.threats ?? 0; });
+  ['dStat3','landStat3'].forEach(id=>{ const el=document.getElementById(id); if(el) animateValue(el, parseInt(el.textContent)||0, statCounters.suspicious ?? statCounters.threats ?? 0, 1000); });
   // Card 4: LIKELY AUTHENTIC
-  ['dStat4','landStat4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.authentic ?? 0; });
+  ['dStat4','landStat4'].forEach(id=>{ const el=document.getElementById(id); if(el) animateValue(el, parseInt(el.textContent)||0, statCounters.authentic ?? 0, 1000); });
 
   const profScans = document.getElementById('profStatScans'); if(profScans) profScans.textContent = statCounters.scans;
   const profThreats = document.getElementById('profStatThreats'); if(profThreats) profThreats.textContent = statCounters.threats;
@@ -4162,7 +4292,7 @@ function updateDashboardStats(){
   const color = riskColor(tier.cls);
 
   if (latestRiskEl) {
-      latestRiskEl.textContent = `${threatScore}%`;
+      animateValue(latestRiskEl, parseInt(latestRiskEl.textContent)||0, threatScore, 1000); setTimeout(()=>latestRiskEl.textContent=`${threatScore}%`, 1050);
       latestRiskEl.style.color = color;
   }
   
@@ -4193,6 +4323,11 @@ function updateDashboardStats(){
 
   // Render Risk History Chart (Animated SVG Line Graph)
   const chHist = document.getElementById('dashChartRiskHistory');
+  if (chHist && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+     chHist.style.opacity = '0';
+     setTimeout(() => { chHist.style.transition = 'opacity 0.8s ease'; chHist.style.opacity = '1'; }, 100);
+  }
+
   if (chHist) {
     if (scanHistory.length === 0) {
       chHist.innerHTML = '<div style="width:100%; text-align:center; color:var(--text-faint); font-size:12px; margin-top:40px;">NO SCAN HISTORY YET</div>';
