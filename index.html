@@ -1040,713 +1040,134 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
 
       <!-- ================= 2. SPATIAL BENTO GRID DASHBOARD (AI SOC) ================= -->
       <section class="page active" id="page-dashboard">
-        <div class="page-head" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+  <!-- TOP HEADER -->
+  <div class="page-head" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+    <div>
+      <div class="eyebrow">Content Authenticity & Digital Fraud Detection</div>
+      <div class="page-title">TrustGuard AI</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="soc-status-badge" id="dashboardBackendShield">
+        <span class="dot"></span>
+        <span id="dashboardBackendText">Checking Status...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bento-grid">
+    <!-- ROW 1: 4 Simple Summary Cards -->
+    <div class="bento-card bento-1x1">
+      <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Total Scans</span>
+      <span class="b-val" id="dTotalScans" style="font-family:var(--mono); font-size:24px; font-weight:700; color:var(--cyan); margin-top:4px;">0</span>
+    </div>
+    <div class="bento-card bento-1x1">
+      <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">REAL</span>
+      <span class="b-val" id="dTotalReal" style="font-family:var(--mono); font-size:24px; font-weight:700; color:var(--safe); margin-top:4px;">0</span>
+    </div>
+    <div class="bento-card bento-1x1">
+      <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">FAKE</span>
+      <span class="b-val" id="dTotalFake" style="font-family:var(--mono); font-size:24px; font-weight:700; color:var(--warn); margin-top:4px;">0</span>
+    </div>
+    <div class="bento-card bento-1x1">
+      <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">High Risk</span>
+      <span class="b-val" id="dTotalHighRisk" style="font-family:var(--mono); font-size:24px; font-weight:700; color:var(--danger-2); margin-top:4px;">0</span>
+    </div>
+
+    <!-- MAIN HERO CARD & QUICK VERIFY (Row 2) -->
+    <div class="bento-card bento-2x1">
+      <div class="bento-head">
+        <div class="title-group">
+          <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><h3>SECURITY OVERVIEW</h3></div>
+        </div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">Current Status: <span id="heroCurrentStatus" style="color:var(--cyan); font-weight:bold;">Monitoring</span></div>
+        <div style="background:var(--panel-2); padding:15px; border-radius:6px; margin-bottom:15px;">
+          <div style="font-size:11px; color:var(--text-dim); margin-bottom:4px;">Latest Scan: <span id="heroLatestFile" style="color:var(--text);">None</span></div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>Result: <strong id="heroLatestResult" style="color:var(--text-faint);">N/A</strong></div>
+            <div>Confidence: <strong id="heroLatestConf">0%</strong></div>
+            <div>Risk: <strong id="heroLatestRisk">0 / 100</strong></div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="document.getElementById('dashScanTabs')?.scrollIntoView({behavior:'smooth'}); document.querySelector('.drop-zone')?.click();">QUICK VERIFY</button>
+      </div>
+    </div>
+    
+    <div class="bento-card bento-2x1" id="dashScanTabs" style="display:flex; flex-direction:column;">
+       <div class="bento-head">
           <div>
-            <div class="eyebrow">Multimodal Content Authenticity & Digital Fraud Detection</div>
-            <div class="page-title">TrustGuard AI</div>
-            <p class="page-sub">Analyze images, videos, audio, text, URLs, job offers and live content to identify AI-generated, manipulated, suspicious and fraudulent content.</p>
+            <h3 style="font-size:14px;">VERIFY ANY CONTENT</h3>
+            <div style="font-size:11px; color:var(--text-faint);">Upload, drag & drop, or paste content to analyze it.</div>
           </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div class="soc-status-badge" id="socGlobalShield">
-              <span class="dot"></span>
-              <span id="socGlobalText">PROTECTED · ENGINE ACTIVE</span>
-            </div>
+       </div>
+       <div style="flex:1; display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;">
+          <button class="btn btn-outline btn-sm" data-goto="image">Image</button>
+          <button class="btn btn-outline btn-sm" data-goto="video">Video</button>
+          <button class="btn btn-outline btn-sm" data-goto="audio">Audio</button>
+          <button class="btn btn-outline btn-sm" data-goto="text">Text</button>
+          <button class="btn btn-outline btn-sm" data-goto="email">Email</button>
+          <button class="btn btn-outline btn-sm" data-goto="url">URL</button>
+          <button class="btn btn-outline btn-sm" data-goto="social">Social</button>
+          <button class="btn btn-outline btn-sm" data-goto="job">Job</button>
+       </div>
+       <div class="drop-zone" id="dashDropZone" style="margin-top:10px; border:2px dashed var(--line); border-radius:8px; padding:20px; text-align:center; color:var(--text-dim); cursor:pointer;" onclick="document.getElementById('dashFileInput').click();">
+          DROP CONTENT HERE<br/><span style="font-size:11px;">or click to browse file</span>
+       </div>
+       <input type="file" id="dashFileInput" style="display:none;">
+    </div>
+
+    <!-- LARGE RISK ANALYTICS CARD (Row 3, 4x1) -->
+    <div class="bento-card bento-4x1" style="min-height:220px; display:flex; flex-direction:column;">
+      <div class="bento-head">
+        <div class="title-group">
+          <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+          <div>
+            <h3>RISK ACTIVITY</h3>
+            <div style="font-size:10.5px; color:var(--text-faint);">Risk levels from your actual recent scans</div>
           </div>
         </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:10px; padding:0 10px;">
+         <div style="font-size:12px;">CURRENT RISK: <strong id="graphCurrentRisk" style="color:var(--cyan);">0 / 100</strong></div>
+         <div style="font-size:12px;">AVERAGE RISK: <strong id="graphAvgRisk" style="color:var(--text-dim);">0 / 100</strong></div>
+         <div style="font-size:12px;">LATEST RESULT: <strong id="graphLatestResult" style="color:var(--text-dim);">N/A</strong></div>
+      </div>
+      <div id="dashRiskLargeGraph" style="flex:1; width:100%; position:relative;"></div>
+      <div style="display:flex; justify-content:center; gap:15px; font-size:10px; color:var(--text-faint); margin-top:10px; padding-top:10px; border-top:1px solid var(--line);">
+         <span>0-20 LOW</span>
+         <span>21-40 MODERATE</span>
+         <span>41-60 HIGH</span>
+         <span>61-80 VERY HIGH</span>
+         <span>81-100 CRITICAL</span>
+      </div>
+    </div>
 
-        <!-- 5-ROW SPATIAL BENTO GRID -->
-        <div class="bento-grid">
+    <!-- RECENT SCANS & SYSTEM STATUS (Row 4, 2x1 / 2x1) -->
+    <div class="bento-card bento-2x1" style="display:flex; flex-direction:column; max-height:250px;">
+      <div class="bento-head">
+        <h3>RECENT SCANS</h3>
+        <button class="btn btn-ghost btn-sm" data-goto="history">VIEW ALL</button>
+      </div>
+      <div id="dashRecentScansList" style="flex:1; overflow-y:auto; font-size:12px; display:flex; flex-direction:column; gap:4px; padding-right:5px;">
+         <!-- Populated via JS -->
+      </div>
+    </div>
 
-          <!-- ROW 1: Card 1 (2x1) AI Content Security Status -->
-          <div class="bento-card bento-2x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                <div>
-                  <h3>AI Content Security Status</h3>
-                  <div style="font-size:10.5px; color:var(--text-faint);">Live Platform Threat Assessment</div>
-                </div>
-              </div>
-              <span class="tag">ACTIVE RADAR</span>
-            </div>
-            <div class="threat-meter-box">
-              <div class="threat-dial">
-                <svg viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="var(--line)" stroke-width="8"/>
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="var(--safe)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="230" id="bentoThreatArc" style="transition: stroke-dashoffset 1s ease, stroke .5s ease; stroke-linecap: round;"/>
-                </svg>
-                <div class="threat-dial-center">
-                  <div class="threat-dial-num" id="bentoThreatScore" style="color:var(--safe);">0</div>
-                  <div class="threat-dial-lbl">SYSTEM RISK</div>
-                </div>
-              </div>
-              <div style="flex:1;">
-                <div style="font-family:var(--disp); font-size:16px; font-weight:700; margin-bottom:4px;" id="bentoSecHeadline">System Nominal · Zero Critical Threats</div>
-                <p style="font-size:12px; color:var(--text-dim); line-height:1.45; margin-bottom:10px;" id="bentoSecDetail">All multi-signal detectors are actively screening media. No unverified anomalies detected.</p>
-                <div style="display:flex; gap:8px;">
-                  <button class="btn btn-primary btn-sm" onclick="document.getElementById('dashScanTabs')?.scrollIntoView({behavior:'smooth'});"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>Quick Scan</button>
-                  <button class="btn btn-outline btn-sm" data-goto="history">View History</button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="bento-card bento-2x1" style="display:flex; flex-direction:column; max-height:250px;">
+      <div class="bento-head">
+        <h3>SYSTEM STATUS</h3>
+        <div style="font-size:10px; color:var(--text-faint);">Security Tools</div>
+      </div>
+      <div id="dashSystemStatus" style="flex:1; display:flex; flex-direction:column; gap:8px; font-size:12px;">
+         <!-- Populated via JS /api/status -->
+      </div>
+    </div>
 
-          <!-- ROW 1: Card 2 (1x1) System Health & Telemetry -->
-          <div class="bento-card bento-1x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip" style="background:rgba(51,209,154,.12); color:var(--safe);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Engine Health</h3>
-                </div>
-              </div>
-              <span class="tag" id="bentoEngineStatusTag" style="color:var(--safe);">ONLINE</span>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:3px;">
-              <div class="telemetry-row"><span>Status</span><span style="color:var(--safe);" id="bentoStatusTxt">● Online</span></div>
-              <div class="telemetry-row"><span>ViT Vision</span><span style="color:var(--cyan);">Ready</span></div>
-              <div class="telemetry-row"><span>Audio STFT</span><span style="color:var(--cyan);">Ready</span></div>
-              <div class="telemetry-row"><span>Latency</span><span id="bentoLatency">24ms</span></div>
-            </div>
-          </div>
-
-          <!-- ROW 1: Card 3 (1x1) Operator Profile -->
-          <div class="bento-card bento-1x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip" style="background:rgba(139,107,240,.12); color:var(--violet);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Operator Session</h3>
-                </div>
-              </div>
-              <span class="tag" style="color:var(--violet);">AUTH</span>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-              <b style="font-size:13px;" id="dashOperatorName">Reshma A.</b>
-              <span style="font-size:11px; color:var(--text-faint);" id="dashOperatorOrg">TrustGuard Cyber Labs</span>
-              <div style="margin-top:auto; padding-top:8px;">
-                <button class="btn btn-ghost btn-sm btn-block" data-goto="profile">Operator Profile →</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- ROW 2: 4 Bento Live Counter Cards -->
-          <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Total Scans</span>
-            <span class="b-val" id="dStat1" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--cyan); margin-top:4px;">0</span>
-            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Live SQLite database count</span>
-          </div>
-          <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">AI-Generated / Synthetic</span>
-            <span class="b-val" id="dStat2" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--warn); margin-top:4px;">0</span>
-            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Diffusion & neural clones</span>
-          </div>
-          <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Suspicious / Fraud Detected</span>
-            <span class="b-val" id="dStat3" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--danger-2); margin-top:4px;">0</span>
-            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Scams, phishing & anomalies</span>
-          </div>
-          <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Likely Authentic</span>
-            <span class="b-val" id="dStat4" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--safe); margin-top:4px;">0</span>
-            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Organic & verified genuine</span>
-          </div>
-
-          <!-- ROW 3: (4x1) MULTIMODAL CONTENT ANALYSIS & DETECTION CENTER -->
-          <div class="bento-card bento-4x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
-                <div>
-                  <h3>Multimodal Threat Radar & Detection Matrix</h3>
-                  <div style="font-size:10.5px; color:var(--text-faint);">Connects to live pretrained neural transformers and signal processing engines</div>
-                </div>
-              </div>
-              <span class="tag" style="color:var(--cyan);">9 DETECTORS ONLINE</span>
-            </div>
-
-            <div class="detector-matrix">
-              <div class="det-tile" data-goto="image">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(45,217,232,.12); color:var(--cyan);">🖼️</div><b>Image Analysis</b></div>
-                <p>Vision Transformer (ViT) & Error Level Analysis for synthetic artifacts & face swaps.</p>
-                <div class="det-tile-foot"><span>ViT Neural Radar</span><span>Scan Image →</span></div>
-              </div>
-              <div class="det-tile" data-goto="video">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(139,107,240,.12); color:var(--violet);">🎬</div><b>Video Deepfake</b></div>
-                <p>Frame-by-frame temporal consistency sampling with clickable anomaly timeline.</p>
-                <div class="det-tile-foot"><span>Frame Sampling</span><span>Scan Video →</span></div>
-              </div>
-              <div class="det-tile" data-goto="audio">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(51,209,154,.12); color:var(--safe);">🎙️</div><b>Audio & Voice</b></div>
-                <p>Sliding-window STFT spectral centroid, flux & vocoder cutoff forensics.</p>
-                <div class="det-tile-foot"><span>Spectral DSP</span><span>Scan Audio →</span></div>
-              </div>
-              <div class="det-tile" data-goto="text">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(245,185,66,.12); color:var(--warn);">💬</div><b>Text & Scam</b></div>
-                <p>Urgency pressure, OTP demands, financial wire solicitation across 11 languages.</p>
-                <div class="det-tile-foot"><span>NLP Heuristics</span><span>Scan Text →</span></div>
-              </div>
-              <div class="det-tile" data-goto="job">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(255,107,122,.12); color:var(--danger-2);">💼</div><b>Job & Internship</b></div>
-                <p>Scans registration fees, fake recruiters, domain spoofing & salary ratios.</p>
-                <div class="det-tile-foot"><span>Dual Detector</span><span>Verify Offer →</span></div>
-              </div>
-              <div class="det-tile" data-goto="url">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(45,217,232,.12); color:var(--cyan);">🔗</div><b>URL Scanner</b></div>
-                <p>Shannon entropy, brand typosquatting, raw IP URLs, and malicious TLD detection.</p>
-                <div class="det-tile-foot"><span>Entropy Radar</span><span>Inspect URL →</span></div>
-              </div>
-              <div class="det-tile" data-goto="ocr">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(51,209,154,.12); color:var(--safe);">📄</div><b>OCR Forensics</b></div>
-                <p>Tesseract client OCR + structured entity extraction (Company, Email, Phone, Fee).</p>
-                <div class="det-tile-foot"><span>Entity Parser</span><span>Scan Poster →</span></div>
-              </div>
-              <div class="det-tile" data-goto="company">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(139,107,240,.12); color:var(--violet);">🏢</div><b>Company Verification</b></div>
-                <p>Live DNS MX record lookup and recruiter corporate email alignment checks.</p>
-                <div class="det-tile-foot"><span>DNS Validation</span><span>Verify Entity →</span></div>
-              </div>
-              <div class="det-tile" data-goto="social">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(245,185,66,.12); color:var(--warn);">📱</div><b>Social Protection</b></div>
-                <p>Crypto airdrop doubling lures, VIP impersonation, and engagement bait analysis.</p>
-                <div class="det-tile-foot"><span>Social Shield</span><span>Scan Post →</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ROW 4: DASHBOARD CHARTS -->
-          <div class="bento-card bento-2x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Risk Score Over Recent Scans</h3>
-                </div>
-              </div>
-            </div>
-            <div id="dashChartRiskHistory" style="flex:1; display:flex; align-items:flex-end; gap:6px; padding-top:10px; padding-left:15px; height:120px;">
-              <!-- JS will inject SVG graph -->
-            </div>
-          </div>
-
-          <div class="bento-card bento-1x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Risk Distribution</h3>
-                </div>
-              </div>
-            </div>
-            <div id="dashChartDistribution" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; font-size:11px;">
-              <!-- JS will inject distribution -->
-            </div>
-          </div>
-          
-          <div class="bento-card bento-1x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Risk by Modality</h3>
-                </div>
-              </div>
-            </div>
-            <div id="dashChartModality" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; font-size:11px;">
-              <!-- JS will inject modality risk -->
-            </div>
-          </div>
-
-          <!-- ROW 5: Card 1 (2x1) Recent Scans -->
-          <div class="bento-card bento-2x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                <div>
-                  <h3>Recent Security Scans</h3>
-                  <div style="font-size:10.5px; color:var(--text-faint);">Live SQLite database stream</div>
-                </div>
-              </div>
-              <span class="tag" data-goto="history" style="cursor:pointer;">VIEW ALL →</span>
-            </div>
-            <div id="dashRecent" style="flex:1; overflow-y:auto; max-height:160px;">
-              <div style="text-align:center; padding:20px; color:var(--text-faint); font-size:12px;">No scans recorded yet. Execute an analysis below.</div>
-            </div>
-          </div>
-
-          <!-- ROW 5: Card 2 (1x1) Threat Alerts -->
-          <div class="bento-card bento-1x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip" style="background:rgba(242,73,92,.12); color:var(--danger-2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Threat Alerts</h3>
-                </div>
-              </div>
-              <span class="tag" style="color:var(--danger-2);">ACTIVE</span>
-            </div>
-            <div id="dashAlerts" style="flex:1; overflow-y:auto; max-height:160px;">
-              <div style="font-size:11.5px; color:var(--text-dim); line-height:1.45;">
-                <div style="padding:6px 0; border-bottom:1px solid var(--line);"><b>✓ System Protected</b><span style="display:block; color:var(--text-faint); font-size:10.5px;">Continuous neural screening enabled.</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ROW 5: Card 3 (1x1) Risk Tier Guide -->
-          <div class="bento-card bento-1x1">
-            <div class="bento-head">
-              <div class="title-group">
-                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg></div>
-                <div>
-                  <h3 style="font-size:13.5px;">Risk Scale</h3>
-                </div>
-              </div>
-              <span class="tag">STANDARDS</span>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:4px; font-size:11px;">
-              <div style="display:flex; justify-content:space-between;"><span style="color:var(--safe);">0–20 LOW</span><span style="color:var(--text-faint);">Genuine</span></div>
-              <div style="display:flex; justify-content:space-between;"><span style="color:var(--warn);">21–40 MODERATE</span><span style="color:var(--text-faint);">Verify Source</span></div>
-              <div style="display:flex; justify-content:space-between;"><span style="color:var(--danger-2);">41–60 HIGH</span><span style="color:var(--text-faint);">Anomalies</span></div>
-              <div style="display:flex; justify-content:space-between;"><span style="color:#e63946;">61–80 VERY HIGH</span><span style="color:var(--text-faint);">Deceptive</span></div>
-              <div style="display:flex; justify-content:space-between;"><span style="color:#ff1e42;">81–100 CRITICAL</span><span style="color:var(--text-faint);">Deepfake/Scam</span></div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ================= MULTI-MODAL DIRECT SCANNER DOCK ================= -->
-        
-        <!-- ================= 1. UNIFIED VERIFY ANY CONTENT (UNIVERSAL DROPZONE) ================= -->
-        <div class="card scanner-card" id="universalVerifySection" style="margin-top:8px; margin-bottom:16px; border:1px solid rgba(45,217,232,.25); background:radial-gradient(ellipse at 50% -20%, rgba(45,217,232,.08), transparent 70%), var(--glass);">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; border-bottom:1px solid var(--line); padding-bottom:12px; flex-wrap:wrap; gap:10px;">
-            <div>
-              <div class="eyebrow" style="margin-bottom:3px;">Universal Content Authenticity Radar</div>
-              <h2 style="font-family:var(--disp); font-size:19px; font-weight:700; color:var(--text); letter-spacing:-.2px;">Verify Any Content</h2>
-              <p style="font-size:12.5px; color:var(--text-dim); margin-top:2px;">Drop any file or paste content — the intelligent radar auto-detects modality and routes to the corresponding trained AI model.</p>
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span class="soc-status-badge" style="color:var(--cyan); border-color:rgba(45,217,232,.3); font-size:11px;">
-                <span class="dot" style="background:var(--cyan);"></span>AUTO-DETECTION ACTIVE
-              </span>
-              <span class="chip-tag" style="background:rgba(139,107,240,.12); color:var(--violet); border-color:rgba(139,107,240,.3); font-size:11px;">8 Modalities Supported</span>
-            </div>
-          </div>
-
-          <!-- 8 Modality Selectors / Shortcuts Grid -->
-          <div style="margin-bottom:14px;">
-            <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-faint); margin-bottom:8px;">
-              Select What You Want To Verify (Or Drop Directly):
-            </div>
-            <div class="universal-modality-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:8px;">
-              <div class="u-mod-card active" data-modality="auto" onclick="setUniversalModality('auto')">
-                <span class="u-mod-ic">✨</span>
-                <b>Auto-Detect</b>
-                <small>Smart Router</small>
-              </div>
-              <div class="u-mod-card" data-modality="image" onclick="setUniversalModality('image')">
-                <span class="u-mod-ic">🖼️</span>
-                <b>Image</b>
-                <small>JPG, PNG, WEBP</small>
-              </div>
-              <div class="u-mod-card" data-modality="video" onclick="setUniversalModality('video')">
-                <span class="u-mod-ic">🎬</span>
-                <b>Video</b>
-                <small>MP4, MOV, WEBM</small>
-              </div>
-              <div class="u-mod-card" data-modality="audio" onclick="setUniversalModality('audio')">
-                <span class="u-mod-ic">🎙️</span>
-                <b>Audio</b>
-                <small>WAV, MP3, FLAC</small>
-              </div>
-              <div class="u-mod-card" data-modality="social" onclick="setUniversalModality('social')">
-                <span class="u-mod-ic">📱</span>
-                <b>Social Media</b>
-                <small>Profile CSV / User</small>
-              </div>
-              <div class="u-mod-card" data-modality="url" onclick="setUniversalModality('url')">
-                <span class="u-mod-ic">🔗</span>
-                <b>URL Link</b>
-                <small>Domain / Link</small>
-              </div>
-              <div class="u-mod-card" data-modality="sms" onclick="setUniversalModality('sms')">
-                <span class="u-mod-ic">💬</span>
-                <b>SMS / Text</b>
-                <small>Scam / WhatsApp</small>
-              </div>
-              <div class="u-mod-card" data-modality="email" onclick="setUniversalModality('email')">
-                <span class="u-mod-ic">📧</span>
-                <b>Email Phish</b>
-                <small>Headers & Body</small>
-              </div>
-              <div class="u-mod-card" data-modality="job" onclick="setUniversalModality('job')">
-                <span class="u-mod-ic">💼</span>
-                <b>Job / Offer</b>
-                <small>Salary & Fee</small>
-              </div>
-            </div>
-          </div>
-
-          <!-- THE UNIVERSAL DROPZONE -->
-          <div id="universalDropzone" class="universal-dropzone-box" style="position:relative; border:2px dashed rgba(45,217,232,.35); border-radius:14px; padding:28px 20px; text-align:center; background:rgba(14,20,32,.6); backdrop-filter:blur(10px); cursor:pointer; transition:all .25s ease;">
-            <input type="file" id="universalFileInput" style="display:none;" />
-            <div class="u-drop-icon" style="width:52px; height:52px; border-radius:14px; background:linear-gradient(135deg, rgba(45,217,232,.18), rgba(139,107,240,.18)); border:1px solid rgba(45,217,232,.3); display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-size:24px; color:var(--cyan); box-shadow:0 0 25px rgba(45,217,232,.15);">
-              📥
-            </div>
-            <h3 style="font-family:var(--disp); font-size:17px; font-weight:700; margin-bottom:4px; letter-spacing:-.2px;">DROP CONTENT TO VERIFY</h3>
-            <p style="font-size:12.5px; color:var(--text-dim); max-width:580px; margin:0 auto 12px; line-height:1.5;">
-              Drag & drop any file (Image, Video, Audio, Profile CSV/JSON) here, or click to browse.
-            </p>
-
-            <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
-              <span class="type-chip" style="background:rgba(45,217,232,.08); color:var(--cyan); border-color:rgba(45,217,232,.25);">PNG/JPG/WEBP</span>
-              <span class="type-chip" style="background:rgba(139,107,240,.08); color:var(--violet); border-color:rgba(139,107,240,.25);">MP4/MOV/WEBM</span>
-              <span class="type-chip" style="background:rgba(51,209,154,.08); color:var(--safe); border-color:rgba(51,209,154,.25);">WAV/MP3/FLAC</span>
-              <span class="type-chip" style="background:rgba(245,185,66,.08); color:var(--warn); border-color:rgba(245,185,66,.25);">CSV/JSON Profiles</span>
-              <span class="type-chip" style="background:rgba(255,107,122,.08); color:var(--danger-2); border-color:rgba(255,107,122,.25);">Pasted Text / URLs</span>
-            </div>
-
-            <!-- Live Text/URL Paste Input Bar directly in Dropzone -->
-            <div style="max-width:680px; margin:0 auto; display:flex; gap:8px;" onclick="event.stopPropagation();">
-              <input type="text" id="universalTextInput" class="field" placeholder="Or paste text, phishing URL, email content, or @username directly here..." style="font-size:12.5px; padding:10px 14px; background:rgba(8,11,18,.8); border-color:rgba(120,150,200,.25);" />
-              <button class="btn btn-primary" id="universalVerifyBtn" style="padding:10px 18px; font-weight:700;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>Verify Content
-              </button>
-            </div>
-
-            <!-- Active Content Preview & Modality Tag -->
-            <div id="universalPreviewWrap" style="display:none; margin-top:14px; padding-top:14px; border-top:1px solid var(--line);" onclick="event.stopPropagation();">
-              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-                <div style="display:flex; align-items:center; gap:10px; text-align:left;">
-                  <div id="uPreviewThumb" style="width:40px; height:40px; border-radius:8px; background:var(--panel-2); display:flex; align-items:center; justify-content:center; font-size:20px; overflow:hidden;">📁</div>
-                  <div>
-                    <b id="uPreviewName" style="font-size:13px; color:var(--text); display:block;">File_Name</b>
-                    <span id="uPreviewMeta" style="font-size:11px; color:var(--text-faint);">120 KB · Audio file</span>
-                  </div>
-                </div>
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span id="uAutoDetectBadge" class="soc-status-badge" style="color:var(--cyan); border-color:rgba(45,217,232,.3);">
-                    ✨ Auto-Detected: Audio
-                  </span>
-                  <button class="btn btn-ghost btn-sm" id="uClearBtn" style="font-size:11px; padding:4px 9px;">Clear</button>
-                </div>
-              </div>
-              <div id="uVisualPreviewArea" style="margin-top:10px;"></div>
-            </div>
-          </div>
-
-          <!-- Dynamic Universal Verification Pipeline -->
-          <div class="card pipeline" id="universalPipeline" style="display:none; margin-top:14px;">
-            <div class="pipeline-title">
-              <h3 style="font-size:14px; font-weight:700; color:var(--text);">Universal Multimodal Neural Pipeline</h3>
-              <span class="pipeline-status" id="universalPipeStatus" style="color:var(--cyan);">Initializing…</span>
-            </div>
-            <div class="steps" id="universalSteps"></div>
-          </div>
-
-          <!-- Universal Result Container -->
-          <div class="result-wrap" id="universalResult" style="margin-top:14px;"></div>
-        </div>
-
-        <!-- ================= 2. DATASET VERIFICATION BROWSER (EVALUATOR DEMO) ================= -->
-        <div class="card scanner-card" id="datasetBrowserSection" style="margin-top:16px; margin-bottom:16px; border:1px solid rgba(139,107,240,.3); background:radial-gradient(ellipse at 10% -10%, rgba(139,107,240,.08), transparent 60%), var(--glass);">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; border-bottom:1px solid var(--line); padding-bottom:12px; flex-wrap:wrap; gap:10px;">
-            <div>
-              <div class="eyebrow" style="color:var(--violet); margin-bottom:3px;">
-                <span style="background:var(--violet); width:14px; height:1.5px; display:inline-block; margin-right:6px;"></span>Original Datasets · 1-Click Ground Truth Verification
-              </div>
-              <h2 style="font-family:var(--disp); font-size:18px; font-weight:700; color:var(--text); letter-spacing:-.2px;">Dataset Verification Browser · Evaluator Demo</h2>
-              <p style="font-size:12.5px; color:var(--text-dim); margin-top:2px;">Verify real sample files from the original benchmark datasets with genuine PyTorch models and compare live inferences against ground truth.</p>
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span class="soc-status-badge" style="color:var(--safe); border-color:rgba(51,209,154,.3); font-size:11px;">
-                <span class="dot" style="background:var(--safe);"></span>GROUND TRUTH ENGINE ACTIVE
-              </span>
-            </div>
-          </div>
-
-          <!-- Catalog of Modalities with Real and Fake buttons -->
-          <div class="grid g2" id="datasetCatalogGrid" style="gap:12px;">
-
-            <!-- 1. Image Card -->
-            <div class="bento-card" style="padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">🖼️</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">Image Deepfake Dataset</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">1000 Videos Dataset (archive/1000_videos)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--cyan); border-color:rgba(45,217,232,.3);">DeepfakeCNN</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test authentic vs manipulated face frames from the held-out test split.</p>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-ghost btn-sm" id="btnDatasetImgReal" style="flex:1; border-color:rgba(51,209,154,.4); color:var(--safe);" onclick="verifyDatasetSample('image', 'real')">
-                  ✓ Verify Real (067_16.png)
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnDatasetImgFake" style="flex:1; border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('image', 'fake')">
-                  ⚠ Verify Fake (067_025_1.png)
-                </button>
-              </div>
-            </div>
-
-            <!-- 2. Audio Card -->
-            <div class="bento-card" style="padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">🎙️</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">Audio Voice Spoof Dataset</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">ASVspoof 2019 Logical Access (archive (1)/LA)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--safe); border-color:rgba(51,209,154,.3);">AudioCNN</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test genuine studio voice vs vocoder synthesized speech.</p>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-ghost btn-sm" id="btnDatasetAudReal" style="flex:1; border-color:rgba(51,209,154,.4); color:var(--safe);" onclick="verifyDatasetSample('audio', 'real')">
-                  ✓ Verify Bonafide (FLAC)
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnDatasetAudFake" style="flex:1; border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('audio', 'fake')">
-                  ⚠ Verify Spoofed (FLAC)
-                </button>
-              </div>
-            </div>
-
-            <!-- 3. Social Media Card -->
-            <div class="bento-card" style="padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">📱</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">Social Fake Profile Dataset</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">Instagram Benchmark (archive (14)/test.csv)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--violet); border-color:rgba(139,107,240,.3);">SocialSpamNet</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test organic profile vs high-digit-ratio spammer account.</p>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-ghost btn-sm" id="btnDatasetSocialReal" style="flex:1; border-color:rgba(51,209,154,.4); color:var(--safe);" onclick="verifyDatasetSample('social', 'real')">
-                  ✓ Verify Genuine (@peterkonda)
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnDatasetSocialFake" style="flex:1; border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('social', 'fake')">
-                  ⚠ Verify Spammer (@official_bg)
-                </button>
-              </div>
-            </div>
-
-            <!-- 4. SMS Card -->
-            <div class="bento-card" style="padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">💬</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">SMS Spam & Scam Dataset</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">SMS Spam Collection (archive (4)/spam_sms.csv)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--warn); border-color:rgba(245,185,66,.3);">SMSScamClassifier</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test organic chat message vs prize lottery scam text.</p>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-ghost btn-sm" id="btnDatasetSmsReal" style="flex:1; border-color:rgba(51,209,154,.4); color:var(--safe);" onclick="verifyDatasetSample('sms', 'real')">
-                  ✓ Verify Ham (Chat)
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnDatasetSmsFake" style="flex:1; border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('sms', 'fake')">
-                  ⚠ Verify Spam (Prize Scam)
-                </button>
-              </div>
-            </div>
-
-            <!-- 5. URL Card -->
-            <div class="bento-card" style="padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">🔗</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">Phishing URLs Dataset</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">579k URLs Benchmark (archive (7)/final_dataset.csv)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--cyan); border-color:rgba(45,217,232,.3);">PhishingURLNet</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test legitimate domain vs high-entropy credential harvesting URL.</p>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-ghost btn-sm" id="btnDatasetUrlReal" style="flex:1; border-color:rgba(51,209,154,.4); color:var(--safe);" onclick="verifyDatasetSample('url', 'real')">
-                  ✓ Verify Legit URL
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnDatasetUrlFake" style="flex:1; border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('url', 'fake')">
-                  ⚠ Verify Phish URL
-                </button>
-              </div>
-            </div>
-
-            <!-- 6. Email Card -->
-            <div class="bento-card" style="padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">📧</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">Phishing Email Benchmark</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">82k Email Corpus (archive (9)/phishing_email.csv)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--safe); border-color:rgba(51,209,154,.3);">EmailClassifier</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test corporate file review email vs PayPal account suspension attack.</p>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-ghost btn-sm" id="btnDatasetEmailReal" style="flex:1; border-color:rgba(51,209,154,.4); color:var(--safe);" onclick="verifyDatasetSample('email', 'real')">
-                  ✓ Verify Genuine Email
-                </button>
-                <button class="btn btn-ghost btn-sm" id="btnDatasetEmailFake" style="flex:1; border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('email', 'fake')">
-                  ⚠ Verify Phish Email
-                </button>
-              </div>
-            </div>
-
-            <!-- 7. Job Card -->
-            <div class="bento-card" style="grid-column: span 2; padding:14px; background:var(--panel-2); border:1px solid var(--line); border-radius:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:18px;">💼</span>
-                  <div>
-                    <b style="font-size:13px; color:var(--text);">Fake Job Postings Dataset</b>
-                    <span style="display:block; font-size:10.5px; color:var(--text-faint);">Fake Postings (archive (5)/Fake Postings.csv)</span>
-                  </div>
-                </div>
-                <span class="type-chip" style="color:var(--warn); border-color:rgba(245,185,66,.3);">Dual Heuristic Engine</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--text-dim); margin-bottom:10px;">Test fraudulent posting requiring upfront fees with commercial webmail recruiters.</p>
-              <div>
-                <button class="btn btn-ghost btn-sm btn-block" id="btnDatasetJobFake" style="border-color:rgba(242,73,92,.4); color:var(--danger-2);" onclick="verifyDatasetSample('job', 'fake')">
-                  ⚠ Verify Scam Job Posting (Mental Health Nurse — $150 Advance Fee)
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Live Dataset Sample Result Container -->
-          <div id="datasetSampleResultWrap" style="display:none; margin-top:14px;"></div>
-        </div>
-
-<div class="card scanner-card" id="dashScanTabs" style="margin-top:8px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; border-bottom:1px solid var(--line); padding-bottom:10px; flex-wrap:wrap; gap:8px;">
-            <div>
-              <h3 style="font-family:var(--disp); font-size:16px; font-weight:700;">Multi-Modal Direct Content Scanner</h3>
-              <p style="font-size:12px; color:var(--text-faint);">Upload files, paste strings, or engage live sensors directly into the neural pipeline.</p>
-            </div>
-            <div class="soc-status-badge" style="color:var(--cyan); border-color:rgba(45,217,232,.3);">Real Pretrained Models Active</div>
-          </div>
-
-          <div class="tab-row" id="scanTabs" role="tablist">
-            <button class="tab-btn active" data-tab="up-image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Image</button>
-            <button class="tab-btn" data-tab="up-video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg>Video</button>
-            <button class="tab-btn" data-tab="up-audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0M12 19v3"/></svg>Audio</button>
-            <button class="tab-btn" data-tab="up-text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v13H7l-3 3z"/></svg>Text</button>
-            <button class="tab-btn" data-tab="up-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 17H7a5 5 0 010-10h2M15 7h2a5 5 0 010 10h-2M8 12h8"/></svg>URL</button>
-          </div>
-
-          <div class="tab-panel active" id="tab-up-image">
-            <div class="dropzone" data-accept="image/*" data-kind="image">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
-              <h4>Upload Image for Neural Deepfake Inspection</h4><p>Click to browse or drag & drop · JPG, PNG, WEBP</p>
-              <div class="chip-row"><span class="type-chip">Face swaps</span><span class="type-chip">Diffusion art</span><span class="type-chip">Manipulated photos</span></div>
-            </div>
-            <div id="prev-up-image"></div>
-          </div>
-          <div class="tab-panel" id="tab-up-video">
-            <div class="dropzone" data-accept="video/*" data-kind="video">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
-              <h4>Upload Video for Frame-by-Frame Temporal Analysis</h4><p>Click to browse or drag & drop · MP4, MOV, WEBM</p>
-              <div class="chip-row"><span class="type-chip">Frame Consistency</span><span class="type-chip">Temporal ViT</span><span class="type-chip">Lip-sync</span></div>
-            </div>
-            <div id="prev-up-video"></div>
-          </div>
-          <div class="tab-panel" id="tab-up-audio">
-            <div class="dropzone" data-accept="audio/*" data-kind="audio">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
-              <h4>Upload Audio for Spectral Segment Analysis</h4><p>Click to browse or drag & drop · WAV, MP3, M4A</p>
-              <div class="chip-row"><span class="type-chip">Voice cloning</span><span class="type-chip">Synthetic TTS</span><span class="type-chip">Vocoder Phase</span></div>
-            </div>
-            <div id="prev-up-audio"></div>
-          </div>
-          <div class="tab-panel" id="tab-up-text">
-            <textarea class="textarea" id="dashText" placeholder="Paste suspicious text message, WhatsApp forward, financial request, or email..."></textarea>
-          </div>
-          <div class="tab-panel" id="tab-up-url">
-            <label class="field-label">Target URL Link</label>
-            <input type="text" class="field" id="dashUrl" placeholder="https://example-banking-verification.tk/auth">
-          </div>
-
-          <div class="action-row">
-            <button class="btn btn-primary" id="dashAnalyzeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>Execute AI Detection</button>
-            <button class="btn btn-outline" id="dashResetBtn">Reset</button>
-          </div>
-
-          <div class="card pipeline" id="dashPipeline" style="display:none;">
-            <div class="pipeline-title"><h3>Multi-Modal Inference Pipeline</h3><span class="pipeline-status" id="dashPipeStatus">Running…</span></div>
-            <div class="steps" id="dashSteps"></div>
-          </div>
-
-          <div class="result-wrap" id="dashResult"></div>
-        </div>
-      </section>
-
-      <!-- ================= 2B. MULTIMODAL DEEPFAKE DETECTION ================= -->
-      <section class="page" id="page-deepfake">
-        <div class="page-head">
-          <div class="eyebrow">Multimodal Neural Architecture & Cross-Modality Fusion</div>
-          <div class="page-title">Deepfake Detection Hub</div>
-          <p class="page-sub">Analyze single or combined multimodal assets (images, video sequences, audio waveforms, accompanying scam text, and URLs) through fused neural detection engines.</p>
-        </div>
-        <div class="card card-pad">
-          <div style="margin-bottom:14px;">
-            <label class="field-label" style="font-weight:600; color:var(--text); margin-bottom:8px; display:block;">1. Select Primary Media Asset (Image, Video, or Audio)</label>
-            <div class="dropzone" data-accept="image/*,video/*,audio/*" data-kind="deepfake">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 10c0-1 1-2 3-2s3 1 3 2M8 15s1.5 2 4 2 4-2 4-2"/></svg>
-              <h4>Drop or Select Media for Multimodal Deepfake Inspection</h4>
-              <p>JPG, PNG, WEBP, MP4, MOV, WEBM, WAV, MP3, M4A · Direct Model Pipeline</p>
-              <div class="chip-row">
-                <span class="type-chip">Image ViT</span>
-                <span class="type-chip">Video Frames</span>
-                <span class="type-chip">Audio STFT</span>
-                <span class="type-chip">Multimodal Fusion</span>
-              </div>
-            </div>
-            <div id="prev-deepfake"></div>
-          </div>
-
-          <div class="grid g2" style="margin-top:12px;">
-            <div>
-              <label class="field-label">2. Accompanying Text, Caption, or Transcript (Optional)</label>
-              <textarea class="textarea" id="deepfakeText" placeholder="Paste context text, social media caption, or conversation transcript..."></textarea>
-            </div>
-            <div>
-              <label class="field-label">3. Target URL or Source Link (Optional)</label>
-              <input type="text" class="field" id="deepfakeUrl" placeholder="https://example.com/source-link">
-              <div style="margin-top:12px; font-size:11.5px; color:var(--text-faint);">
-                Cross-evaluates visual forensic signals, acoustic spoofing probability, and linguistic urgency markers into a unified risk dossier.
-              </div>
-            </div>
-          </div>
-
-          <div class="action-row" style="margin-top:16px;">
-            <button class="btn btn-primary" id="deepfakeAnalyzeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>Execute Multimodal Deepfake Scan</button>
-            <button class="btn btn-outline" id="deepfakeResetBtn">Reset</button>
-          </div>
-
-          <div class="card pipeline" id="deepfakePipeline" style="display:none;">
-            <div class="pipeline-title"><h3>Multimodal Deepfake Inference Pipeline</h3><span id="deepfakePipeStatus">Analyzing…</span></div>
-            <div class="steps" id="deepfakeSteps"></div>
-          </div>
-
-          <div class="result-wrap" id="deepfakeResult"></div>
-        </div>
-      </section>
-
-      <!-- ================= 3. IMAGE ANALYSIS ================= -->
+  </div>
+</section>
+<!-- ================= 3. IMAGE ANALYSIS ================= -->
       <section class="page" id="page-image">
         <div class="page-head">
           <div class="eyebrow">Vision Transformer & ELA Forensics</div>
@@ -4125,529 +3546,166 @@ function pushHistory(entry){
 }
 
 function updateDashboardStats(){
-  // Card 1: TOTAL SCANS
-  ['dStat1','landStat1'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.scans; });
-  // Card 2: AI-GENERATED / SYNTHETIC DETECTED
-  ['dStat2','landStat2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.ai_generated ?? statCounters.deepfakes ?? 0; });
-  // Card 3: SUSPICIOUS / FRAUD DETECTED
-  ['dStat3','landStat3'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.suspicious ?? statCounters.threats ?? 0; });
-  // Card 4: LIKELY AUTHENTIC
-  ['dStat4','landStat4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = statCounters.authentic ?? 0; });
+  const scans = statCounters.scans || 0;
+  let realCount = statCounters.authentic || 0;
+  let fakeCount = (statCounters.ai_generated || 0) + (statCounters.suspicious || 0);
+  let highRiskCount = statCounters.threats || 0;
 
-  const profScans = document.getElementById('profStatScans'); if(profScans) profScans.textContent = statCounters.scans;
-  const profThreats = document.getElementById('profStatThreats'); if(profThreats) profThreats.textContent = statCounters.threats;
-  const profD = document.getElementById('profStatDeepfakes'); if(profD) profD.textContent = statCounters.deepfakes;
-  const profS = document.getElementById('profStatScams'); if(profS) profS.textContent = statCounters.scams;
+  ['dTotalScans','landStat1'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = scans; });
+  ['dTotalReal','landStat4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = realCount; });
+  ['dTotalFake','landStat2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = fakeCount; });
+  ['dTotalHighRisk','landStat3'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent = highRiskCount; });
 
-  let threatScore = 0;
   if (scanHistory.length > 0) {
-    const sum = scanHistory.reduce((acc, h) => acc + (Number(h.score) || 0), 0);
-    threatScore = Math.round(sum / scanHistory.length);
-  } else if (statCounters.scans > 0) {
-    threatScore = Math.round((statCounters.threats / statCounters.scans) * 100);
-  }
-  threatScore = Math.max(0, Math.min(100, threatScore));
-
-  const scoreEl = document.getElementById('bentoThreatScore');
-  const arcEl = document.getElementById('bentoThreatArc');
-  const headlineEl = document.getElementById('bentoSecHeadline');
-  const detailEl = document.getElementById('bentoSecDetail');
-  const shieldEl = document.getElementById('socGlobalShield');
-  const shieldTxt = document.getElementById('socGlobalText');
-
-  const tier = riskTier(threatScore);
-  const color = riskColor(tier.cls);
-
-  if (scoreEl) { scoreEl.textContent = threatScore; scoreEl.style.color = color; }
-  if (arcEl) {
-    const totalCirc = 251.2;
-    arcEl.style.strokeDashoffset = totalCirc - (threatScore / 100) * totalCirc;
-    arcEl.style.stroke = color;
-  }
-
-  if (statCounters.threats > 0 || threatScore > 40) {
-    if (headlineEl) headlineEl.textContent = `Elevated Threat Activity · ${statCounters.threats} Anomalies Flagged`;
-    if (detailEl) detailEl.textContent = `${statCounters.threats} suspicious items flagged in recent scans. Multi-signal radar active.`;
-    if (shieldEl) shieldEl.className = 'soc-status-badge alert';
-    if (shieldTxt) shieldTxt.textContent = 'ALERT · ACTIVE THREATS';
-  } else {
-    if (headlineEl) headlineEl.textContent = 'System Nominal · Zero Critical Threats';
-    if (detailEl) detailEl.textContent = 'All multi-signal detectors are actively screening media. No unverified anomalies detected.';
-    if (shieldEl) shieldEl.className = 'soc-status-badge';
-    if (shieldTxt) shieldTxt.textContent = 'PROTECTED · ENGINE ACTIVE';
-  }
-
-  // Render Risk History Chart (Animated SVG Line Graph)
-  const chHist = document.getElementById('dashChartRiskHistory');
-  if (chHist) {
-    if (scanHistory.length === 0) {
-      chHist.innerHTML = '<div style="width:100%; text-align:center; color:var(--text-faint); font-size:12px; margin-top:40px;">NO SCAN HISTORY YET</div>';
-    } else {
-      const recent = scanHistory.slice(0, 15).reverse();
-      const points = recent.map((h, i) => {
-        const x = (i / (Math.max(1, recent.length - 1))) * 100;
-        const y = 100 - h.score;
-        return { x, y, score: h.score };
-      });
+      const latest = scanHistory[0];
+      const risk = latest.score || 0;
+      const conf = latest.confidence || 0;
+      const isReal = risk <= 50; 
+      const resultTxt = latest.classification || (isReal ? 'REAL' : 'FAKE');
       
-      let pathD = `M ${points[0].x} ${points[0].y}`;
-      for(let i = 1; i < points.length; i++) {
-        const prev = points[i-1];
-        const curr = points[i];
-        // Smooth curve
-        const cx = (prev.x + curr.x) / 2;
-        pathD += ` C ${cx} ${prev.y} ${cx} ${curr.y} ${curr.x} ${curr.y}`;
+      const fileEl = document.getElementById('heroLatestFile');
+      if (fileEl) fileEl.textContent = latest.contentLabel || latest.contentType;
+      
+      const resEl = document.getElementById('heroLatestResult');
+      if (resEl) {
+          resEl.textContent = resultTxt;
+          resEl.style.color = isReal ? 'var(--safe)' : 'var(--warn)';
       }
       
-      let areaD = pathD + ` L 100 100 L 0 100 Z`;
-      
-      const circles = points.map(p => 
-        `<circle cx="${p.x}" cy="${p.y}" r="2" fill="var(--panel)" stroke="var(--cyan)" stroke-width="1.5"><title>Risk: ${p.score}</title></circle>`
-      ).join('');
-
-      chHist.innerHTML = `
-        <style>
-
-/* Background Animation Layers */
-.bg-layer { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: -1; }
-.bg-grid {
-  background-image: linear-gradient(to right, rgba(45,217,232,0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(45,217,232,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: bgScroll 40s linear infinite;
-}
-.bg-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(139,107,240,0.02) 0%, transparent 60%);
-  animation: pulseGlow 10s ease-in-out infinite alternate;
-}
-@keyframes bgScroll { from { background-position: 0 0; } to { background-position: -400px -400px; } }
-@keyframes pulseGlow { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.5); opacity: 1; } }
-
-          .soc-hist-line { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawHistLine 1.5s ease forwards; }
-          @keyframes drawHistLine { to { stroke-dashoffset: 0; } }
-          .soc-hist-points { opacity: 0; animation: fadeHist 0.5s ease 1s forwards; }
-          @keyframes fadeHist { to { opacity: 1; } }
-          .soc-hist-area { opacity: 0; animation: fadeArea 1s ease 0.5s forwards; }
-          @keyframes fadeArea { to { opacity: 0.1; } }
-        </style>
-        <div style="width:100%; height:100%; position:relative;">
-          <svg width="100%" height="100%" viewBox="0 -10 100 120" preserveAspectRatio="none" style="overflow:visible; font-family:monospace;">
-            <!-- Grid -->
-            <line x1="0" y1="0" x2="100" y2="0" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="20" x2="100" y2="20" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="40" x2="100" y2="40" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="60" x2="100" y2="60" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="80" x2="100" y2="80" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="100" x2="100" y2="100" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            
-            <text x="-5" y="4" fill="var(--text-faint)" font-size="6" text-anchor="end">100</text>
-            <text x="-5" y="54" fill="var(--text-faint)" font-size="6" text-anchor="end">50</text>
-            <text x="-5" y="104" fill="var(--text-faint)" font-size="6" text-anchor="end">0</text>
-            
-            <!-- Area -->
-            <path d="${areaD}" fill="var(--cyan)" class="soc-hist-area" />
-            
-            <!-- Line -->
-            <path d="${pathD}" fill="none" stroke="var(--cyan)" stroke-width="2" class="soc-hist-line" style="filter: drop-shadow(0 0 3px var(--cyan));" />
-            
-            <!-- Points -->
-            <g class="soc-hist-points">
-              ${circles}
-            </g>
-          </svg>
-        </div>
-      `;
-    }
-  }
-
-  // Render Risk Distribution
-  const chDist = document.getElementById('dashChartDistribution');
-  if (chDist) {
-    if (scanHistory.length === 0) {
-      chDist.innerHTML = '<div style="color:var(--text-faint); text-align:center; margin-top:20px;">No data</div>';
-    } else {
-      const counts = {low:0, mod:0, high:0, vhigh:0, crit:0};
-      scanHistory.forEach(h => {
-        if(h.score<=20) counts.low++;
-        else if(h.score<=40) counts.mod++;
-        else if(h.score<=60) counts.high++;
-        else if(h.score<=80) counts.vhigh++;
-        else counts.crit++;
+      const confEl = document.getElementById('heroLatestConf');
+      if(confEl) confEl.textContent = conf + '%';
+      const rEl = document.getElementById('heroLatestRisk');
+      if(rEl) rEl.textContent = risk + ' / 100';
+      const grEl = document.getElementById('graphLatestResult');
+      if(grEl) grEl.textContent = resultTxt;
+      const crEl = document.getElementById('graphCurrentRisk');
+      if(crEl) crEl.textContent = risk + ' / 100';
+  } else {
+      ['heroLatestFile','heroLatestResult','heroLatestConf','heroLatestRisk','graphLatestResult','graphCurrentRisk'].forEach(id=>{
+         const el = document.getElementById(id); if(el) el.textContent = id.includes('File') ? 'None' : (id.includes('Conf') ? '0%' : (id.includes('Risk') ? '0 / 100' : 'N/A'));
       });
-      const max = Math.max(1, counts.low, counts.mod, counts.high, counts.vhigh, counts.crit);
-      const row = (lbl, val, col) => `<div style="display:flex; align-items:center; gap:6px;"><div style="width:70px;">${lbl}</div><div style="flex:1; height:6px; background:var(--panel-2); border-radius:3px;"><div style="height:100%; width:${(val/max)*100}%; background:${col}; border-radius:3px;"></div></div><div style="width:20px; text-align:right; font-weight:bold;">${val}</div></div>`;
-      chDist.innerHTML = row('Low Risk', counts.low, 'var(--safe)') + 
-                         row('Moderate', counts.mod, 'var(--warn)') + 
-                         row('High Risk', counts.high, 'var(--danger-2)') + 
-                         row('Very High', counts.vhigh, '#e63946') + 
-                         row('Critical', counts.crit, '#ff1e42');
-    }
   }
 
-  // Render Risk by Modality
-  const chMod = document.getElementById('dashChartModality');
-  if (chMod) {
-    if (scanHistory.length === 0) {
-      chMod.innerHTML = '<div style="color:var(--text-faint); text-align:center; margin-top:20px;">No data</div>';
-    } else {
-      const mods = {};
-      scanHistory.forEach(h => {
-        const ty = h.contentType || 'UNKNOWN';
-        if(!mods[ty]) mods[ty] = {sum:0, count:0};
-        mods[ty].sum += Number(h.score);
-        mods[ty].count++;
-      });
-      const types = Object.keys(mods).sort((a,b)=> (mods[b].sum/mods[b].count) - (mods[a].sum/mods[a].count)).slice(0, 5);
-      chMod.innerHTML = types.map(ty => {
-        const avg = Math.round(mods[ty].sum / mods[ty].count);
-        const col = riskColor(riskTier(avg).cls);
-        return `<div style="display:flex; align-items:center; gap:6px;"><div style="width:70px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${ty.substring(0,10)}</div><div style="flex:1; height:6px; background:var(--panel-2); border-radius:3px;"><div style="height:100%; width:${avg}%; background:${col}; border-radius:3px;"></div></div><div style="width:30px; text-align:right; font-weight:bold;">${avg}%</div></div>`;
-      }).join('');
-    }
+  let avgRisk = 0;
+  if (scanHistory.length > 0) {
+      const sum = scanHistory.reduce((acc, h) => acc + (Number(h.score) || 0), 0);
+      avgRisk = Math.round(sum / scanHistory.length);
+  }
+  const arEl = document.getElementById('graphAvgRisk');
+  if(arEl) arEl.textContent = avgRisk + ' / 100';
+
+  const graphEl = document.getElementById('dashRiskLargeGraph');
+  if (graphEl) {
+      if (scanHistory.length === 0) {
+          graphEl.innerHTML = '<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:var(--text-faint); font-size:12px;">NO SCAN DATA YET</div>';
+      } else {
+          const recent = scanHistory.slice(0, 30).reverse();
+          const points = recent.map((h, i) => {
+              const x = (i / (Math.max(1, recent.length - 1))) * 100;
+              return { x, y: 100 - h.score, score: h.score };
+          });
+          
+          let pathD = `M ${points[0].x} ${points[0].y}`;
+          for(let i = 1; i < points.length; i++) {
+            const prev = points[i-1];
+            const curr = points[i];
+            const cx = (prev.x + curr.x) / 2;
+            pathD += ` C ${cx} ${prev.y} ${cx} ${curr.y} ${curr.x} ${curr.y}`;
+          }
+          let areaD = pathD + ` L 100 100 L 0 100 Z`;
+          const circles = points.map(p => 
+            `<circle cx="${p.x}" cy="${p.y}" r="2" fill="var(--panel)" stroke="var(--cyan)" stroke-width="1.5"><title>Risk: ${p.score}</title></circle>`
+          ).join('');
+
+          graphEl.innerHTML = `
+            <style>
+              .dash-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dashLineDraw 1.5s ease forwards; }
+              @keyframes dashLineDraw { to { stroke-dashoffset: 0; } }
+              .dash-points { opacity: 0; animation: fadeHist 0.5s ease 1s forwards; }
+              .dash-area { opacity: 0; animation: fadeArea 1s ease 0.5s forwards; }
+            </style>
+            <div style="width:100%; height:100%; position:absolute; top:0; left:0; right:0; bottom:0;">
+              <svg width="100%" height="100%" viewBox="0 -5 100 110" preserveAspectRatio="none" style="overflow:visible;">
+                <line x1="0" y1="0" x2="100" y2="0" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+                <line x1="0" y1="25" x2="100" y2="25" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+                <line x1="0" y1="50" x2="100" y2="50" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+                <line x1="0" y1="75" x2="100" y2="75" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+                <line x1="0" y1="100" x2="100" y2="100" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+                <path d="${areaD}" fill="rgba(45,217,232,0.1)" class="dash-area" />
+                <path d="${pathD}" fill="none" stroke="var(--cyan)" stroke-width="2" class="dash-line" style="filter: drop-shadow(0 0 3px var(--cyan));" />
+                <g class="dash-points">${circles}</g>
+              </svg>
+            </div>
+          `;
+      }
+  }
+
+  const rsEl = document.getElementById('dashRecentScansList');
+  if (rsEl) {
+      if (scanHistory.length === 0) {
+          rsEl.innerHTML = '<div style="color:var(--text-faint); padding:10px;">NO SCANS YET</div>';
+      } else {
+          rsEl.innerHTML = scanHistory.slice(0, 15).map(h => {
+              const isReal = h.score <= 50;
+              const cl = isReal ? 'var(--safe)' : 'var(--warn)';
+              const rt = h.classification || (isReal ? 'REAL' : 'FAKE');
+              return `<div style="display:flex; justify-content:space-between; padding:6px; border-bottom:1px solid var(--line);">
+                  <div style="flex:2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${h.contentLabel || 'File'}">${h.contentLabel || 'File'}</div>
+                  <div style="flex:1; color:var(--text-dim);">${h.contentType}</div>
+                  <div style="flex:1; font-weight:bold; color:${cl};">${rt}</div>
+                  <div style="flex:1; text-align:right;">${h.score}%</div>
+              </div>`;
+          }).join('');
+      }
   }
 }
-
-function renderHistory(){
-  const body = document.getElementById('historyBody');
-  if(!body) return;
-  body.innerHTML = scanHistory.length === 0 ? '<tr><td colspan="9" style="text-align:center; padding:20px; color:var(--text-faint);">No scan history recorded.</td></tr>' : scanHistory.map((h,idx)=>`
-    <tr>
-      <td>${new Date(h.date).toLocaleDateString()}</td>
-      <td><b>${h.contentLabel}</b></td>
-      <td>${h.contentType}</td>
-      <td>🌐 English</td>
-      <td style="color:${riskColor(riskTier(h.score).cls)}; font-weight:700;">${h.score}/100</td>
-      <td>${h.trust}%</td>
-      <td>${h.confidence}%</td>
-      <td><span class="status-pill" style="background:${riskColor(riskTier(h.score).cls)}22; color:${riskColor(riskTier(h.score).cls)}">${riskTier(h.score).label}</span></td>
-      <td><button class="btn btn-outline btn-sm" data-view="${idx}">Report</button></td>
-    </tr>`).join('');
-  body.querySelectorAll('[data-view]').forEach(b=> b.addEventListener('click', ()=> openReportModal(scanHistory[+b.dataset.view])));
-}
-
-function renderReports(){
-  const body = document.getElementById('reportsBody');
-  if(!body) return;
-  body.innerHTML = scanHistory.length === 0 ? '<tr><td colspan="9" style="text-align:center; padding:20px; color:var(--text-faint);">No reports available.</td></tr>' : scanHistory.map((h,idx)=>`
-    <tr>
-      <td>${new Date(h.date).toLocaleDateString()}</td>
-      <td><b>${h.contentLabel}</b></td>
-      <td>${h.contentType}</td>
-      <td>🌐 English</td>
-      <td style="color:${riskColor(riskTier(h.score).cls)}; font-weight:700;">${h.score}</td>
-      <td>${h.trust}%</td>
-      <td>${h.confidence}%</td>
-      <td><span class="status-pill" style="background:${riskColor(riskTier(h.score).cls)}22; color:${riskColor(riskTier(h.score).cls)}">${riskTier(h.score).label}</span></td>
-      <td><button class="btn btn-outline btn-sm" data-rview="${idx}">Inspect</button></td>
-    </tr>`).join('');
-  body.querySelectorAll('[data-rview]').forEach(b=> b.addEventListener('click', ()=> openReportModal(scanHistory[+b.dataset.rview])));
-}
-
-function renderRecent(){
-  const wrap = document.getElementById('dashRecent');
-  if(!wrap) return;
-  if(!scanHistory.length){ wrap.innerHTML = `<div style="text-align:center; padding:18px; color:var(--text-faint); font-size:11.5px;">No scans yet. Run an analysis below.</div>`; return; }
-  wrap.innerHTML = scanHistory.slice(0,5).map(h=>`
-    <div style="display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--line);">
-      <div style="width:7px; height:7px; border-radius:50%; background:${riskColor(riskTier(h.score).cls)}; flex-shrink:0;"></div>
-      <div style="flex:1; min-width:0;"><div style="font-size:12px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${h.contentLabel}</div><div style="font-size:10px; color:var(--text-faint);">${h.contentType}</div></div>
-      <div style="font-family:var(--mono); font-size:11.5px; font-weight:700; color:${riskColor(riskTier(h.score).cls)}">${h.score}</div>
-    </div>`).join('');
-}
-
-document.getElementById('exportHistBtn')?.addEventListener('click', ()=>{
-  if(!scanHistory.length){ toast('Nothing to export', '', 'warn'); return; }
-  const rows = [['Date','Content','Type','Risk','Trust','Confidence','Status']];
-  scanHistory.forEach(h=> rows.push([new Date(h.date).toLocaleString(), h.contentLabel, h.contentType, h.score, h.trust+'%', h.confidence+'%', riskTier(h.score).label]));
-  const csv = rows.map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='trustguard-history.csv'; a.click();
-  toast('Exported', 'trustguard-history.csv downloaded', 'safe');
-});
-
-document.getElementById('clearHistBtn')?.addEventListener('click', async ()=>{
-  try {
-    await apiPost('/api/history/clear', {});
-    scanHistory=[]; renderHistory(); renderReports(); renderRecent(); updateDashboardStats();
-    toast('History cleared', '', 'info');
-  } catch(e){ toast('Failed', e.message, 'danger'); }
-});
-
-/* ============ REPORT MODAL ============ */
-function openReportModal(data){
-  const tier = riskTier(data.score);
-  const body = document.getElementById('modalBody');
-  if(!body) return;
-  body.innerHTML = `
-    <div style="margin-bottom:12px;"><span style="font-size:10px; text-transform:uppercase; color:var(--text-faint); letter-spacing:1px;">Forensic Target</span><h3 style="font-size:16px;">${data.contentLabel}</h3></div>
-    <div class="telemetry-row"><span>Content Modality</span><span>${data.contentType}</span></div>
-    <div class="telemetry-row"><span>Risk Score</span><span style="color:${riskColor(tier.cls)}">${data.score}/100 — ${tier.label}</span></div>
-    <div class="telemetry-row"><span>Authenticity Score</span><span>${data.trust}%</span></div>
-    <div class="telemetry-row"><span>Model Confidence</span><span>${data.confidence}%</span></div>
-    <div class="telemetry-row"><span>Scan Timestamp</span><span>${new Date(data.date).toLocaleString()}</span></div>
-    <div style="margin-top:14px;">
-      <h4 style="font-size:12px; text-transform:uppercase; color:var(--cyan); margin-bottom:4px;">Mitigation Guidance</h4>
-      <p style="font-size:12px; color:var(--text-dim); line-height:1.45;">${recommendation(tier.cls).text}</p>
-    </div>
-    <button class="btn btn-primary btn-block btn-sm" id="downloadReportTxtBtn" style="margin-top:16px;">Download Dossier (.txt)</button>
-  `;
-  document.getElementById('reportModal')?.classList.add('open');
-  document.getElementById('downloadReportTxtBtn')?.addEventListener('click', ()=>{
-    const txt = `TRUSTGUARD AI — FORENSIC REPORT\n\nTarget: ${data.contentLabel}\nType: ${data.contentType}\nRisk Score: ${data.score}/100 (${tier.label})\nAuthenticity: ${data.trust}%\nConfidence: ${data.confidence}%\nDate: ${new Date(data.date).toLocaleString()}\n\nRecommendation:\n${recommendation(tier.cls).text}\n\n(Generated by TrustGuard AI Production Pretrained Engine)`;
-    const blob = new Blob([txt], {type:'text/plain'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'trustguard-report.txt'; a.click();
-    toast('Report downloaded', '', 'safe');
-  });
-}
-document.getElementById('modalCloseBtn')?.addEventListener('click', ()=> document.getElementById('reportModal')?.classList.remove('open'));
-document.getElementById('reportModal')?.addEventListener('click', e=>{ if(e.target.id==='reportModal') e.currentTarget.classList.remove('open'); });
-
-/* ============ ASSISTANT ============ */
-const assistPanel = document.getElementById('assistPanel');
-function openAssistant(){ assistPanel?.classList.add('open'); }
-document.getElementById('assistFab')?.addEventListener('click', ()=> assistPanel?.classList.toggle('open'));
-document.getElementById('assistClose')?.addEventListener('click', ()=> assistPanel?.classList.remove('open'));
-
-function updateAssistantContextUI() {
-  const ctxBox = document.getElementById('assistContextBox');
-  if (!ctxBox) return;
-  if (!lastScanContext) {
-      ctxBox.innerHTML = `<b>CURRENT SCAN</b><br/><span style="color:var(--text-dim)">None</span>`;
-      return;
-  }
-  const nm = lastScanContext.contentLabel || lastScanContext.contentType || 'Asset';
-  const cl = lastScanContext.classification || 'UNKNOWN';
-  const cf = lastScanContext.confidence !== undefined ? lastScanContext.confidence : 90;
-  const rk = lastScanContext.score || lastScanContext.risk_score || 0;
-  ctxBox.innerHTML = `<b>CURRENT SCAN</b><br/><span style="color:var(--cyan)">${nm}</span><br/><span style="font-size:10px;">${cl} • Conf: ${cf}% • Risk: ${rk}/100</span>`;
-}
-
-document.getElementById('assistClearBtn')?.addEventListener('click', ()=>{
-  conversationHistory = [];
-  const body = document.getElementById('assistBody');
-  if(body) body.innerHTML = '';
-});
-
-function pushBotMsg(text, save=true){
-  const body = document.getElementById('assistBody');
-  if(!body) return;
-  const div = document.createElement('div'); div.className='msg bot';
-  let html = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  html = html.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-  html = html.replace(/\n/g, '<br/>');
-  div.innerHTML = html;
-  body.appendChild(div); body.scrollTop = body.scrollHeight;
-  if(save) conversationHistory.push({ role: 'assistant', content: text });
-}
-
-function pushUserMsg(text, save=true){
-  const body = document.getElementById('assistBody');
-  if(!body) return;
-  const div = document.createElement('div'); div.className='msg user'; div.textContent = text;
-  body.appendChild(div); body.scrollTop = body.scrollHeight;
-  if(save) conversationHistory.push({ role: 'user', content: text });
-}
-
-document.getElementById('assistSendBtn')?.addEventListener('click', async ()=>{
-  const inp = document.getElementById('assistInput');
-  if(!inp || !inp.value.trim()) return;
-  const q = inp.value.trim();
-  pushUserMsg(q, true); 
-  inp.value='';
-  
-  updateAssistantContextUI();
-  
-  const body = document.getElementById('assistBody');
-  const thinkingId = 'think_' + Date.now();
-  const divThink = document.createElement('div'); 
-  divThink.className='msg bot'; 
-  divThink.id = thinkingId;
-  divThink.innerHTML = '<i>Thinking...</i>';
-  body.appendChild(divThink); body.scrollTop = body.scrollHeight;
-
-  // Provide only the history up to this question, minus the current question (which is passed as query)
-  const historyToSend = conversationHistory.slice(0, -1);
-
-  try {
-    const res = await apiPost('/api/assistant', { 
-        query: q, 
-        current_scan_context: lastScanContext,
-        conversation_history: historyToSend
-    });
-    
-    document.getElementById(thinkingId)?.remove();
-    
-    if(res && (res.response || res.answer || res.reply)) {
-      pushBotMsg(res.response || res.answer || res.reply, true);
-    } else {
-      pushBotMsg("AI Assistant is temporarily unavailable.", false);
-    }
-  } catch(e) {
-    console.warn("Backend assistant API fallback:", e);
-    document.getElementById(thinkingId)?.remove();
-    pushBotMsg("AI Assistant is temporarily unavailable.", false);
-  }
-});
-document.getElementById('assistInput')?.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('assistSendBtn')?.click(); });
 
 /* ============ ENGINE STATUS POLLING ============ */
 async function checkBackendEngineStatus() {
-  const badge = document.getElementById('engineBadge');
-  const latEl = document.getElementById('bentoLatency');
-  const statusTxt = document.getElementById('bentoStatusTxt');
-  const tag = document.getElementById('bentoEngineStatusTag');
   const offlineBanner = document.getElementById('backendOfflineBanner');
-  const t0 = performance.now();
-  const baseUrl = window.API_BASE_URL || (typeof getTrustGuardApiBase === 'function' ? getTrustGuardApiBase() : 'http://127.0.0.1:8000');
-  const isGitHub = window.location.hostname.includes('github.io') || window.location.hostname.includes('pages.dev');
-
+  const dbShield = document.getElementById('dashboardBackendShield');
+  const dbTxt = document.getElementById('dashboardBackendText');
+  const heroStat = document.getElementById('heroCurrentStatus');
+  const sysEl = document.getElementById('dashSystemStatus');
+  
+  const baseUrl = window.API_BASE_URL || 'http://127.0.0.1:8000';
   try {
-    const res = await fetch(`${baseUrl}/api/status`);
-    const lat = Math.max(1, Math.round(performance.now() - t0));
-    if (latEl) latEl.textContent = `${lat}ms`;
-
-    const contentType = res.headers.get('content-type') || '';
-    if (res.ok && contentType.includes('application/json')) {
-      const data = await res.json();
-      if (offlineBanner) offlineBanner.style.display = 'none';
-      if (badge) {
-        badge.innerHTML = `<i class="dot" style="background:var(--safe); box-shadow:0 0 6px var(--safe);"></i>● ${isGitHub ? 'Live AI Backend Connected' : 'Local Backend Connected'}`;
-        badge.style.color = 'var(--safe)';
-      }
-      if (statusTxt) { statusTxt.textContent = `● Online (${isGitHub ? 'Live AI Ready' : 'Local AI Ready'})`; statusTxt.style.color = 'var(--safe)'; }
-      if (tag) { tag.textContent = isGitHub ? 'ONLINE / LIVE' : 'ONLINE / LOCAL'; tag.style.color = 'var(--safe)'; }
-    } else {
-      if (offlineBanner) {
-        offlineBanner.style.display = 'block';
-        if (isGitHub) offlineBanner.innerHTML = '<b>● Live AI Backend Unavailable.</b> Please try again later.';
-      }
-      if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● ${isGitHub ? 'Live AI Backend Unavailable' : 'Local Backend Stopped'}`; badge.style.color = 'var(--danger-2)'; }
-      if (statusTxt) { statusTxt.textContent = '● Stopped'; statusTxt.style.color = 'var(--danger-2)'; }
-      if (tag) { tag.textContent = 'STOPPED'; tag.style.color = 'var(--danger-2)'; }
+    const res = await fetch(baseUrl + '/api/status', { mode: 'cors' });
+    if (!res.ok) throw new Error('API not ok');
+    const data = await res.json();
+    
+    // Online
+    if(offlineBanner) offlineBanner.style.display = 'none';
+    if(dbShield) dbShield.className = 'soc-status-badge';
+    if(dbTxt) dbTxt.textContent = 'Local Backend Connected';
+    if(heroStat) { heroStat.textContent = 'Protected / Monitoring'; heroStat.style.color = 'var(--safe)'; }
+    
+    if(sysEl) {
+        let sysHtml = '';
+        const models = [
+            {name: 'Image Model', key: 'vision_transformer', fallback: 'Ready'},
+            {name: 'Video Model', key: 'video_analyzer', fallback: 'Ready'},
+            {name: 'Audio Model', key: 'audio_dsp', fallback: 'Ready'},
+            {name: 'Text Model', key: 'text_nlp', fallback: 'Ready'},
+            {name: 'URL Model', key: 'url_scanner', fallback: 'Ready'},
+            {name: 'Database', key: 'database', fallback: 'Connected'}
+        ];
+        models.forEach(m => {
+            const s = data[m.key] || m.fallback;
+            sysHtml += `<div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--line);"><span style="color:var(--text-dim);">${m.name}</span><span style="color:var(--cyan);">${s}</span></div>`;
+        });
+        sysEl.innerHTML = sysHtml;
     }
-  } catch (e) {
-    if (offlineBanner) {
-      offlineBanner.style.display = 'block';
-      if (isGitHub) offlineBanner.innerHTML = '<b>● Live AI Backend Unavailable.</b> Please try again later.';
-    }
-    if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● ${isGitHub ? 'Live AI Backend Unavailable' : 'Local Backend Stopped'}`; badge.style.color = 'var(--danger-2)'; }
-    if (latEl) latEl.textContent = '—';
-    if (statusTxt) { statusTxt.textContent = isGitHub ? '● Live Backend Offline (Please try again later)' : '● Backend Stopped (Run start_trustguard.bat)'; statusTxt.style.color = 'var(--danger-2)'; }
-    if (tag) { tag.textContent = isGitHub ? 'BACKEND UNAVAILABLE' : 'BACKEND STOPPED'; tag.style.color = 'var(--danger-2)'; }
-  }
-}
-
-
-/* ============ SOUND & ALERT CENTER SYSTEM ============ */
-let alertSoundActive = true;
-let alertHistoryList = [];
-
-function playRiskAlertSound() {
-  if (!alertSoundActive) return;
-  try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
-    const ctx = new AudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(880, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.35);
-    gain.gain.setValueAtTime(0.25, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.35);
   } catch(e) {
-    console.warn('Audio alert not available:', e);
+    if(offlineBanner) offlineBanner.style.display = 'block';
+    if(dbShield) dbShield.className = 'soc-status-badge alert';
+    if(dbTxt) dbTxt.textContent = 'Backend Offline';
+    if(heroStat) { heroStat.textContent = 'Backend Offline'; heroStat.style.color = 'var(--danger-2)'; }
+    if(sysEl) sysEl.innerHTML = '<div style="color:var(--danger-2);">All models unavailable. Start the backend.</div>';
   }
 }
 
-document.getElementById('muteAlertSoundBtn')?.addEventListener('click', (e) => {
-  alertSoundActive = !alertSoundActive;
-  e.target.textContent = alertSoundActive ? '🔊 Sound: ON' : '🔇 Sound: OFF';
-  toast('Alert Sound', alertSoundActive ? 'Audio alert enabled' : 'Audio alert muted', 'info');
-});
-
-function triggerHighRiskAlert(norm, contentType, contentLabel) {
-  if (norm.riskScore < 65) return;
-
-  const banner = document.getElementById('highRiskAlertBanner');
-  const bTitle = document.getElementById('alertBannerTitle');
-  const bDesc = document.getElementById('alertBannerDesc');
-
-  if (banner && bTitle && bDesc) {
-    bTitle.textContent = `ALERT: HIGH RISK CONTENT DETECTED (${contentType.toUpperCase()})`;
-    bDesc.textContent = `${contentLabel}: Evaluated with ${norm.confidence}% confidence and ${norm.riskScore}/100 risk. Flagged as ${norm.classification}.`;
-    banner.style.display = 'flex';
-  }
-
-  toast('HIGH RISK CONTENT DETECTED', `${contentType}: ${norm.classification} (${norm.riskScore}/100 Risk)`, 'danger');
-  playRiskAlertSound();
-
-  if ("Notification" in window && Notification.permission === "granted") {
-    try {
-      new Notification("TrustGuard AI: HIGH RISK CONTENT DETECTED", {
-        body: `${contentType}: ${norm.classification} (${norm.riskScore}/100 Risk)`
-      });
-    } catch(e){}
-  }
-
-  // Add to Alert Center
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const alertEntry = {
-    time: timeStr,
-    title: `${contentType} Flagged: ${norm.classification}`,
-    detail: `${contentLabel} · Risk: ${norm.riskScore}/100 · Conf: ${norm.confidence}%`
-  };
-  alertHistoryList.unshift(alertEntry);
-  renderAlertCenter();
-
-  // Highlight notification dot
-  const badgeDot = document.querySelector('.badge-dot');
-  if (badgeDot) badgeDot.style.display = 'block';
-}
-
-function renderAlertCenter() {
-  const container = document.getElementById('alertCenterList');
-  if (!container) return;
-  if (alertHistoryList.length === 0) {
-    container.innerHTML = '<div style="padding:14px; text-align:center; color:var(--text-faint); font-size:11.5px;">No high-risk alerts recorded yet.</div>';
-    return;
-  }
-  container.innerHTML = alertHistoryList.map(a => `
-    <div class="notif-item">
-      <div class="notif-dot" style="background:var(--danger)"></div>
-      <div class="notif-text">
-        <b style="color:var(--danger-2);">${a.title}</b>
-        <span>${a.time} — ${a.detail}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-document.getElementById('clearAlertsBtn')?.addEventListener('click', () => {
-  alertHistoryList = [];
-  renderAlertCenter();
-  const badgeDot = document.querySelector('.badge-dot');
-  if (badgeDot) badgeDot.style.display = 'none';
-  toast('Alerts Cleared', 'Alert center history reset', 'info');
-});
-
-/* ============ INITIALIZATION ============ */
-window.addEventListener('load', async ()=>{
-  pushBotMsg("Hi, I am the TrustGuard AI SOC Assistant. Run a scan anywhere across the platform and I will provide explainable intelligence.");
-  const bUrlInput = document.getElementById('settingBackendUrl');
-  if (bUrlInput) {
-    bUrlInput.value = localStorage.getItem('trustguard_backend_url') || window.API_BASE_URL || 'http://127.0.0.1:8000';
-  }
-  await checkAuthSession();
-  await checkBackendEngineStatus();
-  await fetchDashboardStats();
-  await fetchHistoryFromBackend();
-  setInterval(checkBackendEngineStatus, 15000);
+setInterval(checkBackendEngineStatus, 15000);
 });
 
 /* ============ UNIFIED DRAG & DROP & UNIVERSAL VERIFY SYSTEM ============ */
