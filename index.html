@@ -1195,7 +1195,50 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             </div>
           </div>
 
-          <!-- ROW 4: Card 1 (2x1) Recent Scans -->
+          <!-- ROW 4: DASHBOARD CHARTS -->
+          <div class="bento-card bento-2x1">
+            <div class="bento-head">
+              <div class="title-group">
+                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+                <div>
+                  <h3 style="font-size:13.5px;">Risk Score Over Recent Scans</h3>
+                </div>
+              </div>
+            </div>
+            <div id="dashChartRiskHistory" style="flex:1; display:flex; align-items:flex-end; gap:6px; padding-top:10px; height:120px;">
+              <!-- JS will inject bars -->
+            </div>
+          </div>
+
+          <div class="bento-card bento-1x1">
+            <div class="bento-head">
+              <div class="title-group">
+                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+                <div>
+                  <h3 style="font-size:13.5px;">Risk Distribution</h3>
+                </div>
+              </div>
+            </div>
+            <div id="dashChartDistribution" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; font-size:11px;">
+              <!-- JS will inject distribution -->
+            </div>
+          </div>
+          
+          <div class="bento-card bento-1x1">
+            <div class="bento-head">
+              <div class="title-group">
+                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg></div>
+                <div>
+                  <h3 style="font-size:13.5px;">Risk by Modality</h3>
+                </div>
+              </div>
+            </div>
+            <div id="dashChartModality" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; font-size:11px;">
+              <!-- JS will inject modality risk -->
+            </div>
+          </div>
+
+          <!-- ROW 5: Card 1 (2x1) Recent Scans -->
           <div class="bento-card bento-2x1">
             <div class="bento-head">
               <div class="title-group">
@@ -1212,7 +1255,7 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             </div>
           </div>
 
-          <!-- ROW 4: Card 2 (1x1) Threat Alerts -->
+          <!-- ROW 5: Card 2 (1x1) Threat Alerts -->
           <div class="bento-card bento-1x1">
             <div class="bento-head">
               <div class="title-group">
@@ -1230,7 +1273,7 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             </div>
           </div>
 
-          <!-- ROW 4: Card 3 (1x1) Risk Tier Guide -->
+          <!-- ROW 5: Card 3 (1x1) Risk Tier Guide -->
           <div class="bento-card bento-1x1">
             <div class="bento-head">
               <div class="title-group">
@@ -2273,6 +2316,12 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
     <button class="assist-close" id="assistClose">✕</button>
   </div>
   <div class="assist-body" id="assistBody"></div>
+  <div style="padding:10px; background:var(--panel-2); border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px;" id="assistQuickBtnRow">
+    <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='Why is this fake?'; document.getElementById('assistSendBtn').click();">Why is this fake?</button>
+    <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='Why is the risk high?'; document.getElementById('assistSendBtn').click();">Why is risk high?</button>
+    <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='What should I do?'; document.getElementById('assistSendBtn').click();">What should I do?</button>
+    <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='Explain simply.'; document.getElementById('assistSendBtn').click();">Explain simply.</button>
+  </div>
   <div class="assist-input-row">
     <input id="assistInput" type="text" placeholder="Ask about your scan result…">
     <button class="send-btn" id="assistSendBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
@@ -2565,6 +2614,9 @@ function normalizePrediction(apiRes, defaultContentType = 'Content', fallbackLab
 
 /* ============ RESULT CARD RENDERERS ============ */
 function renderUnifiedResultCard(norm, opts) {
+  norm.contentType = opts.contentType;
+  norm.contentLabel = opts.contentLabel;
+  lastScanContext = norm;
   const isGenuine = norm.isGenuine;
   const bannerClass = isGenuine ? 'genuine' : (norm.riskScore <= 50 ? 'mod' : 'fake');
   const bannerIcon = isGenuine ? '✓' : '⚠';
@@ -2668,17 +2720,33 @@ function renderUnifiedResultCard(norm, opts) {
         ${mainClassification}
       </div>
       
-      <div style="font-size:16px; color:var(--text); margin-bottom:30px; font-weight:500;">
+      <div style="font-size:16px; color:var(--text); margin-bottom:20px; font-weight:500;">
         ${simpleExplanation}
       </div>
       
-      <div style="display:flex; justify-content:center; gap:40px; font-size:17px; margin-bottom:20px;">
-        <div><span style="color:var(--text-dim);">Confidence:</span> <b style="color:var(--text);">${norm.confidence}%</b></div>
-        <div><span style="color:var(--text-dim);">Risk:</span> <b style="color:${mainColor};">${norm.riskScore}%</b></div>
+      <!-- CONFIDENCE GRAPH -->
+      <div style="margin-bottom:12px; text-align:left; max-width:400px; margin-left:auto; margin-right:auto;">
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim); margin-bottom:4px; font-weight:bold; letter-spacing:1px;">
+          <span>CONFIDENCE</span>
+          <span style="color:var(--text);">${norm.confidence}%</span>
+        </div>
+        <div style="width:100%; height:8px; background:var(--panel-2); border-radius:4px; overflow:hidden; border:1px solid var(--line);">
+          <div style="height:100%; width:${norm.confidence}%; background:var(--cyan); border-radius:4px;"></div>
+        </div>
       </div>
-      
-      <div style="font-size:15px; font-weight:bold; color:${mainColor}; margin-bottom:30px;">
-        ${riskStatusText}
+
+      <!-- RISK GRAPH -->
+      <div style="margin-bottom:24px; text-align:left; max-width:400px; margin-left:auto; margin-right:auto;">
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim); margin-bottom:4px; font-weight:bold; letter-spacing:1px;">
+          <span>RISK SCORE</span>
+          <span style="color:${mainColor};">${norm.riskScore}%</span>
+        </div>
+        <div style="width:100%; height:12px; background:var(--panel-2); border-radius:6px; overflow:hidden; border:1px solid var(--line);">
+          <div style="height:100%; width:${norm.riskScore}%; background:${mainColor}; border-radius:6px;"></div>
+        </div>
+        <div style="text-align:center; font-size:13px; font-weight:bold; color:${mainColor}; margin-top:8px;">
+          ${riskStatusText}
+        </div>
       </div>
 
       <!-- Expandable Technical Details Accordion -->
@@ -3962,6 +4030,69 @@ function updateDashboardStats(){
     if (shieldEl) shieldEl.className = 'soc-status-badge';
     if (shieldTxt) shieldTxt.textContent = 'PROTECTED · ENGINE ACTIVE';
   }
+
+  // Render Risk History Chart
+  const chHist = document.getElementById('dashChartRiskHistory');
+  if (chHist) {
+    if (scanHistory.length === 0) {
+      chHist.innerHTML = '<div style="width:100%; text-align:center; color:var(--text-faint); font-size:12px; margin-top:20px;">No scan history available yet.</div>';
+    } else {
+      const recent = scanHistory.slice(0, 20).reverse();
+      chHist.innerHTML = recent.map(h => {
+        const hPct = Math.max(5, h.score);
+        const col = riskColor(riskTier(h.score).cls);
+        return `<div style="flex:1; background:var(--panel-2); border-radius:4px 4px 0 0; position:relative; height:100%; display:flex; align-items:flex-end;" title="Scan: ${h.score}% Risk">
+                  <div style="width:100%; background:${col}; height:${hPct}%; border-radius:4px 4px 0 0; opacity:0.8;"></div>
+                </div>`;
+      }).join('');
+    }
+  }
+
+  // Render Risk Distribution
+  const chDist = document.getElementById('dashChartDistribution');
+  if (chDist) {
+    if (scanHistory.length === 0) {
+      chDist.innerHTML = '<div style="color:var(--text-faint); text-align:center; margin-top:20px;">No data</div>';
+    } else {
+      const counts = {low:0, mod:0, high:0, vhigh:0, crit:0};
+      scanHistory.forEach(h => {
+        if(h.score<=20) counts.low++;
+        else if(h.score<=40) counts.mod++;
+        else if(h.score<=60) counts.high++;
+        else if(h.score<=80) counts.vhigh++;
+        else counts.crit++;
+      });
+      const max = Math.max(1, counts.low, counts.mod, counts.high, counts.vhigh, counts.crit);
+      const row = (lbl, val, col) => `<div style="display:flex; align-items:center; gap:6px;"><div style="width:70px;">${lbl}</div><div style="flex:1; height:6px; background:var(--panel-2); border-radius:3px;"><div style="height:100%; width:${(val/max)*100}%; background:${col}; border-radius:3px;"></div></div><div style="width:20px; text-align:right; font-weight:bold;">${val}</div></div>`;
+      chDist.innerHTML = row('Low Risk', counts.low, 'var(--safe)') + 
+                         row('Moderate', counts.mod, 'var(--warn)') + 
+                         row('High Risk', counts.high, 'var(--danger-2)') + 
+                         row('Very High', counts.vhigh, '#e63946') + 
+                         row('Critical', counts.crit, '#ff1e42');
+    }
+  }
+
+  // Render Risk by Modality
+  const chMod = document.getElementById('dashChartModality');
+  if (chMod) {
+    if (scanHistory.length === 0) {
+      chMod.innerHTML = '<div style="color:var(--text-faint); text-align:center; margin-top:20px;">No data</div>';
+    } else {
+      const mods = {};
+      scanHistory.forEach(h => {
+        const ty = h.contentType || 'UNKNOWN';
+        if(!mods[ty]) mods[ty] = {sum:0, count:0};
+        mods[ty].sum += Number(h.score);
+        mods[ty].count++;
+      });
+      const types = Object.keys(mods).sort((a,b)=> (mods[b].sum/mods[b].count) - (mods[a].sum/mods[a].count)).slice(0, 5);
+      chMod.innerHTML = types.map(ty => {
+        const avg = Math.round(mods[ty].sum / mods[ty].count);
+        const col = riskColor(riskTier(avg).cls);
+        return `<div style="display:flex; align-items:center; gap:6px;"><div style="width:70px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${ty.substring(0,10)}</div><div style="flex:1; height:6px; background:var(--panel-2); border-radius:3px;"><div style="height:100%; width:${avg}%; background:${col}; border-radius:3px;"></div></div><div style="width:30px; text-align:right; font-weight:bold;">${avg}%</div></div>`;
+      }).join('');
+    }
+  }
 }
 
 function renderHistory(){
@@ -4117,11 +4248,14 @@ document.getElementById('assistSendBtn')?.addEventListener('click', async ()=>{
     if(res && (res.response || res.answer)) {
       pushBotMsg(res.response || res.answer);
       return;
+    } else {
+      pushBotMsg("AI Assistant is temporarily unavailable.");
     }
   } catch(e) {
     console.warn("Backend assistant API fallback:", e);
+    pushBotMsg("AI Assistant is temporarily unavailable.");
   }
-  setTimeout(()=> pushBotMsg(assistantReply(q)), 300);
+  // setTimeout(()=> pushBotMsg(assistantReply(q)), 300);
 });
 document.getElementById('assistInput')?.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('assistSendBtn')?.click(); });
 

@@ -136,11 +136,13 @@ def analyze_assistant_query(
         scan_context_info = {
             "scan_id": context_data.get("id") or context_data.get("scanId") or 1,
             "scan_type": context_data.get("contentType") or context_data.get("scan_type") or "asset",
-            "classification": context_data.get("classification") or ("SUSPICIOUS" if float(context_data.get("score", 0)) > 50 else "AUTHENTIC"),
+            "classification": context_data.get("classification") or ("FAKE" if float(context_data.get("score", 0)) > 50 else "REAL"),
             "trust_score": context_data.get("trustScore") or context_data.get("trust_score") or (100 - int(context_data.get("score", 0))),
             "risk_score": context_data.get("score") or context_data.get("risk_score", 0),
+            "confidence": context_data.get("confidence", 90.0),
+            "model": context_data.get("raw", {}).get("model_name") or context_data.get("raw", {}).get("model") or "TrustGuard Multimodal Engine",
             "content_label": context_data.get("contentLabel") or context_data.get("contentType", "Asset Scan"),
-            "explanation": context_data.get("explanation") or ("; ".join([i.get("detail", i.get("label", "")) for i in context_data.get("indicators", [])]))
+            "explanation": context_data.get("explanation") or ("; ".join([i.get("detail", i.get("label", "")) for i in context_data.get("indicators", [])])) or "No detailed technical signals provided."
         }
 
     # 2. Pattern match query against cybersecurity threat knowledge base
@@ -156,45 +158,65 @@ def analyze_assistant_query(
     if scan_context_info:
         # Contextual response referring to specific scan
         stype = scan_context_info["scan_type"].upper()
-        sclass = scan_context_info["classification"]
-        srisk = scan_context_info["risk_score"]
-        strust = scan_context_info["trust_score"]
-
-        intro = (
-            f"Reviewing your Scan #{scan_context_info['scan_id']} ({stype} - {scan_context_info['content_label']}): "
-            f"The detection engine classified this asset as **{sclass}** with a Trust Score of **{strust}/100** "
-            f"and Risk Score of **{srisk}/100**.\n\n"
-        )
+        sclass = scan_context_info.get("classification", "UNKNOWN")
+        srisk = scan_context_info.get("risk_score", 0)
+        strust = scan_context_info.get("trust_score", 100 - srisk)
+        sconf = scan_context_info.get("confidence", 90.0)
+        smodel = scan_context_info.get("model", "TrustGuard Core Engine")
+        sexplanation = scan_context_info.get("explanation", "No detailed evidence available.")
         
+        # Determine threat level and general assessment
         if srisk > 50.0:
-            assessment = (
-                "**Urgent Security Assessment**: Significant synthetic artifacts or fraud indicators were detected. "
-                "Do NOT trust this content, authorize financial disbursements, or release credentials based on it."
-            )
+            assessment = "Urgent Security Assessment: Significant synthetic artifacts or fraud indicators were detected. Do NOT trust this content."
             threat_level = "CRITICAL" if srisk > 75.0 else "HIGH"
-        elif srisk > 25.0:
-            assessment = (
-                "**Moderate Caution Advised**: Mixed or borderline signals were detected. "
-                "The asset contains compression or spectral variations that warrant secondary out-of-band verification."
-            )
+            rec = "Block the sender, delete the file, and do not authorize any transactions."
+        elif srisk > 20.0:
+            assessment = "Moderate Caution Advised: Borderline signals were detected. Verify out-of-band."
             threat_level = "MODERATE"
+            rec = "Verify the source using an alternative communication channel."
         else:
-            assessment = (
-                "**Verified Authentic**: Sensor noise, acoustic dynamics, and forensic signatures are consistent with organic media. "
-                "Risk is minimal, though standard operational security practices still apply."
-            )
+            assessment = "Verified Authentic: Signals are consistent with organic media."
             threat_level = "LOW"
+            rec = "The content is safe to proceed, but always maintain standard security practices."
 
-        if best_match:
-            reply = f"{intro}{assessment}\n\n**Cybersecurity Guidance ({best_match['category']})**:\n{best_match['guidance']}"
-            actions = best_match["actions"]
+        reply = ""
+        actions = []
+
+        if "why" in q_lower and ("fake" in q_lower or "real" in q_lower or "risk" in q_lower or "dangerous" in q_lower):
+            reply = f"The risk is {srisk}/100 and it was classified as {sclass} because the detector found: {sexplanation}."
+            actions = ["View technical details", "Verify source"]
+        elif "what should i do" in q_lower or "recommendation" in q_lower or "action" in q_lower:
+            reply = f"Based on the {sclass} result (Risk: {srisk}%), my recommendation is: {rec}"
+            actions = ["Follow recommendation"]
+        elif "dangerous" in q_lower or "safe" in q_lower or "trust this" in q_lower:
+            reply = f"The risk score is {srisk}/100. {assessment}"
+            actions = ["Check confidence"]
+        elif "which model" in q_lower or "what model" in q_lower:
+            reply = f"This content was analyzed by the '{smodel}' backend engine with a confidence of {sconf}%."
+            actions = ["Read model documentation"]
+        elif "analyze" in q_lower or "summarize" in q_lower or "explain simply" in q_lower:
+            reply = (f"**Result:** {sclass}\n"
+                     f"**Confidence:** {sconf}%\n"
+                     f"**Risk:** {srisk}%\n"
+                     f"**Why:** {sexplanation}\n"
+                     f"**What to do next:** {rec}")
+            actions = ["Review full report"]
         else:
-            reply = f"{intro}{assessment}\n\n**Technical Details**: {scan_context_info['explanation']}"
-            actions = [
-                "Preserve original file metadata for forensic chain-of-custody.",
-                "Cross-verify identity using out-of-band communication.",
-                "Report confirmed threats to security operations."
-            ]
+            intro = (
+                f"Reviewing your Scan #{scan_context_info.get('scan_id', 1)} ({stype} - {scan_context_info.get('content_label', 'Content')}): "
+                f"The detection engine classified this asset as **{sclass}** with a Confidence of **{sconf}%** "
+                f"and Risk Score of **{srisk}/100**.\n\n"
+            )
+            if best_match:
+                reply = f"{intro}{assessment}\n\n**Cybersecurity Guidance ({best_match['category']})**:\n{best_match['guidance']}"
+                actions = best_match["actions"]
+            else:
+                reply = f"{intro}{assessment}\n\n**Technical Details**: {sexplanation}"
+                actions = [
+                    "Preserve original file metadata for forensic chain-of-custody.",
+                    "Cross-verify identity using out-of-band communication.",
+                    "Report confirmed threats to security operations."
+                ]
 
         confidence = 94.0
 

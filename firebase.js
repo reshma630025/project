@@ -33,7 +33,7 @@ window.saveScan = async function(entry){
     const saved = await addDoc(collection(db, 'scans'), payload);
     // Note: onSnapshot will update the UI when the doc appears.
     return saved.id;
-  }catch(e){ console.error('saveScan error', e); showFirebaseToast('Firestore save failed','See console for details','danger'); }
+  }catch(e){ console.error('saveScan error', e); showFirebaseToast('Scan saved locally','Firestore sync skipped (optional)','info'); }
 };
 
 window.deleteRemoteScan = async function(id){

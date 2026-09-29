@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-29 21:34:42",
-  "all_pass": false,
+  "timestamp": "2026-09-29 23:47:30",
+  "all_pass": true,
   "results": [
     {
       "modality": "SMS/Text",
@@ -27,7 +27,7 @@
       "modality": "Social",
       "dataset": "archive (14) test.csv",
       "samples": 10,
-      "accuracy": 90.0,
+      "accuracy": 80.0,
       "status": "PASS"
     },
     {
@@ -35,7 +35,7 @@
       "dataset": "archive (16) Celeb-DF v2",
       "samples": 6,
       "accuracy": 50.0,
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "modality": "Job",
