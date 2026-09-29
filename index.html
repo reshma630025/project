@@ -3471,7 +3471,7 @@ function handleFile(file, kind){
 }
 
 /* ============ MODULE 0: MULTIMODAL DEEPFAKE DETECTION ============ */
-document.getElementById('deepfakeAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('deepfakeAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('deepfakeAnalyzeBtn')?.addEventListener('click', async ()=>{
   const f = filesStore['deepfake'];
   const txt = document.getElementById('deepfakeText')?.value || '';
   const u = document.getElementById('deepfakeUrl')?.value || '';
@@ -3538,7 +3538,7 @@ document.getElementById('deepfakeResetBtn')?.addEventListener('click', ()=>{
 });
 
 /* ============ MODULE 1: IMAGE DEEPFAKE ============ */
-document.getElementById('imgAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('imgAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('imgAnalyzeBtn')?.addEventListener('click', async ()=>{
   const f = filesStore['image'];
   if(!f){ toast('No image selected', 'Upload an image first', 'warn'); return; }
   const pipe = document.getElementById('imgPipeline');
@@ -3564,7 +3564,7 @@ document.getElementById('imgAnalyzeBtn')?.addEventListener('click', async ()=>{\
 document.getElementById('imgResetBtn')?.addEventListener('click', ()=>{ delete filesStore['image']; const p=document.getElementById('prev-image'); if(p) p.innerHTML=''; const r=document.getElementById('imgResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 2: VIDEO DEEPFAKE (FRAME-BY-FRAME) ============ */
-document.getElementById('vidAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('vidAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('vidAnalyzeBtn')?.addEventListener('click', async ()=>{
   const f = filesStore['video'];
   if(!f){ toast('No video selected', 'Upload an MP4/MOV video first', 'warn'); return; }
   const pipe = document.getElementById('vidPipeline');
@@ -3595,7 +3595,7 @@ document.getElementById('vidAnalyzeBtn')?.addEventListener('click', async ()=>{\
 document.getElementById('vidResetBtn')?.addEventListener('click', ()=>{ delete filesStore['video']; const p=document.getElementById('prev-video'); if(p) p.innerHTML=''; const r=document.getElementById('vidResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 3: AUDIO DEEPFAKE (SPECTRAL WINDOWS) ============ */
-document.getElementById('audAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('audAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('audAnalyzeBtn')?.addEventListener('click', async ()=>{
   const f = filesStore['audio'];
   if(!f){ toast('No audio selected', 'Upload a WAV/MP3 audio file first', 'warn'); return; }
   const pipe = document.getElementById('audPipeline');
@@ -3625,7 +3625,7 @@ document.getElementById('audAnalyzeBtn')?.addEventListener('click', async ()=>{\
 document.getElementById('audResetBtn')?.addEventListener('click', ()=>{ delete filesStore['audio']; const p=document.getElementById('prev-audio'); if(p) p.innerHTML=''; const r=document.getElementById('audResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 4: TEXT SCAM ============ */
-document.getElementById('scamAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('scamAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('scamAnalyzeBtn')?.addEventListener('click', async ()=>{
   const txt = document.getElementById('scamText')?.value || '';
   if(!txt.trim()){ toast('Empty text', 'Paste a message first', 'warn'); return; }
   const resWrap = document.getElementById('scamResult');
@@ -3645,7 +3645,7 @@ document.getElementById('scamAnalyzeBtn')?.addEventListener('click', async ()=>{
 document.getElementById('scamResetBtn')?.addEventListener('click', ()=>{ const t=document.getElementById('scamText'); if(t) t.value=''; const r=document.getElementById('scamResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 4b: EMAIL PHISHING ============ */
-document.getElementById('emailAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('emailAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('emailAnalyzeBtn')?.addEventListener('click', async ()=>{
   const body = document.getElementById('emailBody')?.value || '';
   const subject = document.getElementById('emailSubject')?.value || '';
   const sender = document.getElementById('emailSender')?.value || '';
@@ -3682,7 +3682,7 @@ document.querySelectorAll('#jobModeTabs .tab-btn').forEach(btn => {
     activeJobMode = btn.dataset.jobmode || 'job';
   });
 });
-document.getElementById('jobAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('jobAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('jobAnalyzeBtn')?.addEventListener('click', async ()=>{
   const title = document.getElementById('jobTitle')?.value || '';
   const company = document.getElementById('jobCompany')?.value || '';
   const salary = document.getElementById('jobSalary')?.value || '';
@@ -3721,7 +3721,7 @@ document.getElementById('jobResetBtn')?.addEventListener('click', ()=>{
 });
 
 /* ============ MODULE 6: URL SCANNER ============ */
-document.getElementById('urlAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('urlAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('urlAnalyzeBtn')?.addEventListener('click', async ()=>{
   const u = document.getElementById('urlInput')?.value || '';
   if(!u.trim()){ toast('No URL', 'Paste a link first', 'warn'); return; }
   const resWrap = document.getElementById('urlResult');
@@ -3741,7 +3741,7 @@ document.getElementById('urlAnalyzeBtn')?.addEventListener('click', async ()=>{\
 document.getElementById('urlResetBtn')?.addEventListener('click', ()=>{ const u=document.getElementById('urlInput'); if(u) u.value=''; const r=document.getElementById('urlResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 7: OCR SCANNER ============ */
-document.getElementById('ocrRunBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('ocrRunBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('ocrRunBtn')?.addEventListener('click', async ()=>{
   const f = filesStore['ocr'];
   if(!f){ toast('No image uploaded', 'Upload a poster or screenshot first', 'warn'); return; }
   const resWrap = document.getElementById('ocrResult');
@@ -3795,7 +3795,7 @@ document.getElementById('ocrRunBtn')?.addEventListener('click', async ()=>{\ncon
 document.getElementById('ocrResetBtn')?.addEventListener('click', ()=>{ delete filesStore['ocr']; const p=document.getElementById('prev-ocr'); if(p) p.innerHTML=''; const r=document.getElementById('ocrResult'); if(r){ r.classList.remove('show'); r.innerHTML=''; } });
 
 /* ============ MODULE 8: COMPANY VERIFICATION ============ */
-document.getElementById('compVerifyBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('compVerifyBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'VERIFYING...'; } try {
+document.getElementById('compVerifyBtn')?.addEventListener('click', async ()=>{
   const cn = document.getElementById('compName')?.value || '';
   const cd = document.getElementById('compDomain')?.value || '';
   const ce = document.getElementById('compEmail')?.value || '';
@@ -3825,7 +3825,7 @@ document.querySelectorAll('.plat-card').forEach(btn => {
     activePlatform = btn.dataset.plat || 'General';
   });
 });
-document.getElementById('socialAnalyzeBtn')?.addEventListener('click', async ()=>{\nconst _btn = document.getElementById('socialAnalyzeBtn'); if(_btn) { _btn.classList.add('analyzing'); _btn.innerHTML = 'ANALYZING...'; } try {
+document.getElementById('socialAnalyzeBtn')?.addEventListener('click', async ()=>{
   const st = document.getElementById('socialText')?.value || '';
   const su = document.getElementById('socialUrl')?.value || '';
   if(!st.trim() && !su.trim()){ toast('No content', 'Paste a social post or link', 'warn'); return; }
