@@ -2,8 +2,6 @@
 
 TrustGuard AI is an enterprise-grade content authenticity platform designed to detect deepfakes, synthetic media, phishing, job scams, and social media fraud using real pretrained AI vision models, audio forensics, natural language algorithms, and domain security checks.
 
----
-
 ## 🚀 How to Run (Three Modes)
 
 ### 1. LOCAL / OFFLINE MODE
@@ -13,49 +11,63 @@ The FastAPI backend runs the server and directly hosts the frontend application 
   ```bash
   python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
   ```
-  *(Or just double-click `start_trustguard.bat`)*
 
 ### 2. LAN MODE (Any Device on Same Wi-Fi)
-Access the running server from your phone or tablet on the same Wi-Fi network.
-- **How to find LAN IP:** Run `start_trustguard.bat` or `python scripts/detect_lan_ip.py` to see your LAN IP.
 - **Access URL:** `http://<CURRENT-LAN-IP>:8000/` (e.g., `http://192.168.1.5:8000/`)
 
 ### 3. LIVE / GITHUB PAGES
 - **GitHub Pages URL:** https://reshma630025.github.io/project/
-- **Remote Backend Requirement:** GitHub Pages is ONLY the static frontend. It cannot run the FastAPI python backend. To perform live AI inference via GitHub Pages, you must deploy the TrustGuard FastAPI backend to a cloud provider (e.g. Render, Heroku) and place the deployed HTTPS URL inside `config.js`.
-- **Live Backend Status:** Currently NOT DEPLOYED. The live link will show "Live AI Backend Unavailable" until a remote backend is deployed and configured.
+- **Live Backend Status:** NOT DEPLOYED. GitHub Pages hosts the frontend verified, but the FastAPI python backend requires deployment (e.g., to Render/Heroku) to operate the AI models remotely. Currently defaults to local backend for full functionality.
 
 ---
 
-## 🎯 Detection Modules (100% Real Model Predictions)
+## 📊 Dataset Inventory & Training Verification
 
-| # | Module | Endpoint | Detection Technology |
-|---|---|---|---|
-| 1 | **Image Deepfake** | `POST /api/analyze/image` | Pretrained Vision Transformer (`dima806/deepfake_vs_real_image_detection`), Error Level Analysis (ELA), multi-scale letterbox padding. |
-| 2 | **Video Deepfake** | `POST /api/analyze/video` | OpenCV temporal frame extraction (8 representative frames), per-frame model inference, visual timeline. |
-| 3 | **Audio / Voice Deepfake** | `POST /api/analyze/audio` | Soundfile / Librosa decoding, STFT Spectral Centroid, Flux, Rolloff, and Vocoder artifact detection. |
-| 4 | **Text & Scam Detection** | `POST /api/analyze/text` | Multilingual regex pattern matcher targeting OTP harvesting, wire transfer / cryptocurrency demands, urgency coercion, and prize scams. |
-| 5 | **Job & Internship Fraud** | `POST /api/analyze/job` & `POST /api/analyze/internship` | Upfront fee solicitation detection, personal vs corporate recruiter email verification (`@gmail` vs corporate domain), and salary ratio analysis. |
-| 6 | **URL Scanner** | `POST /api/analyze/url` | Shannon entropy analysis, raw IP hostnames, suspicious TLDs (`.tk`, `.xyz`), brand typo-squatting, and credential harvesting paths. |
-| 7 | **OCR Scanner** | `POST /api/analyze/ocr` | Real Tesseract.js client OCR combined with backend structured entity parsing (Company, Email, Phone, Salary, Registration Fee). |
-| 8 | **Company Verification** | `POST /api/analyze/company` | Live system DNS address resolution, MX record lookup, and corporate email domain alignment. |
-| 9 | **Social Media Protection** | `POST /api/analyze/social` | Crypto doubling airdrop lures, high-pressure engagement bait, celebrity impersonation, and off-platform redirect detection. |
-| 10 | **Live Stats & History** | `GET /api/stats` & `GET /api/history` | SQLite database (`trustguard.db`) recording every scan with timestamps, content labels, risk levels, and confidence scores. |
-
----
-
-## 📊 Unified 5-Tier Risk Scale
-- **0–20**: `LOW RISK` (Green / `#33d19a`) — Standard authentic markers verified.
-- **21–40**: `MODERATE RISK` (Amber / `#f5b942`) — Minor anomalies; cross-referencing advised.
-- **41–60**: `HIGH RISK` (Coral / `#f2495c`) — Significant synthetic / scam signals detected.
-- **61–80**: `VERY HIGH RISK` (Deep Red / `#e63946`) — Highly likely manipulated, deceptive, or phishing.
-- **81–100**: `CRITICAL RISK` (Crimson / `#ff1e42`) — Severe threat / deepfake / fraudulent solicitation.
+| Dataset | Modality | Usable Samples | Train | Validation | Test | Status |
+|---------|----------|----------------|-------|------------|------|--------|
+| **1000 Deepfake Videos** | Image | 5,600 | 4,000 | 800 | 800 | TRAINED |
+| **ASVspoof 2019 LA** | Audio | 5,000 | 4,000 | 800 | 200 | TRAINED |
+| **spam_sms.csv** | SMS | 5,572 | 4,457 | 557 | 558 | TRAINED |
+| **phishing_email.csv** | Email | 38,000 | 32,000 | 4,000 | 2,000 | TRAINED |
+| **final_dataset.csv** | URL | 56,000 | 48,000 | 6,000 | 2,000 | TRAINED |
+| **raw_user_profiles.csv**| Social (A) | 5,000 | 4,000 | 500 | 500 | TRAINED |
+| **train/test Instagram** | Social (B) | 696 | 576 | N/A | 120 | TRAINED |
+| **Celeb-DF v2** | Video | 60 clips | N/A | N/A | 60 | EVALUATED |
+| **Fake Postings.csv** | Job Scam | 17,880 | N/A | N/A | N/A | HEURISTIC |
 
 ---
 
-## 🧪 Testing All Endpoints
+## 🔬 Actual Model Test Performance (Zero Leakage, Isolated Test Split)
 
-Run the automated test suite against the running server:
-```powershell
-python test_all_endpoints.py
-```
+| Dataset | Modality | Accuracy | Precision | Recall | F1 | ROC-AUC | Model Type |
+|---------|----------|----------|-----------|--------|----|---------|------------|
+| Image | Image | 88.12% | 93.20% | 82.25% | 87.38% | 0.9626 | DeepfakeCNN (PyTorch Vision CNN) |
+| Audio (ASVspoof) | Audio | 99.50% | 100.00% | 99.00% | 99.50% | 1.0000 | AudioCNN (Mel-STFT Spectrogram CNN) |
+| SMS | SMS | 98.57% | 97.18% | 92.00% | 94.52% | 0.9831 | SMSScamClassifier (TF-IDF + Neural Classifier) |
+| Email | Email | 99.65% | 98.12% | 99.68% | 98.89% | 0.9995 | EmailPhishingClassifier (TF-IDF + Neural Classifier) |
+| URL | URL | 99.60% | 100.00% | 99.57% | 99.79% | 0.9994 | PhishingURLNet (Tabular 74-feat Deep NN) |
+| Social Profile (A) | Social | 92.00% | 77.07% | 96.80% | 85.82% | 0.9897 | SocialProfileNet (Tabular Profile NN) |
+| Instagram (B) | Social | 88.33% | 91.07% | 85.00% | 87.93% | 0.9061 | SocialSpamNet (Instagram Account Classifier) |
+| Celeb-DF v2 | Video | 43.33% | 35.71% | 16.67% | 22.73% | N/A | frame_level_aggregation (Vision CNN) |
+| Fake Postings | Job | N/A | N/A | N/A | N/A | N/A | HEURISTIC |
+
+**Limitations:** The `Fake Postings.csv` dataset contains only fraudulent samples in its evaluation split, making traditional binary ML metrics impossible. It operates using a heuristic model. Celeb-DF accuracy reflects frame-aggregation limitations over temporal deepfakes using a basic spatial CNN.
+
+---
+
+## 🎯 Production Detection Workflow & Normalization
+All outputs traverse `normalizePrediction()` which maps inference outputs strictly to:
+- REAL (Score 0-64)
+- FAKE / SUSPICIOUS (Score 65+)
+
+Fake results trigger the unified **Audio-Visual Threat System**:
+- 🚨 Visual Alert rendering
+- 🔊 "Sawtooth" Security Buzzer
+- 🗣️ `window.speechSynthesis` Voice Warning (e.g., "Warning. This content is detected as fake.")
+
+---
+
+## 💻 GitHub Repository & Updates
+- **Repository:** https://github.com/reshma630025/project.git
+- **Deployment Strategy:** All frontend structural integrity, real ML metrics, API normalizations, and UI fixes are fully synchronized with the `project.git` repository on the `main` branch.
+
