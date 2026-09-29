@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-30 00:12:34",
+  "timestamp": "2026-09-30 01:11:08",
   "all_pass": false,
   "total_tests": 16,
   "passed_tests": 9,
@@ -13,7 +13,7 @@
       "correct": false,
       "confidence": 62.0,
       "risk_score": 62.0,
-      "latency": 0.032,
+      "latency": 0.034,
       "model": "DeepfakeCNN (PyTorch)"
     },
     {
@@ -25,7 +25,7 @@
       "correct": false,
       "confidence": 97.0,
       "risk_score": 3.0,
-      "latency": 0.017,
+      "latency": 0.025,
       "model": "DeepfakeCNN (PyTorch)"
     },
     {
@@ -37,7 +37,7 @@
       "correct": false,
       "confidence": 96.4,
       "risk_score": 95.8,
-      "latency": 0.035,
+      "latency": 0.362,
       "model": "AudioCNN (PyTorch)"
     },
     {
@@ -47,9 +47,9 @@
       "ground_truth": "FAKE",
       "prediction": "REAL",
       "correct": false,
-      "confidence": 96.2,
-      "risk_score": 26.0,
-      "latency": 0.02,
+      "confidence": 96.3,
+      "risk_score": 25.9,
+      "latency": 0.049,
       "model": "AudioCNN (PyTorch)"
     },
     {
@@ -61,7 +61,7 @@
       "correct": true,
       "confidence": 99.7,
       "risk_score": 4.0,
-      "latency": 0.027,
+      "latency": 0.225,
       "model": "SMSScamClassifier (PyTorch)"
     },
     {
@@ -73,7 +73,7 @@
       "correct": true,
       "confidence": 88.6,
       "risk_score": 80.3,
-      "latency": 0.002,
+      "latency": 0.014,
       "model": "SMSScamClassifier (PyTorch)"
     },
     {
@@ -85,7 +85,7 @@
       "correct": true,
       "confidence": 100.0,
       "risk_score": 4.0,
-      "latency": 0.003,
+      "latency": 0.013,
       "model": "EmailPhishingClassifier (PyTorch)"
     },
     {
@@ -97,7 +97,7 @@
       "correct": true,
       "confidence": 100.0,
       "risk_score": 100.0,
-      "latency": 0.002,
+      "latency": 0.014,
       "model": "EmailPhishingClassifier (PyTorch)"
     },
     {
@@ -109,7 +109,7 @@
       "correct": true,
       "confidence": 82.3,
       "risk_score": 12.4,
-      "latency": 0.001,
+      "latency": 0.022,
       "model": "PhishingURLNet (PyTorch)"
     },
     {
@@ -121,7 +121,7 @@
       "correct": false,
       "confidence": 99.0,
       "risk_score": 4.0,
-      "latency": 0.001,
+      "latency": 0.021,
       "model": "PhishingURLNet (PyTorch)"
     },
     {
@@ -133,7 +133,7 @@
       "correct": true,
       "confidence": null,
       "risk_score": 0.0,
-      "latency": 0.001,
+      "latency": 0.009,
       "model": "SocialProfileNet (PyTorch)"
     },
     {
@@ -145,7 +145,7 @@
       "correct": false,
       "confidence": null,
       "risk_score": 0.0,
-      "latency": 0.001,
+      "latency": 0.015,
       "model": "SocialSpamNet (PyTorch)"
     },
     {
@@ -157,7 +157,7 @@
       "correct": false,
       "confidence": 72.7,
       "risk_score": 68.0,
-      "latency": 0.49,
+      "latency": 4.22,
       "model": "DeepfakeCNN (Temporal Aggregation)"
     },
     {
@@ -169,7 +169,7 @@
       "correct": true,
       "confidence": 73.0,
       "risk_score": 68.7,
-      "latency": 0.49,
+      "latency": 2.83,
       "model": "DeepfakeCNN (Temporal Aggregation)"
     },
     {
@@ -181,7 +181,7 @@
       "correct": true,
       "confidence": 93.0,
       "risk_score": 5.0,
-      "latency": 0.002,
+      "latency": 0.007,
       "model": "Recruitment Fraud Heuristics & Domain Matcher"
     },
     {

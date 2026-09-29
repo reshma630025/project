@@ -846,48 +846,6 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
   display: block;
 }
 
-
-    .bento-card {
-        padding: 24px !important;
-        border-radius: 16px !important;
-        background: linear-gradient(145deg, rgba(22, 28, 45, 0.95), rgba(16, 21, 34, 0.9)) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
-    .bento-card:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-    }
-    .det-tile {
-        border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.03) !important;
-        padding: 16px !important;
-        background: rgba(255, 255, 255, 0.02) !important;
-        transition: background 0.2s ease, border-color 0.2s ease !important;
-    }
-    .det-tile:hover {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border-color: rgba(45, 217, 232, 0.2) !important;
-    }
-    .icon-chip {
-        width: 32px !important;
-        height: 32px !important;
-        border-radius: 8px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-    }
-    .b-val {
-        font-size: 28px !important;
-        font-weight: 800 !important;
-        letter-spacing: -0.5px !important;
-    }
-    .b-lbl {
-        font-weight: 600 !important;
-        opacity: 0.8 !important;
-    }
 </style>
 </head>
 <body data-theme="dark">
@@ -1089,9 +1047,9 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             <p class="page-sub">Analyze images, videos, audio, text, URLs, job offers and live content to identify AI-generated, manipulated, suspicious and fraudulent content.</p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
-            <div class="soc-status-badge" id="dashboardBackendShield">
+            <div class="soc-status-badge" id="socGlobalShield">
               <span class="dot"></span>
-              <span id="dashboardBackendText">Backend Status Unknown</span>
+              <span id="socGlobalText">PROTECTED · ENGINE ACTIVE</span>
             </div>
           </div>
         </div>
@@ -1099,26 +1057,36 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
         <!-- 5-ROW SPATIAL BENTO GRID -->
         <div class="bento-grid">
 
-          <!-- ROW 1: Card 1 (2x1) SECURITY OVERVIEW -->
+          <!-- ROW 1: Card 1 (2x1) AI Content Security Status -->
           <div class="bento-card bento-2x1">
             <div class="bento-head">
               <div class="title-group">
                 <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                 <div>
-                  <h3>SECURITY OVERVIEW</h3>
-                  <div style="font-size:10.5px; color:var(--text-faint);">Platform Security Operations</div>
+                  <h3>AI Content Security Status</h3>
+                  <div style="font-size:10.5px; color:var(--text-faint);">Live Platform Threat Assessment</div>
                 </div>
               </div>
-              <span class="tag">MONITORING</span>
+              <span class="tag">ACTIVE RADAR</span>
             </div>
-            <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
-              <div class="telemetry-row"><span style="color:var(--text-faint);">Current Status:</span><b id="bentoSecHeadline">Monitoring / Protected</b></div>
-              <div class="telemetry-row"><span style="color:var(--text-faint);">Latest Result:</span><b id="bentoLatestResult">NO SCANS</b></div>
-              <div class="telemetry-row"><span style="color:var(--text-faint);">Latest Risk:</span><b id="bentoLatestRisk">0%</b></div>
-              
-              <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-primary btn-sm" onclick="document.getElementById('dashScanTabs')?.scrollIntoView({behavior:'smooth'});">Quick Scan</button>
-                <button class="btn btn-outline btn-sm" data-goto="history">View History</button>
+            <div class="threat-meter-box">
+              <div class="threat-dial">
+                <svg viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="var(--line)" stroke-width="8"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="var(--safe)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="230" id="bentoThreatArc" style="transition: stroke-dashoffset 1s ease, stroke .5s ease; stroke-linecap: round;"/>
+                </svg>
+                <div class="threat-dial-center">
+                  <div class="threat-dial-num" id="bentoThreatScore" style="color:var(--safe);">0</div>
+                  <div class="threat-dial-lbl">SYSTEM RISK</div>
+                </div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-family:var(--disp); font-size:16px; font-weight:700; margin-bottom:4px;" id="bentoSecHeadline">System Nominal · Zero Critical Threats</div>
+                <p style="font-size:12px; color:var(--text-dim); line-height:1.45; margin-bottom:10px;" id="bentoSecDetail">All multi-signal detectors are actively screening media. No unverified anomalies detected.</p>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-primary btn-sm" onclick="document.getElementById('dashScanTabs')?.scrollIntoView({behavior:'smooth'});"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>Quick Scan</button>
+                  <button class="btn btn-outline btn-sm" data-goto="history">View History</button>
+                </div>
               </div>
             </div>
           </div>
@@ -1129,15 +1097,15 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
               <div class="title-group">
                 <div class="icon-chip" style="background:rgba(51,209,154,.12); color:var(--safe);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
                 <div>
-                  <h3 style="font-size:13.5px;">System Health</h3>
+                  <h3 style="font-size:13.5px;">Engine Health</h3>
                 </div>
               </div>
               <span class="tag" id="bentoEngineStatusTag" style="color:var(--safe);">ONLINE</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:3px;">
               <div class="telemetry-row"><span>Status</span><span style="color:var(--safe);" id="bentoStatusTxt">● Online</span></div>
-              <div class="telemetry-row"><span>Image Model</span><span style="color:var(--cyan);">Ready</span></div>
-              <div class="telemetry-row"><span>Audio Model</span><span style="color:var(--cyan);">Ready</span></div>
+              <div class="telemetry-row"><span>ViT Vision</span><span style="color:var(--cyan);">Ready</span></div>
+              <div class="telemetry-row"><span>Audio STFT</span><span style="color:var(--cyan);">Ready</span></div>
               <div class="telemetry-row"><span>Latency</span><span id="bentoLatency">24ms</span></div>
             </div>
           </div>
@@ -1164,20 +1132,24 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
 
           <!-- ROW 2: 4 Bento Live Counter Cards -->
           <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">TOTAL SCANS</span>
+            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Total Scans</span>
             <span class="b-val" id="dStat1" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--cyan); margin-top:4px;">0</span>
+            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Live SQLite database count</span>
           </div>
           <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">FAKE</span>
+            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">AI-Generated / Synthetic</span>
             <span class="b-val" id="dStat2" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--warn); margin-top:4px;">0</span>
+            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Diffusion & neural clones</span>
           </div>
           <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">HIGH RISK</span>
+            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Suspicious / Fraud Detected</span>
             <span class="b-val" id="dStat3" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--danger-2); margin-top:4px;">0</span>
+            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Scams, phishing & anomalies</span>
           </div>
           <div class="bento-card bento-1x1">
-            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">REAL</span>
+            <span class="b-lbl" style="font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.6px;">Likely Authentic</span>
             <span class="b-val" id="dStat4" style="font-family:var(--mono); font-size:22px; font-weight:700; color:var(--safe); margin-top:4px;">0</span>
+            <span style="font-size:10px; color:var(--text-faint); margin-top:2px;">Organic & verified genuine</span>
           </div>
 
           <!-- ROW 3: (4x1) MULTIMODAL CONTENT ANALYSIS & DETECTION CENTER -->
@@ -1186,58 +1158,58 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
               <div class="title-group">
                 <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
                 <div>
-                  <h3>Security Tools</h3>
-                  <div style="font-size:10.5px; color:var(--text-faint);">Access content verification modules directly.</div>
+                  <h3>Multimodal Threat Radar & Detection Matrix</h3>
+                  <div style="font-size:10.5px; color:var(--text-faint);">Connects to live pretrained neural transformers and signal processing engines</div>
                 </div>
               </div>
-              <span class="tag" style="color:var(--cyan);">MODULES READY</span>
+              <span class="tag" style="color:var(--cyan);">9 DETECTORS ONLINE</span>
             </div>
 
             <div class="detector-matrix">
               <div class="det-tile" data-goto="image">
                 <div class="det-tile-head"><div class="ic" style="background:rgba(45,217,232,.12); color:var(--cyan);">🖼️</div><b>Image Analysis</b></div>
-                <p>Analyze images for AI generation or synthetic modifications.</p>
-                <div class="det-tile-foot"><span>Image Detector</span><span>Scan Image →</span></div>
+                <p>Vision Transformer (ViT) & Error Level Analysis for synthetic artifacts & face swaps.</p>
+                <div class="det-tile-foot"><span>ViT Neural Radar</span><span>Scan Image →</span></div>
               </div>
               <div class="det-tile" data-goto="video">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(139,107,240,.12); color:var(--violet);">🎬</div><b>Video Analysis</b></div>
-                <p>Analyze videos for temporal inconsistencies or deepfakes.</p>
-                <div class="det-tile-foot"><span>Video Detector</span><span>Scan Video →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(139,107,240,.12); color:var(--violet);">🎬</div><b>Video Deepfake</b></div>
+                <p>Frame-by-frame temporal consistency sampling with clickable anomaly timeline.</p>
+                <div class="det-tile-foot"><span>Frame Sampling</span><span>Scan Video →</span></div>
               </div>
               <div class="det-tile" data-goto="audio">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(51,209,154,.12); color:var(--safe);">🎙️</div><b>Audio Analysis</b></div>
-                <p>Analyze audio for voice cloning and synthetic speech.</p>
-                <div class="det-tile-foot"><span>Audio Detector</span><span>Scan Audio →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(51,209,154,.12); color:var(--safe);">🎙️</div><b>Audio & Voice</b></div>
+                <p>Sliding-window STFT spectral centroid, flux & vocoder cutoff forensics.</p>
+                <div class="det-tile-foot"><span>Spectral DSP</span><span>Scan Audio →</span></div>
               </div>
               <div class="det-tile" data-goto="text">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(245,185,66,.12); color:var(--warn);">💬</div><b>Text & SMS</b></div>
-                <p>Scan texts and messages for phishing and scams.</p>
-                <div class="det-tile-foot"><span>Text Detector</span><span>Scan Text →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(245,185,66,.12); color:var(--warn);">💬</div><b>Text & Scam</b></div>
+                <p>Urgency pressure, OTP demands, financial wire solicitation across 11 languages.</p>
+                <div class="det-tile-foot"><span>NLP Heuristics</span><span>Scan Text →</span></div>
               </div>
               <div class="det-tile" data-goto="job">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(255,107,122,.12); color:var(--danger-2);">💼</div><b>Job Verification</b></div>
-                <p>Verify job offers and detect recruitment fraud.</p>
-                <div class="det-tile-foot"><span>Job Detector</span><span>Verify Offer →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(255,107,122,.12); color:var(--danger-2);">💼</div><b>Job & Internship</b></div>
+                <p>Scans registration fees, fake recruiters, domain spoofing & salary ratios.</p>
+                <div class="det-tile-foot"><span>Dual Detector</span><span>Verify Offer →</span></div>
               </div>
               <div class="det-tile" data-goto="url">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(45,217,232,.12); color:var(--cyan);">🔗</div><b>URL Inspection</b></div>
-                <p>Scan links for phishing and malicious domains.</p>
-                <div class="det-tile-foot"><span>URL Detector</span><span>Inspect URL →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(45,217,232,.12); color:var(--cyan);">🔗</div><b>URL Scanner</b></div>
+                <p>Shannon entropy, brand typosquatting, raw IP URLs, and malicious TLD detection.</p>
+                <div class="det-tile-foot"><span>Entropy Radar</span><span>Inspect URL →</span></div>
               </div>
               <div class="det-tile" data-goto="ocr">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(51,209,154,.12); color:var(--safe);">📄</div><b>OCR Scanner</b></div>
-                <p>Extract and verify text from document images.</p>
-                <div class="det-tile-foot"><span>OCR Detector</span><span>Scan Poster →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(51,209,154,.12); color:var(--safe);">📄</div><b>OCR Forensics</b></div>
+                <p>Tesseract client OCR + structured entity extraction (Company, Email, Phone, Fee).</p>
+                <div class="det-tile-foot"><span>Entity Parser</span><span>Scan Poster →</span></div>
               </div>
               <div class="det-tile" data-goto="company">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(139,107,240,.12); color:var(--violet);">🏢</div><b>Company Identity</b></div>
-                <p>Verify corporate domains and recruiter emails.</p>
-                <div class="det-tile-foot"><span>Company Detector</span><span>Verify Entity →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(139,107,240,.12); color:var(--violet);">🏢</div><b>Company Verification</b></div>
+                <p>Live DNS MX record lookup and recruiter corporate email alignment checks.</p>
+                <div class="det-tile-foot"><span>DNS Validation</span><span>Verify Entity →</span></div>
               </div>
               <div class="det-tile" data-goto="social">
-                <div class="det-tile-head"><div class="ic" style="background:rgba(245,185,66,.12); color:var(--warn);">📱</div><b>Social Media</b></div>
-                <p>Scan social profiles for bots and scams.</p>
-                <div class="det-tile-foot"><span>Social Detector</span><span>Scan Post →</span></div>
+                <div class="det-tile-head"><div class="ic" style="background:rgba(245,185,66,.12); color:var(--warn);">📱</div><b>Social Protection</b></div>
+                <p>Crypto airdrop doubling lures, VIP impersonation, and engagement bait analysis.</p>
+                <div class="det-tile-foot"><span>Social Shield</span><span>Scan Post →</span></div>
               </div>
             </div>
           </div>
@@ -1248,7 +1220,7 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
               <div class="title-group">
                 <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
                 <div>
-                  <h3 style="font-size:13.5px;">RISK ACTIVITY</h3>
+                  <h3 style="font-size:13.5px;">Risk Score Over Recent Scans</h3>
                 </div>
               </div>
             </div>
@@ -1257,9 +1229,33 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
             </div>
           </div>
 
+          <div class="bento-card bento-1x1">
+            <div class="bento-head">
+              <div class="title-group">
+                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+                <div>
+                  <h3 style="font-size:13.5px;">Risk Distribution</h3>
+                </div>
+              </div>
+            </div>
+            <div id="dashChartDistribution" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; font-size:11px;">
+              <!-- JS will inject distribution -->
+            </div>
+          </div>
           
-          
-          
+          <div class="bento-card bento-1x1">
+            <div class="bento-head">
+              <div class="title-group">
+                <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg></div>
+                <div>
+                  <h3 style="font-size:13.5px;">Risk by Modality</h3>
+                </div>
+              </div>
+            </div>
+            <div id="dashChartModality" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; font-size:11px;">
+              <!-- JS will inject modality risk -->
+            </div>
+          </div>
 
           <!-- ROW 5: Card 1 (2x1) Recent Scans -->
           <div class="bento-card bento-2x1">
@@ -1715,7 +1711,7 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
               <div class="chip-row">
                 <span class="type-chip">Image ViT</span>
                 <span class="type-chip">Video Frames</span>
-                <span class="type-chip">Audio Model</span>
+                <span class="type-chip">Audio STFT</span>
                 <span class="type-chip">Multimodal Fusion</span>
               </div>
             </div>
@@ -4152,41 +4148,31 @@ function updateDashboardStats(){
   }
   threatScore = Math.max(0, Math.min(100, threatScore));
 
+  const scoreEl = document.getElementById('bentoThreatScore');
+  const arcEl = document.getElementById('bentoThreatArc');
   const headlineEl = document.getElementById('bentoSecHeadline');
-  const latestResultEl = document.getElementById('bentoLatestResult');
-  const latestRiskEl = document.getElementById('bentoLatestRisk');
-  const shieldEl = document.getElementById('dashboardBackendShield');
-  const shieldTxt = document.getElementById('dashboardBackendText');
+  const detailEl = document.getElementById('bentoSecDetail');
+  const shieldEl = document.getElementById('socGlobalShield');
+  const shieldTxt = document.getElementById('socGlobalText');
 
   const tier = riskTier(threatScore);
   const color = riskColor(tier.cls);
 
-  if (latestRiskEl) {
-      latestRiskEl.textContent = `${threatScore}%`;
-      latestRiskEl.style.color = color;
-  }
-  
-  if (latestResultEl) {
-      if (scanHistory.length > 0) {
-          const lastScan = scanHistory[0];
-          latestResultEl.textContent = lastScan.isGenuine ? 'REAL' : 'FAKE';
-          latestResultEl.style.color = lastScan.isGenuine ? 'var(--safe)' : 'var(--danger-2)';
-      } else {
-          latestResultEl.textContent = 'NO SCANS';
-          latestResultEl.style.color = 'var(--text-faint)';
-      }
-  }
-
-  // NOTE: bentoSecHeadline is handled inside checkBackendEngineStatus to show "Backend Offline" or "Monitoring"
-  // but we can set a fallback here
-  if (headlineEl && !headlineEl.textContent.includes('Offline')) {
-      headlineEl.textContent = 'Monitoring / Protected';
+  if (scoreEl) { scoreEl.textContent = threatScore; scoreEl.style.color = color; }
+  if (arcEl) {
+    const totalCirc = 251.2;
+    arcEl.style.strokeDashoffset = totalCirc - (threatScore / 100) * totalCirc;
+    arcEl.style.stroke = color;
   }
 
   if (statCounters.threats > 0 || threatScore > 40) {
+    if (headlineEl) headlineEl.textContent = `Elevated Threat Activity · ${statCounters.threats} Anomalies Flagged`;
+    if (detailEl) detailEl.textContent = `${statCounters.threats} suspicious items flagged in recent scans. Multi-signal radar active.`;
     if (shieldEl) shieldEl.className = 'soc-status-badge alert';
     if (shieldTxt) shieldTxt.textContent = 'ALERT · ACTIVE THREATS';
   } else {
+    if (headlineEl) headlineEl.textContent = 'System Nominal · Zero Critical Threats';
+    if (detailEl) detailEl.textContent = 'All multi-signal detectors are actively screening media. No unverified anomalies detected.';
     if (shieldEl) shieldEl.className = 'soc-status-badge';
     if (shieldTxt) shieldTxt.textContent = 'PROTECTED · ENGINE ACTIVE';
   }
@@ -4506,41 +4492,162 @@ document.getElementById('assistInput')?.addEventListener('keydown', e=>{ if(e.ke
 
 /* ============ ENGINE STATUS POLLING ============ */
 async function checkBackendEngineStatus() {
+  const badge = document.getElementById('engineBadge');
+  const latEl = document.getElementById('bentoLatency');
+  const statusTxt = document.getElementById('bentoStatusTxt');
+  const tag = document.getElementById('bentoEngineStatusTag');
   const offlineBanner = document.getElementById('backendOfflineBanner');
-  const dbShield = document.getElementById('dashboardBackendShield');
-  const dbTxt = document.getElementById('dashboardBackendText');
-  
-  const bentoHeadline = document.getElementById('bentoSecHeadline');
-  const bentoStatusTag = document.getElementById('bentoEngineStatusTag');
-  const bentoStatusTxt = document.getElementById('bentoStatusTxt');
-  
-  const baseUrl = window.API_BASE_URL || 'http://127.0.0.1:8000';
-  try {
-    const res = await fetch(baseUrl + '/api/status', { mode: 'cors' });
-    if (!res.ok) throw new Error('API not ok');
-    const data = await res.json();
-    
-    // Online
-    if(offlineBanner) offlineBanner.style.display = 'none';
-    if(dbShield) dbShield.className = 'soc-status-badge';
-    if(dbTxt) dbTxt.textContent = 'Local Backend Connected';
-    
-    if(bentoHeadline) { bentoHeadline.textContent = 'Monitoring / Protected'; bentoHeadline.style.color = 'var(--text)'; }
-    if(bentoStatusTag) { bentoStatusTag.textContent = 'ONLINE'; bentoStatusTag.style.color = 'var(--safe)'; }
-    if(bentoStatusTxt) { bentoStatusTxt.innerHTML = '<span style="color:var(--safe);">● Online</span>'; }
+  const t0 = performance.now();
+  const baseUrl = window.API_BASE_URL || (typeof getTrustGuardApiBase === 'function' ? getTrustGuardApiBase() : 'http://127.0.0.1:8000');
+  const isGitHub = window.location.hostname.includes('github.io') || window.location.hostname.includes('pages.dev');
 
-  } catch(e) {
-    if(offlineBanner) offlineBanner.style.display = 'block';
-    if(dbShield) dbShield.className = 'soc-status-badge alert';
-    if(dbTxt) dbTxt.textContent = 'Backend Offline';
-    
-    if(bentoHeadline) { bentoHeadline.textContent = 'Backend Offline'; bentoHeadline.style.color = 'var(--danger-2)'; }
-    if(bentoStatusTag) { bentoStatusTag.textContent = 'OFFLINE'; bentoStatusTag.style.color = 'var(--danger-2)'; }
-    if(bentoStatusTxt) { bentoStatusTxt.innerHTML = '<span style="color:var(--danger-2);">● Offline</span>'; }
+  try {
+    const res = await fetch(`${baseUrl}/api/status`);
+    const lat = Math.max(1, Math.round(performance.now() - t0));
+    if (latEl) latEl.textContent = `${lat}ms`;
+
+    const contentType = res.headers.get('content-type') || '';
+    if (res.ok && contentType.includes('application/json')) {
+      const data = await res.json();
+      if (offlineBanner) offlineBanner.style.display = 'none';
+      if (badge) {
+        badge.innerHTML = `<i class="dot" style="background:var(--safe); box-shadow:0 0 6px var(--safe);"></i>● ${isGitHub ? 'Live AI Backend Connected' : 'Local Backend Connected'}`;
+        badge.style.color = 'var(--safe)';
+      }
+      if (statusTxt) { statusTxt.textContent = `● Online (${isGitHub ? 'Live AI Ready' : 'Local AI Ready'})`; statusTxt.style.color = 'var(--safe)'; }
+      if (tag) { tag.textContent = isGitHub ? 'ONLINE / LIVE' : 'ONLINE / LOCAL'; tag.style.color = 'var(--safe)'; }
+    } else {
+      if (offlineBanner) {
+        offlineBanner.style.display = 'block';
+        if (isGitHub) offlineBanner.innerHTML = '<b>● Live AI Backend Unavailable.</b> Please try again later.';
+      }
+      if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● ${isGitHub ? 'Live AI Backend Unavailable' : 'Local Backend Stopped'}`; badge.style.color = 'var(--danger-2)'; }
+      if (statusTxt) { statusTxt.textContent = '● Stopped'; statusTxt.style.color = 'var(--danger-2)'; }
+      if (tag) { tag.textContent = 'STOPPED'; tag.style.color = 'var(--danger-2)'; }
+    }
+  } catch (e) {
+    if (offlineBanner) {
+      offlineBanner.style.display = 'block';
+      if (isGitHub) offlineBanner.innerHTML = '<b>● Live AI Backend Unavailable.</b> Please try again later.';
+    }
+    if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● ${isGitHub ? 'Live AI Backend Unavailable' : 'Local Backend Stopped'}`; badge.style.color = 'var(--danger-2)'; }
+    if (latEl) latEl.textContent = '—';
+    if (statusTxt) { statusTxt.textContent = isGitHub ? '● Live Backend Offline (Please try again later)' : '● Backend Stopped (Run start_trustguard.bat)'; statusTxt.style.color = 'var(--danger-2)'; }
+    if (tag) { tag.textContent = isGitHub ? 'BACKEND UNAVAILABLE' : 'BACKEND STOPPED'; tag.style.color = 'var(--danger-2)'; }
   }
 }
 
-setInterval(checkBackendEngineStatus, 15000);
+
+/* ============ SOUND & ALERT CENTER SYSTEM ============ */
+let alertSoundActive = true;
+let alertHistoryList = [];
+
+function playRiskAlertSound() {
+  if (!alertSoundActive) return;
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.35);
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.35);
+  } catch(e) {
+    console.warn('Audio alert not available:', e);
+  }
+}
+
+document.getElementById('muteAlertSoundBtn')?.addEventListener('click', (e) => {
+  alertSoundActive = !alertSoundActive;
+  e.target.textContent = alertSoundActive ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+  toast('Alert Sound', alertSoundActive ? 'Audio alert enabled' : 'Audio alert muted', 'info');
+});
+
+function triggerHighRiskAlert(norm, contentType, contentLabel) {
+  if (norm.riskScore < 65) return;
+
+  const banner = document.getElementById('highRiskAlertBanner');
+  const bTitle = document.getElementById('alertBannerTitle');
+  const bDesc = document.getElementById('alertBannerDesc');
+
+  if (banner && bTitle && bDesc) {
+    bTitle.textContent = `ALERT: HIGH RISK CONTENT DETECTED (${contentType.toUpperCase()})`;
+    bDesc.textContent = `${contentLabel}: Evaluated with ${norm.confidence}% confidence and ${norm.riskScore}/100 risk. Flagged as ${norm.classification}.`;
+    banner.style.display = 'flex';
+  }
+
+  toast('HIGH RISK CONTENT DETECTED', `${contentType}: ${norm.classification} (${norm.riskScore}/100 Risk)`, 'danger');
+  playRiskAlertSound();
+
+  if ("Notification" in window && Notification.permission === "granted") {
+    try {
+      new Notification("TrustGuard AI: HIGH RISK CONTENT DETECTED", {
+        body: `${contentType}: ${norm.classification} (${norm.riskScore}/100 Risk)`
+      });
+    } catch(e){}
+  }
+
+  // Add to Alert Center
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const alertEntry = {
+    time: timeStr,
+    title: `${contentType} Flagged: ${norm.classification}`,
+    detail: `${contentLabel} · Risk: ${norm.riskScore}/100 · Conf: ${norm.confidence}%`
+  };
+  alertHistoryList.unshift(alertEntry);
+  renderAlertCenter();
+
+  // Highlight notification dot
+  const badgeDot = document.querySelector('.badge-dot');
+  if (badgeDot) badgeDot.style.display = 'block';
+}
+
+function renderAlertCenter() {
+  const container = document.getElementById('alertCenterList');
+  if (!container) return;
+  if (alertHistoryList.length === 0) {
+    container.innerHTML = '<div style="padding:14px; text-align:center; color:var(--text-faint); font-size:11.5px;">No high-risk alerts recorded yet.</div>';
+    return;
+  }
+  container.innerHTML = alertHistoryList.map(a => `
+    <div class="notif-item">
+      <div class="notif-dot" style="background:var(--danger)"></div>
+      <div class="notif-text">
+        <b style="color:var(--danger-2);">${a.title}</b>
+        <span>${a.time} — ${a.detail}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('clearAlertsBtn')?.addEventListener('click', () => {
+  alertHistoryList = [];
+  renderAlertCenter();
+  const badgeDot = document.querySelector('.badge-dot');
+  if (badgeDot) badgeDot.style.display = 'none';
+  toast('Alerts Cleared', 'Alert center history reset', 'info');
+});
+
+/* ============ INITIALIZATION ============ */
+window.addEventListener('load', async ()=>{
+  pushBotMsg("Hi, I am the TrustGuard AI SOC Assistant. Run a scan anywhere across the platform and I will provide explainable intelligence.");
+  const bUrlInput = document.getElementById('settingBackendUrl');
+  if (bUrlInput) {
+    bUrlInput.value = localStorage.getItem('trustguard_backend_url') || window.API_BASE_URL || 'http://127.0.0.1:8000';
+  }
+  await checkAuthSession();
+  await checkBackendEngineStatus();
+  await fetchDashboardStats();
+  await fetchHistoryFromBackend();
+  setInterval(checkBackendEngineStatus, 15000);
 });
 
 /* ============ UNIFIED DRAG & DROP & UNIVERSAL VERIFY SYSTEM ============ */
