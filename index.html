@@ -2647,96 +2647,67 @@ function renderUnifiedResultCard(norm, opts) {
   const modelName = norm.raw.model_name || norm.raw.model || (opts.contentType.toLowerCase().includes('audio') ? 'AudioAntiSpoofCNN (STFT-Forensic)' : opts.contentType.toLowerCase().includes('video') ? 'DeepfakeCNN (Temporal Aggregation)' : opts.contentType.toLowerCase().includes('image') ? 'DeepfakeCNN (ViT-Forensic)' : 'Neural Heuristic Fraud Engine');
   const latencyMs = Math.round(norm.raw.processing_time_ms || (norm.raw.processing_time ? norm.raw.processing_time * 1000 : 85));
 
+  const simpleExplanation = isGenuine ? "Low risk. The content appears authentic." : (norm.riskScore <= 50 ? "Moderate risk. The content should be checked carefully." : "High risk. The content appears fake or manipulated.");
+  const riskStatusText = isGenuine ? "✓ Low Risk" : (norm.riskScore <= 50 ? "⚠ Moderate Risk" : "⚠ High Risk");
+  const mainClassification = isGenuine ? "REAL" : "FAKE";
+  const mainColor = isGenuine ? "var(--safe)" : "var(--danger-2)";
+
   return `
-    <div class="card card-pad" style="border-top: 3px solid ${bannerColor}; margin-top:16px;">
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; border-bottom:1px solid var(--line); padding-bottom:8px; flex-wrap:wrap; gap:8px;">
-        <div style="font-family:var(--disp); font-size:11.5px; font-weight:700; letter-spacing:1.5px; color:var(--text-faint); text-transform:uppercase;">
-          ${opts.contentType.toUpperCase()} FORENSIC DOSSIER · <span style="color:var(--text)">${opts.contentLabel}</span>
-        </div>
-        <span class="chip-tag" style="color:var(--cyan); border-color:rgba(45,217,232,.3); font-size:11px;">Real Pretrained Model</span>
+    <div class="card card-pad" style="border-top: 3px solid ${mainColor}; margin-top:16px; text-align:center; padding: 30px 20px;">
+      
+      <div style="font-size:13px; color:var(--text-dim); margin-bottom:24px;">
+        Analyzed:<br><b style="color:var(--text); font-family:var(--mono);">${opts.contentLabel}</b>
       </div>
-
-      <div class="pred-banner ${bannerClass}">
-        <div class="pred-icon-box">${bannerIcon}</div>
-        <div>
-          <div class="pred-title">${bannerTitle}</div>
-          <div class="pred-sub">${bannerSub}</div>
-        </div>
+      
+      <div style="font-size:12px; color:var(--text-faint); letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">
+        ANALYSIS RESULT
       </div>
-
-      <div class="pred-grid">
-        <div class="pred-card"><div class="val" style="color:var(--safe);">${norm.confidence}%</div><div class="lbl">Confidence</div></div>
-        <div class="pred-card"><div class="val" style="color:${isGenuine ? 'var(--safe)' : 'var(--danger-2)'};">${norm.riskScore}/100</div><div class="lbl">Risk Score</div></div>
-        <div class="pred-card"><div class="val" style="color:${riskColor(norm.tier.cls)};">${norm.riskLevel}</div><div class="lbl">Risk Level</div></div>
-        <div class="pred-card"><div class="val" style="color:var(--cyan);">${norm.authenticity}%</div><div class="lbl">Authenticity</div></div>
+      
+      <div style="font-size:42px; font-weight:900; color:${mainColor}; letter-spacing:4px; margin-bottom:16px;">
+        ${mainClassification}
       </div>
-
-      ${timelineHTML}
-      ${segmentHTML}
-
-      <div class="card indicators" style="margin-top:14px; margin-bottom:14px;">
-        <h3>${isGenuine ? '✓ Verified Authenticity Indicators' : '🚨 Detected Anomaly Indicators'}</h3>
-        ${indicatorsHTML}
+      
+      <div style="font-size:16px; color:var(--text); margin-bottom:30px; font-weight:500;">
+        ${simpleExplanation}
       </div>
-
-      <div class="explanation-card">
-        <h4>Forensic Explanation</h4>
-        <p>${norm.explanation}</p>
+      
+      <div style="display:flex; justify-content:center; gap:40px; font-size:17px; margin-bottom:20px;">
+        <div><span style="color:var(--text-dim);">Confidence:</span> <b style="color:var(--text);">${norm.confidence}%</b></div>
+        <div><span style="color:var(--text-dim);">Risk:</span> <b style="color:${mainColor};">${norm.riskScore}%</b></div>
       </div>
-
-      <div class="recommend-box" style="background:${riskColor(norm.tier.cls)}12; border-color:${riskColor(norm.tier.cls)}44; color:${riskColor(norm.tier.cls)};">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
-        <div><b>${rec.title}</b><p style="color:var(--text-dim)">${rec.text}</p></div>
-      </div>
-
-      <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:14px; padding:10px 14px; background:rgba(0,0,0,0.25); border:1px solid var(--line); border-radius:8px; font-size:11.5px; font-family:var(--mono); color:var(--text-faint);">
-        <div><span style="color:var(--text-dim);">Model Engine:</span> <b style="color:var(--cyan);">${modelName}</b></div>
-        <div><span style="color:var(--text-dim);">Latency:</span> <b style="color:var(--safe);">${latencyMs}ms</b></div>
-        <div><span style="color:var(--text-dim);">Trust Score:</span> <b style="color:var(--cyan);">${norm.trustScore}/100</b></div>
-        <div><span style="color:var(--text-dim);">Probability:</span> <b style="color:${isGenuine ? 'var(--safe)' : 'var(--danger-2)'};">${isGenuine ? norm.authenticity : norm.riskScore}%</b></div>
-      </div>
-
-      <div style="margin-top:10px; padding:10px 14px; background:rgba(120,150,200,.04); border:1px solid var(--line); border-radius:8px; font-size:11px; color:var(--text-faint);">
-        <b style="color:var(--text-dim);">Forensic Limitations:</b>
-        <div style="margin-top:3px;">${(norm.limitations && norm.limitations.length) ? norm.limitations.map(l => '• ' + l).join(' ') : '• AI detections are probabilistic models trained on forensic benchmarks. Critical digital assets should always be evaluated alongside cryptographic provenance.'}</div>
+      
+      <div style="font-size:15px; font-weight:bold; color:${mainColor}; margin-bottom:30px;">
+        ${riskStatusText}
       </div>
 
       <!-- Expandable Technical Details Accordion -->
-      <div style="margin-top:10px;">
-        <button class="tech-details-btn" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.td-arrow').textContent = this.nextElementSibling.classList.contains('open') ? '▴' : '▾';">
-          <span>🔬 View Technical Details</span> <span class="td-arrow">▾</span>
+      <div style="margin-top:20px; text-align:left;">
+        <button class="tech-details-btn" style="width:100%; text-align:left; background:var(--panel-2); border:1px solid var(--line); border-radius:6px; padding:12px 16px; cursor:pointer; color:var(--text-faint); font-size:12px;" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.td-arrow').textContent = this.nextElementSibling.classList.contains('open') ? '▴' : '▾';">
+          <span style="font-weight:bold; letter-spacing:0.5px;">🔬 VIEW TECHNICAL DETAILS</span> <span class="td-arrow" style="float:right;">▾</span>
         </button>
-        <div class="tech-details-panel">
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:8px;">
-            <div><span style="color:var(--text-faint); display:block; font-size:10px; text-transform:uppercase;">Architecture / Engine</span><b style="color:var(--cyan); font-family:var(--mono);">${norm.raw.model_name || norm.raw.model || modelName}</b></div>
-            <div><span style="color:var(--text-faint); display:block; font-size:10px; text-transform:uppercase;">Model Weights Source</span><b style="color:var(--text); font-family:var(--mono);">${norm.raw.weights_path || norm.raw.model_path || 'Production Weights (PyTorch best_model.pt)'}</b></div>
-            <div><span style="color:var(--text-faint); display:block; font-size:10px; text-transform:uppercase;">Training Dataset</span><b style="color:var(--text);">${norm.raw.training_dataset || norm.raw.dataset_name || (opts.contentType.toLowerCase().includes('social') ? 'Instagram Benchmark (archive (14))' : opts.contentType.toLowerCase().includes('image') ? '1000 Videos Deepfake Benchmark' : opts.contentType.toLowerCase().includes('audio') ? 'ASVspoof 2019 LA Benchmark' : 'Kaggle Threat Benchmark')}</b></div>
-            <div><span style="color:var(--text-faint); display:block; font-size:10px; text-transform:uppercase;">Inference Latency</span><b style="color:var(--safe); font-family:var(--mono);">${latencyMs} ms</b></div>
+        <div class="tech-details-panel" style="display:none; margin-top:12px; padding:16px; background:rgba(0,0,0,0.2); border:1px solid var(--line); border-radius:6px;">
+          
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:16px;">
+            <div><span style="color:var(--text-dim); display:block; font-size:10px; text-transform:uppercase;">Model Engine</span><b style="color:var(--cyan); font-family:var(--mono); font-size:11px;">${modelName}</b></div>
+            <div><span style="color:var(--text-dim); display:block; font-size:10px; text-transform:uppercase;">Latency</span><b style="color:var(--safe); font-family:var(--mono); font-size:11px;">${latencyMs} ms</b></div>
+            <div><span style="color:var(--text-dim); display:block; font-size:10px; text-transform:uppercase;">Internal Trust Score</span><b style="color:var(--cyan); font-family:var(--mono); font-size:11px;">${norm.trustScore}/100</b></div>
+            <div><span style="color:var(--text-dim); display:block; font-size:10px; text-transform:uppercase;">Authenticity Probability</span><b style="color:var(--safe); font-family:var(--mono); font-size:11px;">${norm.authenticity}%</b></div>
           </div>
-          ${norm.raw.features ? `
-            <div style="margin-top:8px; border-top:1px solid var(--line); padding-top:6px;">
-              <span style="color:var(--text-faint); font-size:10.5px; text-transform:uppercase;">Extracted Feature Vector:</span>
-              <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
-                ${Object.entries(norm.raw.features).map(([k, v]) => `<span style="background:var(--panel-2); border:1px solid var(--line); padding:2px 6px; border-radius:4px; font-family:var(--mono); font-size:10.5px;"><span style="color:var(--text-dim);">${k}:</span> <b style="color:var(--cyan);">${typeof v === 'number' ? (Number.isInteger(v) ? v : v.toFixed(3)) : v}</b></span>`).join('')}
-              </div>
-            </div>
-          ` : ''}
-          ${norm.raw.probabilities ? `
-            <div style="margin-top:8px; border-top:1px solid var(--line); padding-top:6px;">
-              <span style="color:var(--text-faint); font-size:10.5px; text-transform:uppercase;">Class Probability Distribution:</span>
-              <div style="display:flex; gap:12px; margin-top:4px; font-family:var(--mono); font-size:11px;">
-                <div>Authentic / Real: <b style="color:var(--safe);">${((norm.raw.probabilities.real ?? norm.raw.probabilities.authentic ?? (100 - norm.riskScore)/100) * 100).toFixed(1)}%</b></div>
-                <div>Synthetic / Threat: <b style="color:var(--danger-2);">${((norm.raw.probabilities.fake ?? norm.raw.probabilities.spam ?? norm.raw.probabilities.phishing ?? norm.riskScore/100) * 100).toFixed(1)}%</b></div>
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      </div>
+          
+          ${timelineHTML ? '<div style="margin-bottom:16px; border-top:1px solid var(--line); padding-top:12px;">' + timelineHTML + '</div>' : ''}
+          ${segmentHTML ? '<div style="margin-bottom:16px; border-top:1px solid var(--line); padding-top:12px;">' + segmentHTML + '</div>' : ''}
+          
+          <div style="border-top:1px solid var(--line); padding-top:12px; margin-bottom:16px;">
+            <span style="color:var(--text-dim); font-size:11px; text-transform:uppercase; margin-bottom:8px; display:block;">Forensic Indicators</span>
+            ${indicatorsHTML}
+          </div>
+          
+          <div style="border-top:1px solid var(--line); padding-top:12px;">
+            <span style="color:var(--text-dim); font-size:11px; text-transform:uppercase; margin-bottom:8px; display:block;">Forensic Limitations</span>
+            <div style="font-size:11px; color:var(--text-faint); line-height:1.5;">${(norm.limitations && norm.limitations.length) ? norm.limitations.map(l => '• ' + l).join('<br>') : '• AI detections are probabilistic models trained on forensic benchmarks. Critical digital assets should always be evaluated alongside cryptographic provenance.'}</div>
+          </div>
 
-      <div class="action-row" style="margin-top:16px;">
-        <button class="btn btn-ghost btn-sm speak-btn">🔊 Read Voiceover</button>
-        <button class="btn btn-outline btn-sm view-report-btn">View Full Report</button>
-        <button class="btn btn-outline btn-sm ask-ai-btn">Ask AI Assistant</button>
+        </div>
       </div>
     </div>
   `;
