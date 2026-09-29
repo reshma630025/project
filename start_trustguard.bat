@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-title TrustGuard AI — Permanent Local Server & Platform Launcher
+title "TrustGuard AI - Permanent Local Server Launcher"
 
 cd /d "%~dp0"
 
@@ -47,7 +47,7 @@ netstat -ano | findstr ":8000" | findstr "LISTENING" >nul 2>&1
 if %ERRORLEVEL% equ 0 (
     echo       Server is already running on port 8000. Skipping duplicate process launch.
 ) else (
-    echo       Starting FastAPI backend on 0.0.0.0:8000 (Python)...
+    echo       Starting FastAPI backend on 0.0.0.0:8000 via Python...
     start "TrustGuard AI Server" /min python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
 )
 
@@ -56,7 +56,7 @@ echo [5/6] Waiting for backend /api/status health check to respond...
 set "SERVER_READY=0"
 for /l %%k in (1,1,20) do (
     if "!SERVER_READY!"=="0" (
-        python -c "import urllib.request; resp=urllib.request.urlopen('http://127.0.0.1:8000/api/status', timeout=1); exit(0 if resp.getcode()==200 else 1)" >nul 2>&1
+        python scripts\check_health.py >nul 2>&1
         if !ERRORLEVEL! equ 0 (
             set "SERVER_READY=1"
         ) else (
@@ -66,7 +66,7 @@ for /l %%k in (1,1,20) do (
 )
 
 if "!SERVER_READY!"=="1" (
-    echo       Backend health check passed: OK (HTTP 200).
+    echo       Backend health check passed: OK HTTP 200
 ) else (
     echo       Warning: Backend took longer than expected to report status.
 )

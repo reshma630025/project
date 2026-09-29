@@ -1,4 +1,6 @@
-"""
+import os
+
+engine_code = r'''"""
 TrustGuard AI — Cybersecurity & Fraud Analysis Assistant Engine
 Local Context-Aware Assistant (No external LLM configured)
 """
@@ -129,10 +131,6 @@ def analyze_assistant_query(
         elif "check this result again" in q_lower:
             reply = "I cannot automatically re-trigger the scan from here, but you can click the 'Reset' button on the left panel and click 'Analyze' to re-run the file through the backend models."
             
-        # Analyze another file
-        elif "analyze another" in q_lower or "another file" in q_lower or "new file" in q_lower:
-            reply = "To analyze another file, you can either click 'Reset' in the current module to clear the view, or switch to a different module from the sidebar and drag your new file into the dropzone."
-            
         else:
             # Fallback for scan context
             reply = f"I'm looking at your current scan (a {c_type}). It was classified as {c_class} with {c_conf}% confidence. What would you like to know about it?"
@@ -161,3 +159,7 @@ def analyze_assistant_query(
         "timestamp": time.time(),
         "context_used": True
     }
+'''
+
+with open(r"C:\Users\paruc\OneDrive\Desktop\project\backend\detectors\assistant_engine.py", "w", encoding="utf-8") as f:
+    f.write(engine_code)

@@ -1453,13 +1453,14 @@ async def assistant_endpoint(request: Request):
     if not query:
         raise HTTPException(status_code=400, detail="Query message required.")
     scan_id = data.get("scan_id") or data.get("scanId")
-    context_data = data.get("context") or data.get("context_data")
+    context_data = data.get("context") or data.get("context_data") or data.get("current_scan_context")
+    conversation_history = data.get("conversation_history", [])
     if scan_id is not None:
         try:
             scan_id = int(scan_id)
         except Exception:
             scan_id = None
-    res = analyze_assistant_query(str(query), context_scan_id=scan_id, context_data=context_data)
+    res = analyze_assistant_query(str(query), context_scan_id=scan_id, context_data=context_data, history=conversation_history)
     return res
 
 
