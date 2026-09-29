@@ -27,9 +27,9 @@ function getTrustGuardApiBase() {
     const protocol = window.location.protocol || '';
     const hostname = window.location.hostname || '';
 
-    // If hosted on GitHub Pages or other static CDNs, ALWAYS point to the REMOTE backend.
+    // If hosted on GitHub Pages or other static CDNs, point to REMOTE backend if configured, else fallback to local backend for testing
     if (hostname.includes('github.io') || hostname.includes('pages.dev') || hostname.includes('netlify.app') || hostname.includes('vercel.app')) {
-      return remoteUrl || 'https://unconfigured-remote-backend.com'; // Force a remote URL so it doesn't leak to localhost
+      return remoteUrl || 'http://127.0.0.1:8000'; // Fallback to localhost so testing still works if no remote is configured
     }
 
     // If opened via local file protocol (file://)
