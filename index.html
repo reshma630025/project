@@ -1312,17 +1312,42 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
           </div>
 
           <!-- ROW 4: DASHBOARD CHARTS -->
-          <div class="bento-card bento-2x1">
-            <div class="bento-head">
+          <div class="bento-card bento-4x1" style="display:flex; flex-direction:column; padding-bottom:15px; grid-column: span 4;">
+            <div class="bento-head" style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:12px; margin-bottom:15px;">
               <div class="title-group">
                 <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
                 <div>
-                  <h3 style="font-size:13.5px;">RISK ACTIVITY</h3>
+                  <h3 style="font-size:14px; font-weight:600; letter-spacing:0.5px;">RISK ACTIVITY & SECURITY ANALYTICS</h3>
+                  <div style="font-size:11px; color:var(--text-faint); margin-top:2px;">Real-time risk overview from analyzed content</div>
                 </div>
               </div>
             </div>
-            <div id="dashChartRiskHistory" style="flex:1; display:flex; align-items:flex-end; gap:6px; padding-top:10px; padding-left:15px; height:120px;">
-              <!-- JS will inject SVG graph -->
+            
+            <div style="display:flex; gap:40px; margin-bottom:20px; padding:0 20px;">
+              <div>
+                <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Current Risk</div>
+                <div id="analyticsCurrentRisk" style="font-size:24px; font-weight:700; color:var(--text);">—</div>
+              </div>
+              <div>
+                <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Average Risk</div>
+                <div id="analyticsAvgRisk" style="font-size:24px; font-weight:700; color:var(--text);">—</div>
+              </div>
+              <div>
+                <div style="font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Total Scans</div>
+                <div id="analyticsTotalScans" style="font-size:24px; font-weight:700; color:var(--text);">0</div>
+              </div>
+            </div>
+
+            <div id="dashChartRiskHistoryLarge" style="flex:1; width:100%; min-height:220px; position:relative; padding:0 20px;">
+               <!-- JS will inject SVG graph -->
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px; margin-left:20px; margin-right:20px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.05); font-size:11px; color:var(--text-dim); font-weight:600;">
+              <div style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--safe);"></span> 0–20 LOW</div>
+              <div style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--cyan);"></span> 21–40 MODERATE</div>
+              <div style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--warn);"></span> 41–60 HIGH</div>
+              <div style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#e63946;"></span> 61–80 VERY HIGH</div>
+              <div style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#ff1e42;"></span> 81–100 CRITICAL</div>
             </div>
           </div>
 
@@ -4321,21 +4346,37 @@ function updateDashboardStats(){
     if (shieldTxt) shieldTxt.textContent = 'PROTECTED · ENGINE ACTIVE';
   }
 
-  // Render Risk History Chart (Animated SVG Line Graph)
-  const chHist = document.getElementById('dashChartRiskHistory');
+  // Render Large Risk History Chart (Animated SVG Line Graph)
+  const chHist = document.getElementById('dashChartRiskHistoryLarge');
+  
   if (chHist && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
      chHist.style.opacity = '0';
      setTimeout(() => { chHist.style.transition = 'opacity 0.8s ease'; chHist.style.opacity = '1'; }, 100);
   }
 
+  const cRiskEl = document.getElementById('analyticsCurrentRisk');
+  const aRiskEl = document.getElementById('analyticsAvgRisk');
+  const tScansEl = document.getElementById('analyticsTotalScans');
+
   if (chHist) {
     if (scanHistory.length === 0) {
-      chHist.innerHTML = '<div style="width:100%; text-align:center; color:var(--text-faint); font-size:12px; margin-top:40px;">NO SCAN HISTORY YET</div>';
+      if (cRiskEl) cRiskEl.textContent = '—';
+      if (aRiskEl) aRiskEl.textContent = '—';
+      if (tScansEl) tScansEl.textContent = '0';
+      chHist.innerHTML = '<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:var(--text-faint); font-size:14px; text-transform:uppercase; letter-spacing:1px; background:rgba(0,0,0,0.2); border-radius:8px;">NO SCAN HISTORY AVAILABLE</div>';
     } else {
-      const recent = scanHistory.slice(0, 15).reverse();
+      const recent = scanHistory.slice(0, 30).reverse(); // More points for large graph
+      
+      const currentRisk = recent[recent.length - 1].score;
+      const avgRisk = Math.round(recent.reduce((a, b) => a + Number(b.score), 0) / recent.length);
+      
+      if (cRiskEl) cRiskEl.textContent = `${currentRisk}/100`;
+      if (aRiskEl) aRiskEl.textContent = `${avgRisk}/100`;
+      if (tScansEl) tScansEl.textContent = statCounters.scans;
+
       const points = recent.map((h, i) => {
         const x = (i / (Math.max(1, recent.length - 1))) * 100;
-        const y = 100 - h.score;
+        const y = 100 - h.score; // 0 risk is bottom (100), 100 risk is top (0)
         return { x, y, score: h.score };
       });
       
@@ -4343,61 +4384,62 @@ function updateDashboardStats(){
       for(let i = 1; i < points.length; i++) {
         const prev = points[i-1];
         const curr = points[i];
-        // Smooth curve
         const cx = (prev.x + curr.x) / 2;
         pathD += ` C ${cx} ${prev.y} ${cx} ${curr.y} ${curr.x} ${curr.y}`;
       }
       
       let areaD = pathD + ` L 100 100 L 0 100 Z`;
       
-      const circles = points.map(p => 
-        `<circle cx="${p.x}" cy="${p.y}" r="2" fill="var(--panel)" stroke="var(--cyan)" stroke-width="1.5"><title>Risk: ${p.score}</title></circle>`
-      ).join('');
+      const circles = points.map((p, i) => {
+        const isLast = i === points.length - 1;
+        const radius = isLast ? '3.5' : '2.5';
+        const strokeW = isLast ? '2' : '1.5';
+        const color = p.score > 80 ? '#ff1e42' : p.score > 60 ? '#e63946' : p.score > 40 ? 'var(--warn)' : p.score > 20 ? 'var(--cyan)' : 'var(--safe)';
+        const pulse = isLast ? `<circle cx="${p.x}" cy="${p.y}" r="6" fill="${color}" opacity="0.3"><animate attributeName="r" values="4;10;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite"/></circle>` : '';
+        return `${pulse}<circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="var(--panel)" stroke="${color}" stroke-width="${strokeW}"><title>Risk: ${p.score}</title></circle>`;
+      }).join('');
 
       chHist.innerHTML = `
         <style>
-
-/* Background Animation Layers */
-.bg-layer { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: -1; }
-.bg-grid {
-  background-image: linear-gradient(to right, rgba(45,217,232,0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(45,217,232,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: bgScroll 40s linear infinite;
-}
-.bg-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(139,107,240,0.02) 0%, transparent 60%);
-  animation: pulseGlow 10s ease-in-out infinite alternate;
-}
-@keyframes bgScroll { from { background-position: 0 0; } to { background-position: -400px -400px; } }
-@keyframes pulseGlow { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.5); opacity: 1; } }
-
-          .soc-hist-line { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawHistLine 1.5s ease forwards; }
+          .soc-hist-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawHistLine 1.5s ease-out forwards; }
           @keyframes drawHistLine { to { stroke-dashoffset: 0; } }
           .soc-hist-points { opacity: 0; animation: fadeHist 0.5s ease 1s forwards; }
           @keyframes fadeHist { to { opacity: 1; } }
           .soc-hist-area { opacity: 0; animation: fadeArea 1s ease 0.5s forwards; }
-          @keyframes fadeArea { to { opacity: 0.1; } }
+          @keyframes fadeArea { to { opacity: 0.15; } }
         </style>
         <div style="width:100%; height:100%; position:relative;">
           <svg width="100%" height="100%" viewBox="0 -10 100 120" preserveAspectRatio="none" style="overflow:visible; font-family:monospace;">
             <!-- Grid -->
-            <line x1="0" y1="0" x2="100" y2="0" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="20" x2="100" y2="20" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="40" x2="100" y2="40" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="60" x2="100" y2="60" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="80" x2="100" y2="80" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
-            <line x1="0" y1="100" x2="100" y2="100" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            <line x1="0" y1="0" x2="100" y2="0" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+            <line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,0.05)" stroke-dasharray="1,2" stroke-width="0.5"/>
+            <line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,0.05)" stroke-dasharray="1,2" stroke-width="0.5"/>
+            <line x1="0" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.05)" stroke-dasharray="1,2" stroke-width="0.5"/>
+            <line x1="0" y1="80" x2="100" y2="80" stroke="rgba(255,255,255,0.05)" stroke-dasharray="1,2" stroke-width="0.5"/>
+            <line x1="0" y1="100" x2="100" y2="100" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
             
-            <text x="-5" y="4" fill="var(--text-faint)" font-size="6" text-anchor="end">100</text>
-            <text x="-5" y="54" fill="var(--text-faint)" font-size="6" text-anchor="end">50</text>
-            <text x="-5" y="104" fill="var(--text-faint)" font-size="6" text-anchor="end">0</text>
+            <!-- Axis Labels -->
+            <text x="-2" y="3" fill="var(--text-faint)" font-size="4" text-anchor="end">100 ┤</text>
+            <text x="-2" y="23" fill="var(--text-faint)" font-size="4" text-anchor="end">80 ┤</text>
+            <text x="-2" y="43" fill="var(--text-faint)" font-size="4" text-anchor="end">60 ┤</text>
+            <text x="-2" y="63" fill="var(--text-faint)" font-size="4" text-anchor="end">40 ┤</text>
+            <text x="-2" y="83" fill="var(--text-faint)" font-size="4" text-anchor="end">20 ┤</text>
+            <text x="-2" y="103" fill="var(--text-faint)" font-size="4" text-anchor="end">0 ┤</text>
+            <text x="50" y="112" fill="var(--text-dim)" font-size="4" text-anchor="middle">Recent scans / time</text>
+
+            <!-- Gradient for Area -->
+            <defs>
+              <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
             
             <!-- Area -->
-            <path d="${areaD}" fill="var(--cyan)" class="soc-hist-area" />
+            <path d="${areaD}" fill="url(#areaGradient)" class="soc-hist-area" />
             
             <!-- Line -->
-            <path d="${pathD}" fill="none" stroke="var(--cyan)" stroke-width="2" class="soc-hist-line" style="filter: drop-shadow(0 0 3px var(--cyan));" />
+            <path d="${pathD}" fill="none" stroke="var(--cyan)" stroke-width="1.2" class="soc-hist-line" style="filter: drop-shadow(0 2px 4px rgba(45,217,232,0.4));" />
             
             <!-- Points -->
             <g class="soc-hist-points">
@@ -4406,52 +4448,6 @@ function updateDashboardStats(){
           </svg>
         </div>
       `;
-    }
-  }
-
-  // Render Risk Distribution
-  const chDist = document.getElementById('dashChartDistribution');
-  if (chDist) {
-    if (scanHistory.length === 0) {
-      chDist.innerHTML = '<div style="color:var(--text-faint); text-align:center; margin-top:20px;">No data</div>';
-    } else {
-      const counts = {low:0, mod:0, high:0, vhigh:0, crit:0};
-      scanHistory.forEach(h => {
-        if(h.score<=20) counts.low++;
-        else if(h.score<=40) counts.mod++;
-        else if(h.score<=60) counts.high++;
-        else if(h.score<=80) counts.vhigh++;
-        else counts.crit++;
-      });
-      const max = Math.max(1, counts.low, counts.mod, counts.high, counts.vhigh, counts.crit);
-      const row = (lbl, val, col) => `<div style="display:flex; align-items:center; gap:6px;"><div style="width:70px;">${lbl}</div><div style="flex:1; height:6px; background:var(--panel-2); border-radius:3px;"><div style="height:100%; width:${(val/max)*100}%; background:${col}; border-radius:3px;"></div></div><div style="width:20px; text-align:right; font-weight:bold;">${val}</div></div>`;
-      chDist.innerHTML = row('Low Risk', counts.low, 'var(--safe)') + 
-                         row('Moderate', counts.mod, 'var(--warn)') + 
-                         row('High Risk', counts.high, 'var(--danger-2)') + 
-                         row('Very High', counts.vhigh, '#e63946') + 
-                         row('Critical', counts.crit, '#ff1e42');
-    }
-  }
-
-  // Render Risk by Modality
-  const chMod = document.getElementById('dashChartModality');
-  if (chMod) {
-    if (scanHistory.length === 0) {
-      chMod.innerHTML = '<div style="color:var(--text-faint); text-align:center; margin-top:20px;">No data</div>';
-    } else {
-      const mods = {};
-      scanHistory.forEach(h => {
-        const ty = h.contentType || 'UNKNOWN';
-        if(!mods[ty]) mods[ty] = {sum:0, count:0};
-        mods[ty].sum += Number(h.score);
-        mods[ty].count++;
-      });
-      const types = Object.keys(mods).sort((a,b)=> (mods[b].sum/mods[b].count) - (mods[a].sum/mods[a].count)).slice(0, 5);
-      chMod.innerHTML = types.map(ty => {
-        const avg = Math.round(mods[ty].sum / mods[ty].count);
-        const col = riskColor(riskTier(avg).cls);
-        return `<div style="display:flex; align-items:center; gap:6px;"><div style="width:70px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${ty.substring(0,10)}</div><div style="flex:1; height:6px; background:var(--panel-2); border-radius:3px;"><div style="height:100%; width:${avg}%; background:${col}; border-radius:3px;"></div></div><div style="width:30px; text-align:right; font-weight:bold;">${avg}%</div></div>`;
-      }).join('');
     }
   }
 }
