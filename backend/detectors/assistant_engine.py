@@ -194,6 +194,9 @@ def analyze_assistant_query(
         elif "which model" in q_lower or "what model" in q_lower:
             reply = f"This content was analyzed by the '{smodel}' backend engine with a confidence of {sconf}%."
             actions = ["Read model documentation"]
+        elif "graph mean" in q_lower or "explain graph" in q_lower or "what is this graph" in q_lower:
+            reply = f"The graph represents the content's risk score from 0 to 100. Your current scan has a risk score of {srisk}."
+            actions = ["View technical details"]
         elif "analyze" in q_lower or "summarize" in q_lower or "explain simply" in q_lower:
             reply = (f"**Result:** {sclass}\n"
                      f"**Confidence:** {sconf}%\n"

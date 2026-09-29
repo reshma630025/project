@@ -1205,8 +1205,8 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
                 </div>
               </div>
             </div>
-            <div id="dashChartRiskHistory" style="flex:1; display:flex; align-items:flex-end; gap:6px; padding-top:10px; height:120px;">
-              <!-- JS will inject bars -->
+            <div id="dashChartRiskHistory" style="flex:1; display:flex; align-items:flex-end; gap:6px; padding-top:10px; padding-left:15px; height:120px;">
+              <!-- JS will inject SVG graph -->
             </div>
           </div>
 
@@ -2318,7 +2318,7 @@ table.data-table tr:hover td{background:rgba(120,150,200,.04);}
   <div class="assist-body" id="assistBody"></div>
   <div style="padding:10px; background:var(--panel-2); border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px;" id="assistQuickBtnRow">
     <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='Why is this fake?'; document.getElementById('assistSendBtn').click();">Why is this fake?</button>
-    <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='Why is the risk high?'; document.getElementById('assistSendBtn').click();">Why is risk high?</button>
+    <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='What does this graph mean?'; document.getElementById('assistSendBtn').click();">What is this graph?</button>
     <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='What should I do?'; document.getElementById('assistSendBtn').click();">What should I do?</button>
     <button class="btn btn-ghost btn-sm" style="font-size:10px; padding:4px 8px; border:1px solid var(--line);" onclick="document.getElementById('assistInput').value='Explain simply.'; document.getElementById('assistSendBtn').click();">Explain simply.</button>
   </div>
@@ -2700,52 +2700,114 @@ function renderUnifiedResultCard(norm, opts) {
   const modelName = norm.raw.model_name || norm.raw.model || (opts.contentType.toLowerCase().includes('audio') ? 'AudioAntiSpoofCNN (STFT-Forensic)' : opts.contentType.toLowerCase().includes('video') ? 'DeepfakeCNN (Temporal Aggregation)' : opts.contentType.toLowerCase().includes('image') ? 'DeepfakeCNN (ViT-Forensic)' : 'Neural Heuristic Fraud Engine');
   const latencyMs = Math.round(norm.raw.processing_time_ms || (norm.raw.processing_time ? norm.raw.processing_time * 1000 : 85));
 
-  const simpleExplanation = isGenuine ? "Low risk. The content appears authentic." : (norm.riskScore <= 50 ? "Moderate risk. The content should be checked carefully." : "High risk. The content appears fake or manipulated.");
-  const riskStatusText = isGenuine ? "✓ Low Risk" : (norm.riskScore <= 50 ? "⚠ Moderate Risk" : "⚠ High Risk");
+  const tierInfo = riskTier(norm.riskScore);
+  const simpleExplanation = isGenuine ? "This content appears authentic and has minimal risk factors." : 
+                           (norm.riskScore <= 50 ? "This content exhibits some anomalies and should be verified." : "This content shows significant manipulation or fraud indicators.");
+  const riskStatusText = tierInfo.label + " RISK";
   const mainClassification = isGenuine ? "REAL" : "FAKE";
-  const mainColor = isGenuine ? "var(--safe)" : "var(--danger-2)";
+  const mainColor = isGenuine ? "var(--safe)" : (norm.riskScore > 75 ? "#ff1e42" : "var(--danger-2)");
+  
+  // Calculate SVG Y-coordinate for risk (100 = top=0, 0 = bottom=100)
+  const yCoord = 100 - norm.riskScore;
 
   return `
-    <div class="card card-pad" style="border-top: 3px solid ${mainColor}; margin-top:16px; text-align:center; padding: 30px 20px;">
+    <style>
+      .soc-draw-line { stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      @keyframes drawLine { to { stroke-dashoffset: 0; } }
+      .soc-fade-in { opacity: 0; animation: fadeIn 1s ease 1s forwards; }
+      @keyframes fadeIn { to { opacity: 0.15; } }
+      .soc-fade-in-label { opacity: 0; animation: fadeInLabel 1s ease 1.5s forwards; }
+      @keyframes fadeInLabel { to { opacity: 1; } }
+      .soc-pulse-node { opacity: 0; animation: fadeInNode 0.5s ease 1.5s forwards, pulseNode 2s infinite ease-in-out 1.5s; }
+      @keyframes fadeInNode { to { opacity: 1; } }
+      @keyframes pulseNode { 0% { filter: drop-shadow(0 0 2px ${mainColor}); } 50% { filter: drop-shadow(0 0 8px ${mainColor}); stroke-width:3; } 100% { filter: drop-shadow(0 0 2px ${mainColor}); } }
+      .soc-scan-sweep { animation: scanSweep 2s linear infinite; }
+      @keyframes scanSweep { 0% { transform: translateX(10%); opacity:0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateX(95%); opacity:0; } }
+    </style>
+
+    <div class="card card-pad" style="border-top: 3px solid ${mainColor}; margin-top:16px; text-align:left; padding: 24px;">
       
-      <div style="font-size:13px; color:var(--text-dim); margin-bottom:24px;">
+      <div style="font-size:13px; color:var(--text-dim); margin-bottom:20px;">
         Analyzed:<br><b style="color:var(--text); font-family:var(--mono);">${opts.contentLabel}</b>
       </div>
       
-      <div style="font-size:12px; color:var(--text-faint); letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">
-        ANALYSIS RESULT
-      </div>
-      
-      <div style="font-size:42px; font-weight:900; color:${mainColor}; letter-spacing:4px; margin-bottom:16px;">
-        ${mainClassification}
-      </div>
-      
-      <div style="font-size:16px; color:var(--text); margin-bottom:20px; font-weight:500;">
-        ${simpleExplanation}
-      </div>
-      
-      <!-- CONFIDENCE GRAPH -->
-      <div style="margin-bottom:12px; text-align:left; max-width:400px; margin-left:auto; margin-right:auto;">
-        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim); margin-bottom:4px; font-weight:bold; letter-spacing:1px;">
-          <span>CONFIDENCE</span>
-          <span style="color:var(--text);">${norm.confidence}%</span>
+      <div class="result-2col-layout" style="display:flex; flex-wrap:wrap; gap:20px; align-items:stretch;">
+        
+        <!-- LEFT: ANALYSIS RESULT -->
+        <div style="flex:1; min-width:260px; background:var(--panel-2); border-radius:12px; padding:24px; border:1px solid var(--line); display:flex; flex-direction:column; justify-content:center;">
+          <div style="font-size:12px; color:var(--text-faint); letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">
+            ANALYSIS RESULT
+          </div>
+          <div style="font-size:38px; font-weight:900; color:${mainColor}; letter-spacing:3px; margin-bottom:16px;">
+            ${mainClassification}
+          </div>
+          <div style="font-size:15px; color:var(--text); margin-bottom:24px; line-height:1.5;">
+            ${simpleExplanation}
+          </div>
+          
+          <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim); margin-bottom:6px; font-weight:bold; letter-spacing:1px;">
+              <span>MODEL CONFIDENCE</span>
+              <span style="color:var(--text);">${norm.confidence}%</span>
+            </div>
+            <div style="width:100%; height:6px; background:rgba(0,0,0,0.4); border-radius:3px; overflow:hidden;">
+              <div style="height:100%; width:${norm.confidence}%; background:var(--cyan); border-radius:3px;"></div>
+            </div>
+          </div>
+          
+          <div style="font-size:14px; font-weight:bold; color:${mainColor}; display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:${mainColor}; box-shadow:0 0 8px ${mainColor};"></span>
+            ${riskStatusText.toUpperCase()}
+          </div>
         </div>
-        <div style="width:100%; height:8px; background:var(--panel-2); border-radius:4px; overflow:hidden; border:1px solid var(--line);">
-          <div style="height:100%; width:${norm.confidence}%; background:var(--cyan); border-radius:4px;"></div>
-        </div>
-      </div>
 
-      <!-- RISK GRAPH -->
-      <div style="margin-bottom:24px; text-align:left; max-width:400px; margin-left:auto; margin-right:auto;">
-        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim); margin-bottom:4px; font-weight:bold; letter-spacing:1px;">
-          <span>RISK SCORE</span>
-          <span style="color:${mainColor};">${norm.riskScore}%</span>
-        </div>
-        <div style="width:100%; height:12px; background:var(--panel-2); border-radius:6px; overflow:hidden; border:1px solid var(--line);">
-          <div style="height:100%; width:${norm.riskScore}%; background:${mainColor}; border-radius:6px;"></div>
-        </div>
-        <div style="text-align:center; font-size:13px; font-weight:bold; color:${mainColor}; margin-top:8px;">
-          ${riskStatusText}
+        <!-- RIGHT: RISK ANALYTICS GRAPH -->
+        <div style="flex:1; min-width:280px; background:var(--panel-2); border-radius:12px; padding:24px; border:1px solid var(--line); display:flex; flex-direction:column; position:relative; overflow:hidden;">
+          <div style="font-size:12px; color:var(--text-faint); letter-spacing:2px; margin-bottom:16px; text-transform:uppercase; z-index:2; display:flex; justify-content:space-between;">
+            <span>RISK ANALYTICS</span>
+            <span style="color:var(--text-dim); text-transform:none;">Risk: ${norm.riskScore}/100</span>
+          </div>
+          
+          <div style="flex:1; position:relative; min-height:160px; z-index:1;" class="soc-risk-graph-container">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style="overflow:visible; font-family:monospace;">
+              
+              <!-- Grid lines (Y-axis 0 to 100) -->
+              <line x1="0" y1="0" x2="100" y2="0" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+              <line x1="0" y1="20" x2="100" y2="20" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+              <line x1="0" y1="40" x2="100" y2="40" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+              <line x1="0" y1="60" x2="100" y2="60" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+              <line x1="0" y1="80" x2="100" y2="80" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+              <line x1="0" y1="100" x2="100" y2="100" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+              
+              <!-- Y-axis labels -->
+              <text x="2" y="4" fill="var(--text-faint)" font-size="5">100</text>
+              <text x="5" y="24" fill="var(--text-faint)" font-size="5">80</text>
+              <text x="5" y="44" fill="var(--text-faint)" font-size="5">60</text>
+              <text x="5" y="64" fill="var(--text-faint)" font-size="5">40</text>
+              <text x="5" y="84" fill="var(--text-faint)" font-size="5">20</text>
+              <text x="5" y="99" fill="var(--text-faint)" font-size="5">0</text>
+              
+              <!-- Scanning effect -->
+              <line x1="0" y1="0" x2="0" y2="100" stroke="var(--cyan)" stroke-width="0.5" class="soc-scan-sweep" />
+              
+              <!-- The Line: Start at 0 risk (y=100), curve to final risk -->
+              <path d="M 15 100 C 40 100 60 ${yCoord} 90 ${yCoord}" 
+                    fill="none" stroke="${mainColor}" stroke-width="2"
+                    class="soc-draw-line" style="filter: drop-shadow(0 0 4px ${mainColor});" />
+                    
+              <!-- Area Fill -->
+              <path d="M 15 100 C 40 100 60 ${yCoord} 90 ${yCoord} L 90 100 L 15 100 Z" 
+                    fill="${mainColor}" class="soc-fade-in" />
+                    
+              <!-- Final Node -->
+              <circle cx="90" cy="${yCoord}" r="2.5" fill="var(--panel-2)" stroke="${mainColor}" class="soc-pulse-node" />
+            </svg>
+            
+            <!-- Final Value Label -->
+            <div class="soc-fade-in-label" style="position:absolute; left:92%; top:calc(${yCoord}% - 8px); transform:translateY(-50%); background:var(--panel); border:1px solid ${mainColor}; color:${mainColor}; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold; box-shadow:0 0 8px rgba(0,0,0,0.5);">
+              ${norm.riskScore}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -4031,20 +4093,70 @@ function updateDashboardStats(){
     if (shieldTxt) shieldTxt.textContent = 'PROTECTED · ENGINE ACTIVE';
   }
 
-  // Render Risk History Chart
+  // Render Risk History Chart (Animated SVG Line Graph)
   const chHist = document.getElementById('dashChartRiskHistory');
   if (chHist) {
     if (scanHistory.length === 0) {
-      chHist.innerHTML = '<div style="width:100%; text-align:center; color:var(--text-faint); font-size:12px; margin-top:20px;">No scan history available yet.</div>';
+      chHist.innerHTML = '<div style="width:100%; text-align:center; color:var(--text-faint); font-size:12px; margin-top:40px;">NO SCAN HISTORY YET</div>';
     } else {
-      const recent = scanHistory.slice(0, 20).reverse();
-      chHist.innerHTML = recent.map(h => {
-        const hPct = Math.max(5, h.score);
-        const col = riskColor(riskTier(h.score).cls);
-        return `<div style="flex:1; background:var(--panel-2); border-radius:4px 4px 0 0; position:relative; height:100%; display:flex; align-items:flex-end;" title="Scan: ${h.score}% Risk">
-                  <div style="width:100%; background:${col}; height:${hPct}%; border-radius:4px 4px 0 0; opacity:0.8;"></div>
-                </div>`;
-      }).join('');
+      const recent = scanHistory.slice(0, 15).reverse();
+      const points = recent.map((h, i) => {
+        const x = (i / (Math.max(1, recent.length - 1))) * 100;
+        const y = 100 - h.score;
+        return { x, y, score: h.score };
+      });
+      
+      let pathD = \`M \${points[0].x} \${points[0].y}\`;
+      for(let i = 1; i < points.length; i++) {
+        const prev = points[i-1];
+        const curr = points[i];
+        // Smooth curve
+        const cx = (prev.x + curr.x) / 2;
+        pathD += \` C \${cx} \${prev.y} \${cx} \${curr.y} \${curr.x} \${curr.y}\`;
+      }
+      
+      let areaD = pathD + \` L 100 100 L 0 100 Z\`;
+      
+      const circles = points.map(p => 
+        \`<circle cx="\${p.x}" cy="\${p.y}" r="2" fill="var(--panel)" stroke="var(--cyan)" stroke-width="1.5"><title>Risk: \${p.score}</title></circle>\`
+      ).join('');
+
+      chHist.innerHTML = \`
+        <style>
+          .soc-hist-line { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawHistLine 1.5s ease forwards; }
+          @keyframes drawHistLine { to { stroke-dashoffset: 0; } }
+          .soc-hist-points { opacity: 0; animation: fadeHist 0.5s ease 1s forwards; }
+          @keyframes fadeHist { to { opacity: 1; } }
+          .soc-hist-area { opacity: 0; animation: fadeArea 1s ease 0.5s forwards; }
+          @keyframes fadeArea { to { opacity: 0.1; } }
+        </style>
+        <div style="width:100%; height:100%; position:relative;">
+          <svg width="100%" height="100%" viewBox="0 -10 100 120" preserveAspectRatio="none" style="overflow:visible; font-family:monospace;">
+            <!-- Grid -->
+            <line x1="0" y1="0" x2="100" y2="0" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            <line x1="0" y1="20" x2="100" y2="20" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            <line x1="0" y1="40" x2="100" y2="40" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            <line x1="0" y1="60" x2="100" y2="60" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            <line x1="0" y1="80" x2="100" y2="80" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            <line x1="0" y1="100" x2="100" y2="100" stroke="var(--line)" stroke-dasharray="2,2" stroke-width="0.5"/>
+            
+            <text x="-5" y="4" fill="var(--text-faint)" font-size="6" text-anchor="end">100</text>
+            <text x="-5" y="54" fill="var(--text-faint)" font-size="6" text-anchor="end">50</text>
+            <text x="-5" y="104" fill="var(--text-faint)" font-size="6" text-anchor="end">0</text>
+            
+            <!-- Area -->
+            <path d="\${areaD}" fill="var(--cyan)" class="soc-hist-area" />
+            
+            <!-- Line -->
+            <path d="\${pathD}" fill="none" stroke="var(--cyan)" stroke-width="2" class="soc-hist-line" style="filter: drop-shadow(0 0 3px var(--cyan));" />
+            
+            <!-- Points -->
+            <g class="soc-hist-points">
+              \${circles}
+            </g>
+          </svg>
+        </div>
+      \`;
     }
   }
 
