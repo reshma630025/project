@@ -1,0 +1,182 @@
+{
+  "dataset_name": "FaceForensics++ C23 (archive (17))",
+  "evaluation_level": "video_level",
+  "total_test_videos": 20,
+  "real_videos": 10,
+  "fake_videos": 10,
+  "true_positives": 2,
+  "false_positives": 5,
+  "true_negatives": 5,
+  "false_negatives": 8,
+  "accuracy": "35.00%",
+  "accuracy_raw": 0.35,
+  "precision": "28.57%",
+  "precision_raw": 0.2857,
+  "recall": "20.00%",
+  "recall_raw": 0.2,
+  "f1": "23.53%",
+  "f1_raw": 0.2353,
+  "videoModelType": "frame_level_aggregation",
+  "tested_samples": [
+    {
+      "file": "000.mp4",
+      "ground_truth": "REAL",
+      "prediction": "UNCERTAIN",
+      "risk_score": 46.1,
+      "confidence": 59.7,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "001.mp4",
+      "ground_truth": "REAL",
+      "prediction": "UNCERTAIN",
+      "risk_score": 34.0,
+      "confidence": 71.4,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "002.mp4",
+      "ground_truth": "REAL",
+      "prediction": "SUSPICIOUS",
+      "risk_score": 57.2,
+      "confidence": 62.8,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "003.mp4",
+      "ground_truth": "REAL",
+      "prediction": "UNCERTAIN",
+      "risk_score": 41.2,
+      "confidence": 64.4,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "004.mp4",
+      "ground_truth": "REAL",
+      "prediction": "REAL",
+      "risk_score": 25.1,
+      "confidence": 87.5,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "005.mp4",
+      "ground_truth": "REAL",
+      "prediction": "UNCERTAIN",
+      "risk_score": 47.3,
+      "confidence": 57.0,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "006.mp4",
+      "ground_truth": "REAL",
+      "prediction": "UNCERTAIN",
+      "risk_score": 37.4,
+      "confidence": 64.8,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "007.mp4",
+      "ground_truth": "REAL",
+      "prediction": "REAL",
+      "risk_score": 11.1,
+      "confidence": 89.3,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "008.mp4",
+      "ground_truth": "REAL",
+      "prediction": "REAL",
+      "risk_score": 19.1,
+      "confidence": 89.0,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "009.mp4",
+      "ground_truth": "REAL",
+      "prediction": "UNCERTAIN",
+      "risk_score": 48.9,
+      "confidence": 64.7,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_02__meeting_serious__YVGY8LOK.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "REAL",
+      "risk_score": 28.7,
+      "confidence": 89.0,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_02__outside_talking_still_laughing__YVGY8LOK.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "REAL",
+      "risk_score": 29.6,
+      "confidence": 86.6,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_02__talking_against_wall__YVGY8LOK.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "UNCERTAIN",
+      "risk_score": 30.3,
+      "confidence": 78.1,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_02__walking_down_indoor_hall_disgust__YVGY8LOK.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "SUSPICIOUS",
+      "risk_score": 69.6,
+      "confidence": 85.1,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_02__walk_down_hall_angry__YVGY8LOK.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "UNCERTAIN",
+      "risk_score": 36.2,
+      "confidence": 84.4,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_03__hugging_happy__ISF9SP4G.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "REAL",
+      "risk_score": 28.7,
+      "confidence": 89.0,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_03__kitchen_pan__JZUXXFRB.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "SUSPICIOUS",
+      "risk_score": 57.7,
+      "confidence": 77.6,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_03__podium_speech_happy__480LQD1C.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "REAL",
+      "risk_score": 28.7,
+      "confidence": 89.0,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_03__talking_against_wall__JZUXXFRB.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "UNCERTAIN",
+      "risk_score": 30.4,
+      "confidence": 76.9,
+      "analyzed_frames": 16
+    },
+    {
+      "file": "01_04__hugging_happy__GBC7ZGDP.mp4",
+      "ground_truth": "FAKE",
+      "prediction": "REAL",
+      "risk_score": 28.7,
+      "confidence": 89.0,
+      "analyzed_frames": 16
+    }
+  ]
+}

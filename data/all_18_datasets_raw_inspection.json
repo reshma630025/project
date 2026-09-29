@@ -1,0 +1,1939 @@
+{
+  "celeb-df-v2-metadata": {
+    "name": "celeb-df-v2-metadata",
+    "path": "C:\\Users\\paruc\\Downloads\\celeb-df-v2-metadata",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 3495,
+    "ext_counts": {
+      ".json": 1
+    },
+    "tabular_files": [
+      {
+        "rel_path": "celeb-df-v2-metadata.json",
+        "size_bytes": 3495,
+        "ext": ".json",
+        "json_type": "dict",
+        "json_keys": [
+          "@context",
+          "alternateName",
+          "conformsTo",
+          "license",
+          "distribution",
+          "version",
+          "keywords",
+          "isAccessibleForFree",
+          "includedInDataCatalog",
+          "creator",
+          "publisher",
+          "thumbnailUrl",
+          "dateModified",
+          "datePublished",
+          "@type",
+          "name",
+          "url",
+          "description"
+        ]
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 0.0
+  },
+  "archive": {
+    "name": "archive",
+    "path": "C:\\Users\\paruc\\Downloads\\archive",
+    "exists": true,
+    "files": [],
+    "file_count": 16433,
+    "total_size_bytes": 422531627,
+    "ext_counts": {
+      ".png": 16433
+    },
+    "tabular_files": [],
+    "media_samples": [
+      "1000_videos\\test\\fake\\067_025_1.png",
+      "1000_videos\\test\\fake\\067_025_10.png",
+      "1000_videos\\test\\fake\\067_025_11.png",
+      "1000_videos\\test\\fake\\067_025_12.png",
+      "1000_videos\\test\\fake\\067_025_13.png",
+      "1000_videos\\test\\fake\\067_025_14.png",
+      "1000_videos\\test\\fake\\067_025_15.png",
+      "1000_videos\\test\\fake\\067_025_16.png",
+      "1000_videos\\test\\fake\\067_025_17.png",
+      "1000_videos\\test\\fake\\067_025_2.png"
+    ],
+    "subdirs": [
+      "1000_videos"
+    ],
+    "total_size_mb": 402.96
+  },
+  "archive (1)": {
+    "name": "archive (1)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (1)",
+    "exists": true,
+    "files": [],
+    "file_count": 60150,
+    "total_size_bytes": 3764386817,
+    "ext_counts": {
+      ".flac": 60132,
+      ".txt": 18
+    },
+    "tabular_files": [
+      {
+        "rel_path": "LA\\LA\\README.LA.txt",
+        "size_bytes": 4517,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.dev.female.trl.txt",
+        "size_bytes": 677652,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.dev.female.trn.txt",
+        "size_bytes": 972,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.dev.gi.trl.txt",
+        "size_bytes": 976804,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.dev.male.trl.txt",
+        "size_bytes": 299152,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.dev.male.trn.txt",
+        "size_bytes": 1096,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.eval.female.trl.txt",
+        "size_bytes": 2371140,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.eval.female.trn.txt",
+        "size_bytes": 4374,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.eval.gi.trl.txt",
+        "size_bytes": 3512112,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.eval.male.trl.txt",
+        "size_bytes": 1140972,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_protocols\\ASVspoof2019.LA.asv.eval.male.trn.txt",
+        "size_bytes": 5754,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_scores\\ASVspoof2019.LA.asv.dev.gi.trl.scores.txt",
+        "size_bytes": 632703,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_asv_scores\\ASVspoof2019.LA.asv.eval.gi.trl.scores.txt",
+        "size_bytes": 2422073,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_cm_protocols\\ASVspoof2019.LA.cm.dev.trl.txt",
+        "size_bytes": 822400,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_cm_protocols\\ASVspoof2019.LA.cm.eval.trl.txt",
+        "size_bytes": 2358176,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_cm_protocols\\ASVspoof2019.LA.cm.train.trn.txt",
+        "size_bytes": 840120,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_dev\\LICENSE.txt",
+        "size_bytes": 19941,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "LA\\LA\\ASVspoof2019_LA_eval\\LICENSE.txt",
+        "size_bytes": 19941,
+        "ext": ".txt"
+      }
+    ],
+    "media_samples": [
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1000265.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1000752.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1001095.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1002130.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1002200.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1002318.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1002626.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1002910.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1003356.flac",
+      "LA\\LA\\ASVspoof2019_LA_dev\\flac\\LA_D_1003673.flac"
+    ],
+    "subdirs": [
+      "LA"
+    ],
+    "total_size_mb": 3590.0
+  },
+  "archive (3)": {
+    "name": "archive (3)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (3)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 80864554,
+    "ext_counts": {
+      ".zip": 1
+    },
+    "tabular_files": [],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 77.12
+  },
+  "archive (4)": {
+    "name": "archive (4)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (4)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 484827,
+    "ext_counts": {
+      ".csv": 1
+    },
+    "tabular_files": [
+      {
+        "rel_path": "spam_sms.csv",
+        "size_bytes": 484827,
+        "ext": ".csv",
+        "columns": [
+          "v1",
+          "v2"
+        ],
+        "row_count": 5572,
+        "sample_rows": [
+          [
+            "ham",
+            "Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat..."
+          ],
+          [
+            "ham",
+            "Ok lar... Joking wif u oni..."
+          ],
+          [
+            "spam",
+            "Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&C's apply 08452810075over18's"
+          ]
+        ],
+        "label_candidates": {}
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 0.46
+  },
+  "archive (5)": {
+    "name": "archive (5)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (5)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 3011230,
+    "ext_counts": {
+      ".csv": 1
+    },
+    "tabular_files": [
+      {
+        "rel_path": "Fake Postings.csv",
+        "size_bytes": 3011230,
+        "ext": ".csv",
+        "columns": [
+          "title",
+          "description",
+          "requirements",
+          "company_profile",
+          "location",
+          "salary_range",
+          "employment_type",
+          "industry",
+          "benefits",
+          "fraudulent"
+        ],
+        "row_count": 10000,
+        "sample_rows": [
+          [
+            "Mental health nurse",
+            "Arm drive court sure vote. Earn $5000/week! Immediate hiring. Contact now at david27@gmail.com.",
+            "Basic knowledge in live, no degree required. Flexible hours.",
+            "Rivera and Sons - Established 2022.",
+            "West Jeffrey",
+            "$55016-$100476",
+            "Internship",
+            "IT",
+            "Free meals",
+            "1"
+          ],
+          [
+            "Conference centre manager",
+            "Government whom its bed go tax tree black. Earn $5000/week! Immediate hiring. Contact now at justinturner@gmail.com.",
+            "Basic knowledge in seek, no degree required. Flexible hours.",
+            "Davidson, Jones and Gomez - Established 2003.",
+            "Lake Meredithberg",
+            "$53438-$93138",
+            "Part-Time",
+            "Finance",
+            "Flexible hours",
+            "1"
+          ],
+          [
+            "Engineer, land",
+            "I member discuss follow way there nation. Earn $5000/week! Immediate hiring. Contact now at lmack@dunn-vazquez.biz.",
+            "Basic knowledge in worker, no degree required. Flexible hours.",
+            "Allen Ltd - Established 1998.",
+            "Lake Cathybury",
+            "$45584-$105229",
+            "Part-Time",
+            "IT",
+            "Free travel",
+            "1"
+          ]
+        ],
+        "label_candidates": {
+          "employment_type": {
+            "Part-Time": 2039,
+            "Temporary": 2024,
+            "Internship": 1982,
+            "Contract": 1978,
+            "Full-Time": 1977
+          },
+          "fraudulent": {
+            "1": 10000
+          }
+        }
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 2.87
+  },
+  "archive (6)": {
+    "name": "archive (6)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (6)",
+    "exists": true,
+    "files": [],
+    "file_count": 4,
+    "total_size_bytes": 214747789,
+    "ext_counts": {
+      ".csv": 2,
+      ".txt": 1,
+      ".md": 1
+    },
+    "tabular_files": [
+      {
+        "rel_path": "dataset_info.txt",
+        "size_bytes": 269,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "feature_description.csv",
+        "size_bytes": 4905,
+        "ext": ".csv",
+        "columns": [
+          "feature_name",
+          "group",
+          "type",
+          "description"
+        ],
+        "row_count": 74,
+        "sample_rows": [
+          [
+            "url_length",
+            "lexical",
+            "numeric",
+            "Total number of characters in the URL"
+          ],
+          [
+            "domain_length",
+            "lexical",
+            "numeric",
+            "Length of the domain"
+          ],
+          [
+            "hostname_length",
+            "lexical",
+            "numeric",
+            "Length of the hostname"
+          ]
+        ],
+        "label_candidates": {
+          "type": {
+            "binary": 30,
+            "numeric": 23,
+            "count": 21
+          }
+        }
+      },
+      {
+        "rel_path": "final_dataset.csv",
+        "size_bytes": 214740483,
+        "ext": ".csv",
+        "columns": [
+          "url",
+          "label",
+          "url_length",
+          "domain_length",
+          "hostname_length",
+          "path_length",
+          "first_dir_length",
+          "tld_length",
+          "tld_length_domain",
+          "url_depth",
+          "query_length",
+          "path_segments_count",
+          "num_digits",
+          "num_letters",
+          "num_special_chars",
+          "num_dots",
+          "num_hyphens",
+          "num_at",
+          "num_percent",
+          "num_equals",
+          "num_question",
+          "num_ampersand",
+          "num_hash",
+          "num_underscore",
+          "num_special",
+          "num_slash",
+          "num_params",
+          "entropy_url",
+          "entropy_hostname",
+          "entropy_domain",
+          "entropy_path",
+          "query_entropy",
+          "ratio_digits",
+          "ratio_letters",
+          "ratio_special_chars",
+          "uppercase_ratio",
+          "lowercase_ratio",
+          "is_ip_address",
+          "starts_with_ip",
+          "is_suspicious_tld",
+          "uses_https",
+          "has_www",
+          "unusual_double_slash",
+          "multiple_http",
+          "contains_port_number",
+          "path_has_encoded_chars",
+          "query_has_base64",
+          "contains_login",
+          "contains_secure",
+          "contains_verify",
+          "contains_account",
+          "contains_update",
+          "contains_bank",
+          "contains_cloud",
+          "contains_brand",
+          "query_key_count",
+          "query_value_length_avg",
+          "success",
+          "dns_resolves",
+          "has_mx_record",
+          "has_txt_record",
+          "has_ns_record",
+          "ttl_value",
+          "ip_count",
+          "cname_count",
+          "resolves_to_private_ip",
+          "whois_success",
+          "domain_age_days",
+          "expiration_days",
+          "creation_year",
+          "domain_is_recent",
+          "domain_registered_before_2020",
+          "registrar_valid",
+          "name_servers_count",
+          "is_privacy_protected",
+          "whois_missing"
+        ],
+        "row_count": 579920,
+        "sample_rows": [
+          [
+            "http://%20%25**)(**@fbrasil.com/old/lqjj0ukuvg1e0h2f/qiye",
+            "1",
+            "57",
+            "7",
+            "24",
+            "26",
+            "3",
+            "3",
+            "3",
+            "3"
+          ],
+          [
+            "https://*f003.backblazeb2.com*/file/pesosi/home.html",
+            "1",
+            "52",
+            "4",
+            "22",
+            "22",
+            "4",
+            "0",
+            "0",
+            "3"
+          ],
+          [
+            "http://0-docusign-secured-843439-1-srs09.replit.app/",
+            "1",
+            "52",
+            "6",
+            "44",
+            "1",
+            "0",
+            "3",
+            "3",
+            "0"
+          ]
+        ],
+        "label_candidates": {
+          "label": {
+            "0": 339074,
+            "1": 240846
+          },
+          "is_ip_address": {
+            "0": 573323,
+            "1": 6597
+          },
+          "is_suspicious_tld": {
+            "0": 564054,
+            "1": 15866
+          },
+          "whois_success": {
+            "1.0": 540324,
+            "0.0": 39596
+          },
+          "domain_is_recent": {
+            "0.0": 450043,
+            "1.0": 129877
+          },
+          "is_privacy_protected": {
+            "0.0": 573895,
+            "1.0": 6025
+          },
+          "whois_missing": {
+            "0": 573075,
+            "1": 6845
+          }
+        }
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 204.8
+  },
+  "archive (7)": {
+    "name": "archive (7)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (7)",
+    "exists": true,
+    "files": [],
+    "file_count": 4,
+    "total_size_bytes": 214747789,
+    "ext_counts": {
+      ".csv": 2,
+      ".txt": 1,
+      ".md": 1
+    },
+    "tabular_files": [
+      {
+        "rel_path": "dataset_info.txt",
+        "size_bytes": 269,
+        "ext": ".txt"
+      },
+      {
+        "rel_path": "feature_description.csv",
+        "size_bytes": 4905,
+        "ext": ".csv",
+        "columns": [
+          "feature_name",
+          "group",
+          "type",
+          "description"
+        ],
+        "row_count": 74,
+        "sample_rows": [
+          [
+            "url_length",
+            "lexical",
+            "numeric",
+            "Total number of characters in the URL"
+          ],
+          [
+            "domain_length",
+            "lexical",
+            "numeric",
+            "Length of the domain"
+          ],
+          [
+            "hostname_length",
+            "lexical",
+            "numeric",
+            "Length of the hostname"
+          ]
+        ],
+        "label_candidates": {
+          "type": {
+            "binary": 30,
+            "numeric": 23,
+            "count": 21
+          }
+        }
+      },
+      {
+        "rel_path": "final_dataset.csv",
+        "size_bytes": 214740483,
+        "ext": ".csv",
+        "columns": [
+          "url",
+          "label",
+          "url_length",
+          "domain_length",
+          "hostname_length",
+          "path_length",
+          "first_dir_length",
+          "tld_length",
+          "tld_length_domain",
+          "url_depth",
+          "query_length",
+          "path_segments_count",
+          "num_digits",
+          "num_letters",
+          "num_special_chars",
+          "num_dots",
+          "num_hyphens",
+          "num_at",
+          "num_percent",
+          "num_equals",
+          "num_question",
+          "num_ampersand",
+          "num_hash",
+          "num_underscore",
+          "num_special",
+          "num_slash",
+          "num_params",
+          "entropy_url",
+          "entropy_hostname",
+          "entropy_domain",
+          "entropy_path",
+          "query_entropy",
+          "ratio_digits",
+          "ratio_letters",
+          "ratio_special_chars",
+          "uppercase_ratio",
+          "lowercase_ratio",
+          "is_ip_address",
+          "starts_with_ip",
+          "is_suspicious_tld",
+          "uses_https",
+          "has_www",
+          "unusual_double_slash",
+          "multiple_http",
+          "contains_port_number",
+          "path_has_encoded_chars",
+          "query_has_base64",
+          "contains_login",
+          "contains_secure",
+          "contains_verify",
+          "contains_account",
+          "contains_update",
+          "contains_bank",
+          "contains_cloud",
+          "contains_brand",
+          "query_key_count",
+          "query_value_length_avg",
+          "success",
+          "dns_resolves",
+          "has_mx_record",
+          "has_txt_record",
+          "has_ns_record",
+          "ttl_value",
+          "ip_count",
+          "cname_count",
+          "resolves_to_private_ip",
+          "whois_success",
+          "domain_age_days",
+          "expiration_days",
+          "creation_year",
+          "domain_is_recent",
+          "domain_registered_before_2020",
+          "registrar_valid",
+          "name_servers_count",
+          "is_privacy_protected",
+          "whois_missing"
+        ],
+        "row_count": 579920,
+        "sample_rows": [
+          [
+            "http://%20%25**)(**@fbrasil.com/old/lqjj0ukuvg1e0h2f/qiye",
+            "1",
+            "57",
+            "7",
+            "24",
+            "26",
+            "3",
+            "3",
+            "3",
+            "3"
+          ],
+          [
+            "https://*f003.backblazeb2.com*/file/pesosi/home.html",
+            "1",
+            "52",
+            "4",
+            "22",
+            "22",
+            "4",
+            "0",
+            "0",
+            "3"
+          ],
+          [
+            "http://0-docusign-secured-843439-1-srs09.replit.app/",
+            "1",
+            "52",
+            "6",
+            "44",
+            "1",
+            "0",
+            "3",
+            "3",
+            "0"
+          ]
+        ],
+        "label_candidates": {
+          "label": {
+            "0": 339074,
+            "1": 240846
+          },
+          "is_ip_address": {
+            "0": 573323,
+            "1": 6597
+          },
+          "is_suspicious_tld": {
+            "0": 564054,
+            "1": 15866
+          },
+          "whois_success": {
+            "1.0": 540324,
+            "0.0": 39596
+          },
+          "domain_is_recent": {
+            "0.0": 450043,
+            "1.0": 129877
+          },
+          "is_privacy_protected": {
+            "0.0": 573895,
+            "1.0": 6025
+          },
+          "whois_missing": {
+            "0": 573075,
+            "1": 6845
+          }
+        }
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 204.8
+  },
+  "archive (8)": {
+    "name": "archive (8)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (8)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 718464,
+    "ext_counts": {
+      ".zip": 1
+    },
+    "tabular_files": [],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 0.69
+  },
+  "archive (9)": {
+    "name": "archive (9)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (9)",
+    "exists": true,
+    "files": [],
+    "file_count": 7,
+    "total_size_bytes": 261289686,
+    "ext_counts": {
+      ".csv": 7
+    },
+    "tabular_files": [
+      {
+        "rel_path": "CEAS_08.csv",
+        "size_bytes": 67902056,
+        "ext": ".csv",
+        "columns": [
+          "sender",
+          "receiver",
+          "date",
+          "subject",
+          "body",
+          "label",
+          "urls"
+        ],
+        "read_error": "field larger than field limit (131072)"
+      },
+      {
+        "rel_path": "Enron.csv",
+        "size_bytes": 45557673,
+        "ext": ".csv",
+        "columns": [
+          "subject",
+          "body",
+          "label"
+        ],
+        "read_error": "field larger than field limit (131072)"
+      },
+      {
+        "rel_path": "Ling.csv",
+        "size_bytes": 9342985,
+        "ext": ".csv",
+        "columns": [
+          "subject",
+          "body",
+          "label"
+        ],
+        "row_count": 2859,
+        "sample_rows": [
+          [
+            "job posting - apple-iss research center",
+            "content - length : 3386 apple-iss research center a us $ 10 million joint venture between apple computer inc . and the institute of systems science of the national university of singapore , located in singapore , is looking for : a senior speech scientist - - - - - - - - - - - - - - - - - - - - - - - - - the successful candidate will have research expertise in computational linguistics , including natural language processing and * * english * * and * * chinese * * statistical language modeling . knowledge of state-of - the-art corpus-based n - gram language models , cache language models , and part-of - speech language models are required . a text - to - speech project leader - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - the successful candidate will have research expertise expertise in two or more of the following areas : computational linguistics , including natural language parsing , lexical database design , and statistical language modeling ; text tokenization and normalization ; prosodic analysis . substantial knowledge of the phonology , syntax , and semantics of chinese is required . knowledge of acoustic phonetics and / or speech signal processing is desirable . both candidates will have a phd with at least 2 to 4 years of relevant work experience , or a technical msc degree with at least 5 to 7 years of experienc e . very strong software engineering skills , including design and implementation , and productization are required in these positions . knowledge of c , c + + and unix are preferred . a unix & c programmer - - - - - - - - - - - - - - - - - - - - we are looking for an experienced unix & c programmer , preferably with good industry experience , to join us in breaking new frontiers . strong knowledge of unix tools ( compilers , linkers , make , x - windows , e - mac , . . . ) and experience in matlab required . sun and silicon graphic experience is an advantage . programmers with less than two years industry experience need not apply . these positions include interaction with scientists in the national university of singapore , and with apple 's speech research and productization efforts located in cupertino , california . attendance and publication in international scientific / engineering conferences is encouraged . benefits include an internationally competitive salary , housing subsidy , and relocation expenses . _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ send a complete resume , enclosing personal particulars , qualifications , experience and contact telephone number to : mr jean - luc lebrun center manager apple - iss research center , institute of systems science heng mui keng terrace , singapore 0511 tel : ( 65 ) 772-6571 fax : ( 65 ) 776-4005 email : jllebrun @ iss . nus . sg\n",
+            "0"
+          ],
+          [
+            "",
+            "lang classification grimes , joseph e . and barbara f . grimes ; ethnologue language family index ; pb . isbn : 0-88312 - 708 - 3 ; vi , 116 pp . ; $ 14 . 00 . summer institute of linguistics . this companion volume to ethnologue : languages of the world , twelfth edition lists language families of the world with sub-groups shown in a tree arrangement under the broadest classification of language family . the language family index facilitates locating language names in the ethnologue , making the data there more accessible . internet : academic . books @ sil . org languages , reference lang & culture gregerson , marilyn ; ritual , belief , and kinship in sulawesi ; pb . : isbn : 0-88312 - 621 - 4 ; ix , 194 pp . ; $ 25 . 00 . summer institute of linguistics . seven articles discuss five language groups in sulawesi , indonesia ; the primary focus is on cultural matters , with some linguistic content . topics include traditional religion and beliefs , certain ceremonies , and kinship . internet : academic . books @ sil . org language and society , indonesia computers & ling weber , david j . , stephen r . mcconnel , diana d . weber , and beth j . bryson ; primer : a tool for developing early reading materials ; pb . : isbn : 0-88313 - 678 - 8 ; xvi , 266 pp . + ms-dos software ; $ 26 . 00 . summer institute of linguistics . the authors present a computer program and instructions for developing reading materials in languages with little or no background in literacy . the book is structured as a how-to manual with step by step procedures to establish an appropriate primer sequence and to organize words , phrases , and sentences that correlate with the sequence . it presupposes a thorough knowledge of linguistics . internet : academic . books @ sil . org literacy , computer\n",
+            "0"
+          ],
+          [
+            "query : letter frequencies for text identification",
+            "i am posting this inquiry for sergei atamas ( satamas @ umabnet . ab . umd . edu ) , a research associate at the university of maryland at baltimore . his field is molecular biology , and his work involves comparing dna strings using various algorithms . i do n't understand the details well enough to pass them along . at any rate , one such algorithm relies upon frequencies with which the letters g , a , t , and c occur in the dna strings . he would like to explore the analogous use of letter ( sound ) frequencies in natural language texts . hence this posting . specifically , sergei wonders if any linguist subscribers could help steer him to recent literature concerning text identification based on letter frequencies . any suggestions could be sent directly to him at the above address , or to me and i ' ll pass them along . he would also be interested in collaborative work if this research connects with the work of any linguists or text processing specialists . he observes that very often work in one field would actually help work in a far-removed field , if only people knew what was going on over there . george fowler george fowler gfowler @ indiana . edu [ email ] dept . of slavic languages * * 1-317 - 726-1482 [ home ] * * [ try here first ! ] ballantine 502 1-812 - 855-2624 / - 2608 / - 9906 [ dept . ] indiana university 1-812 - 855-2829 [ office ] bloomington , in 47405 usa 1-812 - 855-2107 [ dept . fax ]\n",
+            "0"
+          ]
+        ],
+        "label_candidates": {
+          "label": {
+            "0": 2401,
+            "1": 458
+          }
+        }
+      },
+      {
+        "rel_path": "Nazario.csv",
+        "size_bytes": 7811841,
+        "ext": ".csv",
+        "columns": [
+          "sender",
+          "receiver",
+          "date",
+          "subject",
+          "body",
+          "urls",
+          "label"
+        ],
+        "read_error": "field larger than field limit (131072)"
+      },
+      {
+        "rel_path": "Nigerian_Fraud.csv",
+        "size_bytes": 9192393,
+        "ext": ".csv",
+        "columns": [
+          "sender",
+          "receiver",
+          "date",
+          "subject",
+          "body",
+          "urls",
+          "label"
+        ],
+        "row_count": 3332,
+        "sample_rows": [
+          [
+            "MR. JAMES NGOLA. <james_ngola2002@maktoob.com>",
+            "webmaster@aclweb.org",
+            "Thu, 31 Oct 2002 02:38:20 +0000",
+            "URGENT BUSINESS ASSISTANCE AND PARTNERSHIP",
+            "FROM:MR. JAMES NGOLA.\nCONFIDENTIAL TEL: 233-27-587908.\nE-MAIL: (james_ngola2002@maktoob.com).\n\nURGENT BUSINESS ASSISTANCE AND PARTNERSHIP.\n\n\nDEAR FRIEND,\n\nI AM ( DR.) JAMES NGOLA, THE PERSONAL ASSISTANCE TO THE LATE CONGOLESE (PRESIDENT LAURENT KABILA) WHO WAS ASSASSINATED BY HIS BODY GUARD ON 16TH JAN. 2001.\n\n\nTHE INCIDENT OCCURRED IN OUR PRESENCE WHILE WE WERE HOLDING MEETING WITH HIS EXCELLENCY OVER THE FINANCIAL RETURNS FROM THE DIAMOND SALES IN THE AREAS CONTROLLED BY (D.R.C.) DEMOCRATIC REPUBLIC OF CONGO FORCES AND THEIR FOREIGN ALLIES ANGOLA AND ZIMBABWE, HAVING RECEIVED THE PREVIOUS DAY (USD$100M) ONE HUNDRED MILLION UNITED STATES DOLLARS, CASH IN THREE DIPLOMATIC BOXES ROUTED THROUGH ZIMBABWE.\n\nMY PURPOSE OF WRITING YOU THIS LETTER IS TO SOLICIT FOR YOUR ASSISTANCE AS TO BE A COVER TO THE FUND AND ALSO COLLABORATION IN MOVING THE SAID FUND INTO YOUR BANK ACCOUNT THE SUM OF (USD$25M) TWENTY FIVE MILLION UNITED STATES DOLLARS ONLY, WHICH I DEPOSITED WITH A SECURITY COMPANY IN GHANA, IN A DIPLOMATIC BOX AS GOLDS WORTH (USD$25M) TWENTY FIVE MILLION UNITED STATES DOLLARS ONLY FOR SAFE KEEPING IN A SECURITY VAULT FOR ANY FURTHER INVESTMENT PERHAPS IN YOUR COUNTRY. \n\nYOU WERE INTRODUCED TO ME BY A RELIABLE FRIEND OF MINE WHO IS A TRAVELLER,AND ALSO A MEMBER OF CHAMBER OF COMMERCE AS A RELIABLE AND TRUSTWORTHY PERSON WHOM I CAN RELY ON AS FOREIGN PARTNER, EVEN THOUGH THE NATURE OF THE TRANSACTION WAS NOT REVEALED TO HIM FOR SECURITY REASONS.\n\n\nTHE (USD$25M) WAS PART OF A PROCEEDS FROM DIAMOND TRADE MEANT FOR THE LATE PRESIDENT LAURENT KABILA WHICH WAS DELIVERED THROUGH ZIMBABWE IN DIPLOMATIC BOXES. THE BOXES WERE KEPT UNDER MY CUSTODY BEFORE THE SAD EVENT THAT TOOK THE LIFE OF (MR. PRESIDENT).THE CONFUSION THAT ENSUED AFTER THE ASSASSINATION AND THE SPORADIC SHOOTING AMONG THE FACTIONS, I HAVE TO RUN AWAY FROM THE COUNTRY FOR MY DEAR LIFE AS I AM NOT A SOLDIER BUT A CIVIL SERVANT I CROSSED RIVER CONGO TO OTHER SIDE OF CONGO LIBREVILLE FROM THERE I MOVED TO THE THIRD COUNTRY GHANA WHERE I AM PRESENTLY TAKING REFUGE. \n\nAS A MATTER OF FACT, WHAT I URGENTLY NEEDED FROM YOU IS YOUR ASSISTANCE IN MOVING THIS MONEY INTO YOUR ACCOUNT IN YOUR COUNTRY FOR INVESTMENT WITHOUT RAISING EYEBROW. FOR YOUR ASSISTANCE I WILL GIVE YOU 20% OF THE TOTAL SUM AS YOUR OWN SHARE WHEN THE MONEY GETS TO YOUR ACCOUNT, WHILE 75% WILL BE FOR ME, OF WHICH WITH YOUR KIND ADVICE I HOPE TO INVEST IN PROFITABLE VENTURE IN YOUR COUNTRY IN OTHER TO SETTLE DOWN FOR MEANINGFUL LIFE, AS I AM TIRED OF LIVING IN A WAR ENVIRONMENT. \n\nTHE REMAINING 5% WILL BE USED TO OFFSET ANY COST INCURRED IN THE CAUSE OF MOVING THE MONEY TO YOUR ACCOUNT. IF THE PROPOSAL IS ACCEPTABLE TO YOU PLEASE CONTACT ME IMMEDIATELY THROUGH THE ABOVE TELEPHONE AND E-MAIL, TO ENABLE ME ARRANGE FACE TO FACE MEETING WITH YOU IN GHANA FOR THE CLEARANCE OF THE FUNDS BEFORE TRANSFRING IT TO YOUR BANK ACCOUNT AS SEEING IS BELIEVING. \n\nFINALLY, IT IS IMPORTANT ALSO THAT I LET YOU UNDERSTAND THAT THERE IS NO RISK INVOLVED WHATSOEVER AS THE MONEY HAD NO RECORD IN KINSHASA FOR IT WAS MEANT FOR THE PERSONAL USE OF (MR. PRESIDEND ) BEFORE THE NEFARIOUS INCIDENT OCCURRED, AND ALSO I HAVE ALL THE NECESSARY DOCUMENTS AS REGARDS TO THE FUNDS INCLUDING THE (CERTIFICATE OF DEPOSIT), AS I AM THE DEPOSITOR OF THE CONSIGNMENT.\n\n\nLOOKING FORWARD TO YOUR URGENT RESPONSE.\n\nYOUR SINCERELY,\n\nMR. JAMES NGOLA. \n\n\n\n\n\n\n\n\n\n\n",
+            "0",
+            "1"
+          ],
+          [
+            "Mr. Ben Suleman <bensul2004nng@spinfinder.com>",
+            "R@M",
+            "Thu, 31 Oct 2002 05:10:00 -0000",
+            "URGENT ASSISTANCE /RELATIONSHIP (P)",
+            "Dear Friend,\n\nI am Mr. Ben Suleman a custom officer and work as Assistant controller of the Customs and Excise department Of the Federal Ministry of Internal Affairs stationed at the Murtala Mohammed International Airport, Ikeja, Lagos-Nigeria.\n\nAfter the sudden death of the former Head of state of Nigeria General Sanni Abacha on June 8th 1998 his aides and immediate members of his family were arrested while trying to escape from Nigeria in a Chartered jet to Saudi Arabia with 6 trunk boxes Marked \"Diplomatic Baggage\". Acting on a tip-off as they attempted to board the Air Craft,my officials carried out a thorough search on the air craft and discovered that the 6 trunk boxes contained foreign currencies amounting to US$197,570,000.00(One Hundred and  Ninety-Seven Million Five Hundred Seventy Thousand United States Dollars).\n\nI declared only (5) five boxes to the government and withheld one (1) in my custody containing the sum of (US$30,000,000.00) Thirty Million United States Dollars Only, which has been disguised to prevent their being discovered during transportation process.Due to several media reports on the late head of state about all the money him and his co-government officials stole from our government treasury amounting\nto US$55 Billion Dollars (ref:ngrguardiannews.com) of July 2nd 1999. Even the London times of July 1998 reported that General Abacha has over US$3.Billion dollars in one account overseas. We decided to conceal this one (1)box till the situation is calm and quite on the issue. The box was thus deposited with a security company here in Nigeria and tagged as \"Precious Stones and Jewellry\" in other that its\ncontent will not be discovered. Now that all is calm, we (myself and two of my colleagues in the operations team) are now ready to move this box out of the country through a diplomatic arrangement which is the safest means. \n\nHowever as government officials the Civil Service Code of Conduct does not allow us by law to operate any foreign account or own foreign investment and the amount of money that can be found in our account\ncannot be more than our salary on the average, thus our handicapp and our need for your assistance to help collect and keep safely in your account this money.\n\nTherefore we want you to assist us in moving this money out of Nigeria. We shall definitely compensate you handsomely for the assistance. We can do this by instructing the Security Company here in Nigeria to\nmove the consignment to their affiliate branch office outside Nigeria through diplomatic means and the consignment will be termed as Precious Stones and Jewelleries\" which you bought during your visit to Nigeria and is being transfered to your country from here for safe keeping. Then we can arrange to meet at the destination country to take the delivery of the consignment. You will thereafter open an account there and lodge the Money there and gradually instruct remittance to your Country. \n\nThis business is 100% risk free for you so please treat this matter with utmost confidentiality .If you indicate your interest to assist us please just e-mail me for more Explanation on how we plan to execute the transaction.\n\nExpecting your response urgently.\n\nBest regards,\n\nMr. Ben Suleman\n\n",
+            "0",
+            "1"
+          ],
+          [
+            "PRINCE OBONG ELEME <obong_715@epatra.com>",
+            "webmaster@aclweb.org",
+            "Thu, 31 Oct 2002 22:17:55 +0100",
+            "GOOD DAY TO YOU",
+            "FROM HIS ROYAL MAJESTY (HRM) CROWN RULER OF ELEME KINGDOM \nCHIEF DANIEL ELEME, PHD, EZE 1 OF ELEME.E-MAIL \nADDRESS:obong_715@epatra.com  \n\nATTENTION:PRESIDENT,CEO Sir/ Madam. \n\nThis letter might surprise you because we have met\nneither in person nor by correspondence. But I believe\nit is one day that you got to know somebody either in\nphysical or through correspondence. \n\nI got your contact through discreet inquiry from the\nchambers of commerce and industry of your country on\nthe net, you and your organization were revealed as\nbeing quite astute in private entrepreneurship, one\nhas no doubt in your ability to handle a financialbusiness transaction. \n\nHowever, I am the first son of His Royal\nmajesty,Obong.D. Eleme , and the traditional Ruler of\nEleme Province in the oil producing area of River\nState of Nigeria. I am making this contact to you in\nrespect of US$60,000,000.00 (Sixty Million United\nState Dollars), which I inherited, from my latefather. \n\nThis money was accumulated from royalties paid to my\nfather as compensation by the oil firms located in our\narea as a result of oil presence on our land, which\nhamper agriculture, which is our major source oflivelihood. \n\nUnfortunately my father died from protracted\ndiabetes.But before his death he called my attention\nand informed me that he lodged some funds on a two\nboxes with a security firm with an open beneficiary\nstatus. The lodgment security code number was also\nrevealed to me, he then advised me to look for a\nreliable business partner abroad, that will assist me\nin investing the money in a lucrative business as a\nresult of economic instability in Nigeria. So this is\nthe main reason why I am contacting you for us to move\nthis money from the security firm to any Country of\nyour choice for investment purpose. \n\nSo I will like you to be the ultimate beneficiary, so\nthat the funds can be moved in your name and\nparticulars to any Country of your choice where it\nwill be claimed and invested. Hence my father have had\nintimated the security firm personnel that the\nbeneficiary of the box is his foreign partner whose\nparticulars will be forwarded to the firm when due. \n\nBut I will guide you Accordingly. As soon as the funds\nreach, I will then come over to meet you in person, so\nthat we can discuss physically on investment\npotentials. Based on this assistance my Family and I\nhave unanimously decided to give you 30% of the total\nmoney, 5% for Charity home, 10% for expenses, which\nmay arise during this transaction, Fax and phone bills\ninclusive. The balance of 55% you will invest andmanaged for my Family. \n\nI hereby guarantee you that this is not government\nmoney, it is not drug money and it is not money from\narms deal. Though you have to maintain high degree of\nconfidentiality on this matter. I will give more\ndetails about the proceedings of this transaction as\nsoon as I receive your favorable reply. \n\nPlease reply to my Email Address:obong_715@epatra.com\nI hope this will be the beginning of a prosperous\nrelationship between my family and your family. \n\nNevertheless if you are for any reason not interested,\nkindly inform me immediately so that I will look foranother contact. \n\nI am waiting for your quick response. \n\nYours faithfully, \n\nPrince Obong Abbot \n\n\n",
+            "0",
+            "1"
+          ]
+        ],
+        "label_candidates": {
+          "label": {
+            "1": 3332
+          }
+        }
+      },
+      {
+        "rel_path": "phishing_email.csv",
+        "size_bytes": 106603543,
+        "ext": ".csv",
+        "columns": [
+          "text_combined",
+          "label"
+        ],
+        "read_error": "field larger than field limit (131072)"
+      },
+      {
+        "rel_path": "SpamAssasin.csv",
+        "size_bytes": 14879195,
+        "ext": ".csv",
+        "columns": [
+          "sender",
+          "receiver",
+          "date",
+          "subject",
+          "body",
+          "label",
+          "urls"
+        ],
+        "read_error": "field larger than field limit (131072)"
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 249.19
+  },
+  "archive (10)": {
+    "name": "archive (10)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (10)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 80864554,
+    "ext_counts": {
+      ".zip": 1
+    },
+    "tabular_files": [],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 77.12
+  },
+  "archive (11)": {
+    "name": "archive (11)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (11)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 38647473,
+    "ext_counts": {
+      ".zip": 1
+    },
+    "tabular_files": [],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 36.86
+  },
+  "archive (12)": {
+    "name": "archive (12)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (12)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 38647473,
+    "ext_counts": {
+      ".zip": 1
+    },
+    "tabular_files": [],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 36.86
+  },
+  "archive (13)": {
+    "name": "archive (13)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (13)",
+    "exists": true,
+    "files": [],
+    "file_count": 1,
+    "total_size_bytes": 80864554,
+    "ext_counts": {
+      ".zip": 1
+    },
+    "tabular_files": [],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 77.12
+  },
+  "archive (14)": {
+    "name": "archive (14)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (14)",
+    "exists": true,
+    "files": [],
+    "file_count": 2,
+    "total_size_bytes": 22665,
+    "ext_counts": {
+      ".csv": 2
+    },
+    "tabular_files": [
+      {
+        "rel_path": "test.csv",
+        "size_bytes": 3932,
+        "ext": ".csv",
+        "columns": [
+          "profile pic",
+          "nums/length username",
+          "fullname words",
+          "nums/length fullname",
+          "name==username",
+          "description length",
+          "external URL",
+          "private",
+          "#posts",
+          "#followers",
+          "#follows",
+          "fake"
+        ],
+        "row_count": 120,
+        "sample_rows": [
+          [
+            "1",
+            "0.33",
+            "1",
+            "0.33",
+            "1",
+            "30",
+            "0",
+            "1",
+            "35",
+            "488"
+          ],
+          [
+            "1",
+            "0",
+            "5",
+            "0",
+            "0",
+            "64",
+            "0",
+            "1",
+            "3",
+            "35"
+          ],
+          [
+            "1",
+            "0",
+            "2",
+            "0",
+            "0",
+            "82",
+            "0",
+            "1",
+            "319",
+            "328"
+          ]
+        ],
+        "label_candidates": {
+          "fake": {
+            "0": 60,
+            "1": 60
+          }
+        }
+      },
+      {
+        "rel_path": "train.csv",
+        "size_bytes": 18733,
+        "ext": ".csv",
+        "columns": [
+          "profile pic",
+          "nums/length username",
+          "fullname words",
+          "nums/length fullname",
+          "name==username",
+          "description length",
+          "external URL",
+          "private",
+          "#posts",
+          "#followers",
+          "#follows",
+          "fake"
+        ],
+        "row_count": 576,
+        "sample_rows": [
+          [
+            "1",
+            "0.27",
+            "0",
+            "0",
+            "0",
+            "53",
+            "0",
+            "0",
+            "32",
+            "1000"
+          ],
+          [
+            "1",
+            "0",
+            "2",
+            "0",
+            "0",
+            "44",
+            "0",
+            "0",
+            "286",
+            "2740"
+          ],
+          [
+            "1",
+            "0.1",
+            "2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "1",
+            "13",
+            "159"
+          ]
+        ],
+        "label_candidates": {
+          "fake": {
+            "0": 288,
+            "1": 288
+          }
+        }
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 0.02
+  },
+  "archive (15)": {
+    "name": "archive (15)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (15)",
+    "exists": true,
+    "files": [],
+    "file_count": 2,
+    "total_size_bytes": 38010778,
+    "ext_counts": {
+      ".csv": 2
+    },
+    "tabular_files": [
+      {
+        "rel_path": "raw_user_activities.csv",
+        "size_bytes": 36807384,
+        "ext": ".csv",
+        "columns": [
+          "activity_id",
+          "user_id",
+          "timestamp",
+          "content",
+          "post_country",
+          "post_region",
+          "post_city",
+          "device",
+          "platform",
+          "likes",
+          "comments",
+          "shares",
+          "hour_of_day",
+          "day_of_week",
+          "is_weekend",
+          "has_media",
+          "media_type",
+          "character_count",
+          "hashtag_count",
+          "mention_count",
+          "contains_url",
+          "content_type",
+          "is_fake",
+          "language"
+        ],
+        "row_count": 131284,
+        "sample_rows": [
+          [
+            "b74f2b71-054b-4f53-a3af-7af090c283d3_0",
+            "b74f2b71-054b-4f53-a3af-7af090c283d3",
+            "2024-09-10 16:50:00",
+            "Highlight of my day was definitely beating my personal record. \ud83d\udc4c",
+            "Burundi",
+            "Utah",
+            "Higginsland",
+            "iPhone",
+            "Mobile Web",
+            "43"
+          ],
+          [
+            "b74f2b71-054b-4f53-a3af-7af090c283d3_1",
+            "b74f2b71-054b-4f53-a3af-7af090c283d3",
+            "2024-09-13 15:53:00",
+            "Just posted a new photo on my profile! Check it out \ud83c\udf08",
+            "Burundi",
+            "Utah",
+            "Higginsland",
+            "iPhone",
+            "Mobile Web",
+            "21"
+          ],
+          [
+            "b74f2b71-054b-4f53-a3af-7af090c283d3_2",
+            "b74f2b71-054b-4f53-a3af-7af090c283d3",
+            "2024-09-14 09:31:00",
+            "Feeling inspired after cleaning out my closet. Anyone else?",
+            "Burundi",
+            "Utah",
+            "Higginsland",
+            "Android",
+            "Mobile App",
+            "16"
+          ]
+        ],
+        "label_candidates": {
+          "is_weekend": {
+            "0": 93818,
+            "1": 37466
+          },
+          "media_type": {
+            "image": 58147,
+            "none": 52482,
+            "poll": 13826,
+            "link": 4921,
+            "video": 1908
+          },
+          "content_type": {
+            "active_user": 30633,
+            "casual_user": 17117,
+            "influencer": 16089,
+            "business": 15470,
+            "crypto_scam": 9228,
+            "bot": 8848,
+            "hobbyist": 8535,
+            "news_updates": 8467,
+            "community": 5128,
+            "porn_scam": 3824
+          },
+          "is_fake": {
+            "False": 101439,
+            "True": 29845
+          }
+        }
+      },
+      {
+        "rel_path": "raw_user_profiles.csv",
+        "size_bytes": 1203394,
+        "ext": ".csv",
+        "columns": [
+          "user_id",
+          "username",
+          "full_name",
+          "first_name",
+          "last_name",
+          "email",
+          "creation_date",
+          "account_age_days",
+          "profile_completeness",
+          "home_country",
+          "home_region",
+          "home_city",
+          "followers_count",
+          "following_count",
+          "posts_count",
+          "is_private",
+          "is_verified",
+          "profile_picture",
+          "profile_banner",
+          "has_bio",
+          "has_website",
+          "has_location",
+          "account_type",
+          "is_fake",
+          "language_preference"
+        ],
+        "row_count": 5000,
+        "sample_rows": [
+          [
+            "b74f2b71-054b-4f53-a3af-7af090c283d3",
+            "peterkonda",
+            "Peter Konda",
+            "Peter",
+            "Konda",
+            "peterkonda@icloud.com",
+            "2024-09-11",
+            "211",
+            "0.6652276525838456",
+            "Burundi"
+          ],
+          [
+            "ce876a7e-6760-4978-a62b-683102cef949",
+            "jhoffman600",
+            "Jesse Hoffman",
+            "Jesse",
+            "Hoffman",
+            "jhoffman@yahoo.com",
+            "2024-07-19",
+            "265",
+            "0.6881534686101598",
+            "Djibouti"
+          ],
+          [
+            "a45c299b-37a1-4dea-922c-432d3dc28c63",
+            "official_billgates634",
+            "D\u00f6rte Bassi",
+            "D\u00f6rte",
+            "Bassi",
+            "official_billgates634official@mail.ru",
+            "2024-12-30",
+            "101",
+            "0.8174432443739075",
+            "United Kingdom"
+          ]
+        ],
+        "label_candidates": {
+          "is_private": {
+            "False": 4162,
+            "True": 838
+          },
+          "is_verified": {
+            "False": 4130,
+            "True": 870
+          },
+          "account_type": {
+            "casual_user": 1128,
+            "active_user": 937,
+            "business": 562,
+            "influencer": 375,
+            "hobbyist": 375,
+            "crypto_scam": 312,
+            "bot": 250,
+            "phishing": 250,
+            "porn_scam": 187,
+            "news_updates": 187
+          },
+          "is_fake": {
+            "False": 3751,
+            "True": 1249
+          }
+        }
+      }
+    ],
+    "media_samples": [],
+    "subdirs": [],
+    "total_size_mb": 36.25
+  },
+  "archive (16)": {
+    "name": "archive (16)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (16)",
+    "exists": true,
+    "files": [],
+    "file_count": 6530,
+    "total_size_bytes": 10156100196,
+    "ext_counts": {
+      ".mp4": 6529,
+      ".txt": 1
+    },
+    "tabular_files": [
+      {
+        "rel_path": "List_of_testing_videos.txt",
+        "size_bytes": 17009,
+        "ext": ".txt"
+      }
+    ],
+    "media_samples": [
+      "Celeb-real\\id0_0000.mp4",
+      "Celeb-real\\id0_0001.mp4",
+      "Celeb-real\\id0_0002.mp4",
+      "Celeb-real\\id0_0003.mp4",
+      "Celeb-real\\id0_0004.mp4",
+      "Celeb-real\\id0_0005.mp4",
+      "Celeb-real\\id0_0006.mp4",
+      "Celeb-real\\id0_0007.mp4",
+      "Celeb-real\\id0_0008.mp4",
+      "Celeb-real\\id0_0009.mp4"
+    ],
+    "subdirs": [
+      "Celeb-real",
+      "Celeb-synthesis",
+      "YouTube-real"
+    ],
+    "total_size_mb": 9685.61
+  },
+  "archive (17)": {
+    "name": "archive (17)",
+    "path": "C:\\Users\\paruc\\Downloads\\archive (17)",
+    "exists": true,
+    "files": [],
+    "file_count": 7010,
+    "total_size_bytes": 17919806673,
+    "ext_counts": {
+      ".mp4": 7000,
+      ".csv": 10
+    },
+    "tabular_files": [
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\DeepFakeDetection.csv",
+        "size_bytes": 95114,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "DeepFakeDetection/01_02__meeting_serious__YVGY8LOK.mp4",
+            "FAKE",
+            "1044",
+            "1920",
+            "1080",
+            "h264",
+            "6.43"
+          ],
+          [
+            "1",
+            "DeepFakeDetection/01_02__outside_talking_still_laughing__YVGY8LOK.mp4",
+            "FAKE",
+            "727",
+            "1920",
+            "1080",
+            "h264",
+            "5.05"
+          ],
+          [
+            "2",
+            "DeepFakeDetection/01_02__talking_against_wall__YVGY8LOK.mp4",
+            "FAKE",
+            "841",
+            "1920",
+            "1080",
+            "h264",
+            "3.31"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\Deepfakes.csv",
+        "size_bytes": 53470,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "Deepfakes/000_003.mp4",
+            "FAKE",
+            "396",
+            "640",
+            "480",
+            "h264",
+            "0.85"
+          ],
+          [
+            "1",
+            "Deepfakes/001_870.mp4",
+            "FAKE",
+            "460",
+            "1280",
+            "720",
+            "h264",
+            "2.74"
+          ],
+          [
+            "2",
+            "Deepfakes/002_006.mp4",
+            "FAKE",
+            "693",
+            "1280",
+            "720",
+            "h264",
+            "1.98"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\Face2Face.csv",
+        "size_bytes": 53467,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "Face2Face/000_003.mp4",
+            "FAKE",
+            "303",
+            "640",
+            "480",
+            "h264",
+            "0.64"
+          ],
+          [
+            "1",
+            "Face2Face/001_870.mp4",
+            "FAKE",
+            "604",
+            "1280",
+            "720",
+            "h264",
+            "3.51"
+          ],
+          [
+            "2",
+            "Face2Face/002_006.mp4",
+            "FAKE",
+            "310",
+            "1280",
+            "720",
+            "h264",
+            "0.91"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\FaceShifter.csv",
+        "size_bytes": 55455,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "FaceShifter/000_003.mp4",
+            "FAKE",
+            "396",
+            "640",
+            "480",
+            "h264",
+            "0.85"
+          ],
+          [
+            "1",
+            "FaceShifter/001_870.mp4",
+            "FAKE",
+            "460",
+            "1280",
+            "720",
+            "h264",
+            "2.75"
+          ],
+          [
+            "2",
+            "FaceShifter/002_006.mp4",
+            "FAKE",
+            "693",
+            "1280",
+            "720",
+            "h264",
+            "2.1"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\FaceSwap.csv",
+        "size_bytes": 52445,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "FaceSwap/000_003.mp4",
+            "FAKE",
+            "303",
+            "640",
+            "480",
+            "h264",
+            "0.69"
+          ],
+          [
+            "1",
+            "FaceSwap/001_870.mp4",
+            "FAKE",
+            "460",
+            "1280",
+            "720",
+            "h264",
+            "2.77"
+          ],
+          [
+            "2",
+            "FaceSwap/002_006.mp4",
+            "FAKE",
+            "310",
+            "1280",
+            "720",
+            "h264",
+            "0.96"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\FF++_Metadata.csv",
+        "size_bytes": 423139,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 7000,
+        "sample_rows": [
+          [
+            "0",
+            "DeepFakeDetection/01_02__meeting_serious__YVGY8LOK.mp4",
+            "FAKE",
+            "1044",
+            "1920",
+            "1080",
+            "h264",
+            "6.43"
+          ],
+          [
+            "1",
+            "DeepFakeDetection/01_02__outside_talking_still_laughing__YVGY8LOK.mp4",
+            "FAKE",
+            "727",
+            "1920",
+            "1080",
+            "h264",
+            "5.05"
+          ],
+          [
+            "2",
+            "DeepFakeDetection/01_02__talking_against_wall__YVGY8LOK.mp4",
+            "FAKE",
+            "841",
+            "1920",
+            "1080",
+            "h264",
+            "3.31"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 6000,
+            "REAL": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\FF++_Metadata_Shuffled.csv",
+        "size_bytes": 423139,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 7000,
+        "sample_rows": [
+          [
+            "0",
+            "original/500.mp4",
+            "REAL",
+            "292",
+            "1920",
+            "1080",
+            "h264",
+            "2.66"
+          ],
+          [
+            "1",
+            "Face2Face/944_032.mp4",
+            "FAKE",
+            "310",
+            "704",
+            "480",
+            "h264",
+            "0.46"
+          ],
+          [
+            "2",
+            "Face2Face/024_073.mp4",
+            "FAKE",
+            "703",
+            "640",
+            "480",
+            "h264",
+            "1.14"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 6000,
+            "REAL": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\Mean_Data.csv",
+        "size_bytes": 392,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "Frame Count Mean",
+          "Width Mean",
+          "Height Mean",
+          "File Size(MB) Mean"
+        ],
+        "row_count": 7,
+        "sample_rows": [
+          [
+            "DeepFakeDetection",
+            "733.791",
+            "1920.0",
+            "1080.0",
+            "6.6376100000000005"
+          ],
+          [
+            "Deepfakes",
+            "509.128",
+            "1036.348",
+            "636.718",
+            "1.90042"
+          ],
+          [
+            "Face2Face",
+            "509.128",
+            "1030.912",
+            "636.718",
+            "1.8566599999999998"
+          ]
+        ],
+        "label_candidates": {}
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\NeuralTextures.csv",
+        "size_bytes": 58441,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "NeuralTextures/000_003.mp4",
+            "FAKE",
+            "303",
+            "640",
+            "480",
+            "h264",
+            "0.62"
+          ],
+          [
+            "1",
+            "NeuralTextures/001_870.mp4",
+            "FAKE",
+            "460",
+            "1280",
+            "720",
+            "h264",
+            "2.71"
+          ],
+          [
+            "2",
+            "NeuralTextures/002_006.mp4",
+            "FAKE",
+            "310",
+            "1280",
+            "720",
+            "h264",
+            "0.91"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "FAKE": 1000
+          }
+        }
+      },
+      {
+        "rel_path": "FaceForensics++_C23\\csv\\original.csv",
+        "size_bytes": 48459,
+        "ext": ".csv",
+        "columns": [
+          "",
+          "File Path",
+          "Label",
+          "Frame Count",
+          "Width",
+          "Height",
+          "Codec",
+          "File Size(MB)"
+        ],
+        "row_count": 1000,
+        "sample_rows": [
+          [
+            "0",
+            "original/000.mp4",
+            "REAL",
+            "396",
+            "640",
+            "480",
+            "h264",
+            "0.85"
+          ],
+          [
+            "1",
+            "original/001.mp4",
+            "REAL",
+            "460",
+            "1280",
+            "720",
+            "h264",
+            "2.78"
+          ],
+          [
+            "2",
+            "original/002.mp4",
+            "REAL",
+            "693",
+            "1280",
+            "720",
+            "h264",
+            "2.02"
+          ]
+        ],
+        "label_candidates": {
+          "Label": {
+            "REAL": 1000
+          }
+        }
+      }
+    ],
+    "media_samples": [
+      "FaceForensics++_C23\\DeepFakeDetection\\01_02__meeting_serious__YVGY8LOK.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_02__outside_talking_still_laughing__YVGY8LOK.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_02__talking_against_wall__YVGY8LOK.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_02__walking_down_indoor_hall_disgust__YVGY8LOK.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_02__walk_down_hall_angry__YVGY8LOK.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_03__hugging_happy__ISF9SP4G.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_03__kitchen_pan__JZUXXFRB.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_03__podium_speech_happy__480LQD1C.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_03__talking_against_wall__JZUXXFRB.mp4",
+      "FaceForensics++_C23\\DeepFakeDetection\\01_04__hugging_happy__GBC7ZGDP.mp4"
+    ],
+    "subdirs": [
+      "FaceForensics++_C23"
+    ],
+    "total_size_mb": 17089.66
+  }
+}

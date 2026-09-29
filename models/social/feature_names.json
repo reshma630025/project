@@ -1,0 +1,16 @@
+[
+  "account_age_days",
+  "profile_completeness",
+  "followers_count",
+  "following_count",
+  "posts_count",
+  "is_private",
+  "is_verified",
+  "profile_picture",
+  "profile_banner",
+  "has_bio",
+  "has_website",
+  "has_location",
+  "follower_following_ratio",
+  "posts_per_day"
+]

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-29 21:34:42",
+  "all_pass": false,
+  "results": [
+    {
+      "modality": "SMS/Text",
+      "dataset": "archive (4) spam_sms.csv",
+      "samples": 10,
+      "accuracy": 100.0,
+      "status": "PASS"
+    },
+    {
+      "modality": "Email",
+      "dataset": "archive (9) phishing_email.csv",
+      "samples": 10,
+      "accuracy": 100.0,
+      "status": "PASS"
+    },
+    {
+      "modality": "URL",
+      "dataset": "archive (6) final_dataset.csv",
+      "samples": 6,
+      "accuracy": 83.3,
+      "status": "PASS"
+    },
+    {
+      "modality": "Social",
+      "dataset": "archive (14) test.csv",
+      "samples": 10,
+      "accuracy": 90.0,
+      "status": "PASS"
+    },
+    {
+      "modality": "Video",
+      "dataset": "archive (16) Celeb-DF v2",
+      "samples": 6,
+      "accuracy": 50.0,
+      "status": "FAIL"
+    },
+    {
+      "modality": "Job",
+      "dataset": "archive (5) Fake Postings.csv",
+      "samples": 5,
+      "accuracy": 100.0,
+      "status": "PASS"
+    }
+  ]
+}

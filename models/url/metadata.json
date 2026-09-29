@@ -1,0 +1,79 @@
+{
+  "model_name": "PhishingURLNet",
+  "dataset": "Phishing & Malicious URLs Dataset",
+  "dataset_path": "C:\\Users\\paruc\\Downloads\\archive (6)\\final_dataset.csv",
+  "modality": "URL / Tabular",
+  "features_count": 74,
+  "classes": [
+    "legitimate",
+    "phishing"
+  ],
+  "label_mapping": {
+    "0": "legitimate (AUTHENTIC / SAFE URL)",
+    "1": "phishing (MALICIOUS / PHISHING URL)"
+  },
+  "train_samples": 48000,
+  "validation_samples": 6000,
+  "test_samples": 6000,
+  "epochs_completed": 15,
+  "architecture": "PhishingURLNet(Linear(74, 128)->BatchNorm->ReLU->Dropout(0.25)->Linear(128, 64)->BatchNorm->ReLU->Dropout(0.2)->Linear(64, 32)->BatchNorm->ReLU->Dropout(0.15)->Linear(32, 2))",
+  "framework": "PyTorch",
+  "metrics": {
+    "accuracy": 0.9805,
+    "precision": 0.9918,
+    "recall": 0.969,
+    "f1": 0.9803,
+    "roc_auc": 0.9969,
+    "confusion_matrix": [
+      [
+        2976,
+        24
+      ],
+      [
+        93,
+        2907
+      ]
+    ],
+    "tp": 2907,
+    "tn": 2976,
+    "fp": 24,
+    "fn": 93,
+    "training_loss": [
+      0.1396,
+      0.0851,
+      0.0786,
+      0.0742,
+      0.0719,
+      0.0684,
+      0.0665,
+      0.064,
+      0.0626,
+      0.0607,
+      0.0589,
+      0.058,
+      0.0564,
+      0.0555,
+      0.0552
+    ],
+    "validation_loss": [
+      0.0864,
+      0.0756,
+      0.0728,
+      0.0685,
+      0.0689,
+      0.0655,
+      0.0657,
+      0.0647,
+      0.0603,
+      0.0609,
+      0.0597,
+      0.0605,
+      0.0567,
+      0.0604,
+      0.0556
+    ],
+    "duration_seconds": 28.43
+  },
+  "trained_at": "2026-09-08T00:48:21.137449",
+  "device": "cpu"
+}

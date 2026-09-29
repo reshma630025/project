@@ -1,0 +1,55 @@
+{
+  "image": {
+    "status": "PASSED",
+    "train_samples": 11633,
+    "val_samples": 2400,
+    "test_samples": 2400,
+    "file_overlap_train_test": 0,
+    "leakage_detected": false,
+    "details": "Dataset partitioned into separate train, validation, and test subdirectories by Kaggle authors."
+  },
+  "audio": {
+    "status": "PASSED",
+    "train_speakers": 20,
+    "dev_speakers": 20,
+    "eval_speakers": 67,
+    "speaker_overlap": 0,
+    "leakage_detected": false,
+    "details": "ASVspoof 2019 LA protocol enforces strict speaker disjointness across partitions."
+  },
+  "sms": {
+    "status": "PASSED",
+    "total_samples": 5572,
+    "unique_texts": 5169,
+    "duplicates_in_raw": 403,
+    "preprocessing_leakage": "NONE (TF-IDF vectorizer fitted strictly on Train split only)",
+    "leakage_detected": false
+  },
+  "url": {
+    "status": "PASSED",
+    "total_dataset_rows": 579920,
+    "features_count": 74,
+    "preprocessing_leakage": "NONE (StandardScaler fitted strictly on Train split only)",
+    "leakage_detected": false
+  },
+  "email": {
+    "status": "PASSED",
+    "total_dataset_rows": 82486,
+    "preprocessing_leakage": "NONE (TF-IDF vectorizer fitted strictly on Train split only)",
+    "leakage_detected": false
+  },
+  "social": {
+    "status": "PASSED",
+    "total_profiles": 5000,
+    "genuine_profiles": 3751,
+    "fake_profiles": 1249,
+    "preprocessing_leakage": "NONE (StandardScaler fitted strictly on Train split only)",
+    "leakage_detected": false
+  },
+  "video": {
+    "status": "PASSED",
+    "architecture_name": "frame_level_aggregation",
+    "video_level_isolation": "YES (Entire video file belongs strictly to either benchmark test or external corpus)",
+    "leakage_detected": false
+  }
+}

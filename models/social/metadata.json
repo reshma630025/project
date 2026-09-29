@@ -1,0 +1,13 @@
+{
+  "dataset": "archive (15) raw_user_profiles.csv",
+  "architecture": "SocialProfileNet",
+  "train_samples": 4000,
+  "val_samples": 500,
+  "test_samples": 500,
+  "test_accuracy": 0.92,
+  "test_precision": 0.7707006369426752,
+  "test_recall": 0.968,
+  "test_f1": 0.8581560283687943,
+  "test_roc_auc": 0.9896533333333333,
+  "trained_timestamp": "2026-09-15T13:43:51.840009"
+}

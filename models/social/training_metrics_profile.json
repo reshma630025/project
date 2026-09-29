@@ -1,0 +1,61 @@
+{
+  "model_name": "SocialProfileNet",
+  "dataset": "archive (15) Comprehensive User Profiles",
+  "dataset_source": "C:\\Users\\paruc\\Downloads\\archive (15)\\raw_user_profiles.csv",
+  "total_samples": 5000,
+  "train_samples": 4000,
+  "val_samples": 500,
+  "test_samples": 500,
+  "features_count": 14,
+  "features": [
+    "account_age_days",
+    "profile_completeness",
+    "followers_count",
+    "following_count",
+    "posts_count",
+    "is_private",
+    "is_verified",
+    "profile_picture",
+    "profile_banner",
+    "has_bio",
+    "has_website",
+    "has_location",
+    "follower_following_ratio",
+    "posts_per_day"
+  ],
+  "best_epoch": 18,
+  "training_duration_seconds": 10.67,
+  "test_accuracy": 0.928,
+  "test_precision": 0.7871,
+  "test_recall": 0.976,
+  "test_f1": 0.8714,
+  "test_roc_auc": 0.9904,
+  "confusion_matrix": [
+    [
+      342,
+      33
+    ],
+    [
+      3,
+      122
+    ]
+  ],
+  "classes": [
+    "0: Genuine Account",
+    "1: Fake / Malicious Account"
+  ],
+  "class_distribution": {
+    "train": {
+      "genuine": 3001,
+      "fake": 999
+    },
+    "val": {
+      "genuine": 375,
+      "fake": 125
+    },
+    "test": {
+      "genuine": 375,
+      "fake": 125
+    }
+  }
+}

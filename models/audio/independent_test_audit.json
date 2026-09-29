@@ -1,0 +1,21 @@
+{
+  "model_name": "AudioCNN",
+  "dataset": "ASVspoof 2019 LA (archive (1))",
+  "unseen_samples_tested": 200,
+  "unseen_accuracy": 0.995,
+  "unseen_precision": 1.0,
+  "unseen_recall": 0.99,
+  "unseen_f1": 0.995,
+  "unseen_roc_auc": 1.0,
+  "confusion_matrix": [
+    [
+      100,
+      0
+    ],
+    [
+      1,
+      99
+    ]
+  ],
+  "evaluation_duration_seconds": 3.41
+}

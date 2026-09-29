@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-09-07T00:06:46.685194",
+  "datasets": {
+    "image_deepfake": {
+      "root": "C:\\Users\\paruc\\Downloads\\archive\\1000_videos",
+      "modality": "image",
+      "total_samples": 16433,
+      "splits": {
+        "train": {
+          "real": 5605,
+          "fake": 6028
+        },
+        "validation": {
+          "real": 1200,
+          "fake": 1200
+        },
+        "test": {
+          "real": 1200,
+          "fake": 1200
+        }
+      }
+    },
+    "audio_antispoof": {
+      "root": "C:\\Users\\paruc\\Downloads\\archive (1)\\LA\\LA",
+      "modality": "audio",
+      "total_samples": 59990,
+      "splits": {
+        "dev": {
+          "bonafide": 2548,
+          "spoof": 22296
+        },
+        "eval": {
+          "bonafide": 3695,
+          "spoof": 31451
+        }
+      }
+    }
+  },
+  "total_manifest_records": 76423
+}

@@ -1,0 +1,94 @@
+{
+  "inspection_date": "2026-09-07T00:02:15.751727",
+  "datasets": {
+    "dataset_1": {
+      "dataset": "ASVspoof 2019 \u2014 Logical Access (LA)",
+      "path": "C:\\Users\\paruc\\Downloads\\archive (1)\\LA\\LA",
+      "modality": "AUDIO",
+      "format": "FLAC (lossless compressed audio)",
+      "label_type": "Protocol file-based (ASVspoof CM protocol)",
+      "classes": [
+        "bonafide",
+        "spoof"
+      ],
+      "label_mapping": {
+        "0": "bonafide (AUTHENTIC VOICE)",
+        "1": "spoof (AI-GENERATED / SYNTHETIC VOICE)"
+      },
+      "splits": {
+        "train": {
+          "audio_files": 0,
+          "protocol_bonafide": 2580,
+          "protocol_spoof": 22800,
+          "protocol_total": 25380,
+          "note": "Train audio folder missing from download; protocol labels available"
+        },
+        "dev": {
+          "audio_files": 24986,
+          "protocol_bonafide": 2548,
+          "protocol_spoof": 22296,
+          "protocol_total": 24844
+        },
+        "eval": {
+          "audio_files": 35146,
+          "protocol_bonafide": 7355,
+          "protocol_spoof": 63882,
+          "protocol_total": 71237
+        }
+      },
+      "total_audio_available": 60132,
+      "class_imbalance": "Spoof:Bonafide ~ 8.8:1",
+      "compatible_detector": "Audio / Voice Authenticity Detector",
+      "training_strategy": "Use dev split (2548 bonafide + 22296 spoof) with 90/10 train/val split; balanced sampling; class-weighted loss",
+      "note": "Industry-standard voice anti-spoofing benchmark used in ASVspoof2019 challenge"
+    },
+    "dataset_2": {
+      "dataset": "1000 Deepfake Videos \u2014 Extracted Face Frames",
+      "path": "C:\\Users\\paruc\\Downloads\\archive\\1000_videos",
+      "modality": "IMAGE (video frames extracted from deepfake/real videos)",
+      "format": "PNG (face-cropped video frames)",
+      "label_type": "Folder-based (real/ vs fake/ subfolders)",
+      "classes": [
+        "real",
+        "fake"
+      ],
+      "label_mapping": {
+        "0": "real (AUTHENTIC FACE)",
+        "1": "fake (DEEPFAKE / FACE-SWAPPED)"
+      },
+      "splits": {
+        "train": {
+          "real": 5605,
+          "fake": 6028,
+          "total": 11633
+        },
+        "validation": {
+          "real": 1200,
+          "fake": 1200,
+          "total": 2400
+        },
+        "test": {
+          "real": 1200,
+          "fake": 1200,
+          "total": 2400
+        }
+      },
+      "total_images": 16433,
+      "total_real": 8005,
+      "total_fake": 8428,
+      "official_splits": true,
+      "class_balance": "Real:8005 Fake:8428 (ratio 1.05:1)",
+      "compatible_detector": "Image Deepfake Detector (also improves Video Deepfake via frame-level model)",
+      "training_strategy": "Use official train/validation/test splits; EfficientNet-B0 or CNN fine-tuning"
+    }
+  },
+  "compatibility": {
+    "can_combine": false,
+    "reason": "Different modalities: Audio (Dataset 1) vs Image frames (Dataset 2)",
+    "pipelines": {
+      "audio": "Dataset 1 \u2192 models/audio/",
+      "image": "Dataset 2 \u2192 models/image/",
+      "video": "Dataset 2 frames \u2192 also used by video detector"
+    }
+  }
+}

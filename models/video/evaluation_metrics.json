@@ -1,0 +1,210 @@
+{
+  "module": "Video Deepfake Detection",
+  "pipeline_type": "Frame-Level Video Deepfake Detection",
+  "model_type": "frame_level_aggregation",
+  "dataset": "Celeb-DF v2 (archive (16))",
+  "test_samples": 60,
+  "class_distribution": {
+    "real": 30,
+    "fake": 30
+  },
+  "metrics": {
+    "accuracy": 0.4333,
+    "precision": 0.3571,
+    "recall": 0.1667,
+    "f1": 0.2273,
+    "confusion_matrix": [
+      [
+        21,
+        9
+      ],
+      [
+        25,
+        5
+      ]
+    ]
+  },
+  "evaluation_time_seconds": 41.06,
+  "sample_evaluations": [
+    {
+      "video": "id28_0004.mp4",
+      "folder": "Celeb-real",
+      "true_class": "Real",
+      "pred_class": "Real",
+      "risk_score": 34.3,
+      "confidence": 67.8,
+      "analyzed_frames": 8,
+      "correct": true,
+      "duration_sec": 10.37,
+      "latency_sec": 3.78
+    },
+    {
+      "video": "00265.mp4",
+      "folder": "YouTube-real",
+      "true_class": "Real",
+      "pred_class": "Real",
+      "risk_score": 28.7,
+      "confidence": 89.0,
+      "analyzed_frames": 8,
+      "correct": true,
+      "duration_sec": 15.57,
+      "latency_sec": 0.69
+    },
+    {
+      "video": "00092.mp4",
+      "folder": "YouTube-real",
+      "true_class": "Real",
+      "pred_class": "Fake",
+      "risk_score": 53.2,
+      "confidence": 56.7,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 18.3,
+      "latency_sec": 0.63
+    },
+    {
+      "video": "id40_0009.mp4",
+      "folder": "Celeb-real",
+      "true_class": "Real",
+      "pred_class": "Real",
+      "risk_score": 29.9,
+      "confidence": 84.2,
+      "analyzed_frames": 8,
+      "correct": true,
+      "duration_sec": 10.53,
+      "latency_sec": 0.61
+    },
+    {
+      "video": "00194.mp4",
+      "folder": "YouTube-real",
+      "true_class": "Real",
+      "pred_class": "Real",
+      "risk_score": 28.5,
+      "confidence": 79.0,
+      "analyzed_frames": 8,
+      "correct": true,
+      "duration_sec": 15.4,
+      "latency_sec": 0.74
+    },
+    {
+      "video": "00119.mp4",
+      "folder": "YouTube-real",
+      "true_class": "Real",
+      "pred_class": "Fake",
+      "risk_score": 87.5,
+      "confidence": 86.4,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 14.13,
+      "latency_sec": 0.68
+    },
+    {
+      "video": "id16_id6_0011.mp4",
+      "folder": "Celeb-synthesis",
+      "true_class": "Fake",
+      "pred_class": "Real",
+      "risk_score": 28.8,
+      "confidence": 84.0,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 9.07,
+      "latency_sec": 0.38
+    },
+    {
+      "video": "id37_0009.mp4",
+      "folder": "Celeb-real",
+      "true_class": "Real",
+      "pred_class": "Fake",
+      "risk_score": 83.6,
+      "confidence": 80.6,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 15.77,
+      "latency_sec": 0.64
+    },
+    {
+      "video": "id3_id28_0002.mp4",
+      "folder": "Celeb-synthesis",
+      "true_class": "Fake",
+      "pred_class": "Real",
+      "risk_score": 33.9,
+      "confidence": 75.7,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 14.27,
+      "latency_sec": 0.47
+    },
+    {
+      "video": "00287.mp4",
+      "folder": "YouTube-real",
+      "true_class": "Real",
+      "pred_class": "Real",
+      "risk_score": 35.4,
+      "confidence": 65.8,
+      "analyzed_frames": 8,
+      "correct": true,
+      "duration_sec": 15.6,
+      "latency_sec": 0.68
+    },
+    {
+      "video": "id2_id28_0003.mp4",
+      "folder": "Celeb-synthesis",
+      "true_class": "Fake",
+      "pred_class": "Real",
+      "risk_score": 28.9,
+      "confidence": 89.0,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 12.77,
+      "latency_sec": 0.52
+    },
+    {
+      "video": "id46_id41_0000.mp4",
+      "folder": "Celeb-synthesis",
+      "true_class": "Fake",
+      "pred_class": "Real",
+      "risk_score": 30.5,
+      "confidence": 74.2,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 11.17,
+      "latency_sec": 0.73
+    },
+    {
+      "video": "id19_0007.mp4",
+      "folder": "Celeb-real",
+      "true_class": "Real",
+      "pred_class": "Real",
+      "risk_score": 31.8,
+      "confidence": 71.1,
+      "analyzed_frames": 8,
+      "correct": true,
+      "duration_sec": 10.93,
+      "latency_sec": 0.62
+    },
+    {
+      "video": "id1_id4_0007.mp4",
+      "folder": "Celeb-synthesis",
+      "true_class": "Fake",
+      "pred_class": "Real",
+      "risk_score": 30.4,
+      "confidence": 76.8,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 10.93,
+      "latency_sec": 0.51
+    },
+    {
+      "video": "id3_id2_0001.mp4",
+      "folder": "Celeb-synthesis",
+      "true_class": "Fake",
+      "pred_class": "Real",
+      "risk_score": 29.8,
+      "confidence": 86.5,
+      "analyzed_frames": 8,
+      "correct": false,
+      "duration_sec": 12.67,
+      "latency_sec": 0.53
+    }
+  ]
+}

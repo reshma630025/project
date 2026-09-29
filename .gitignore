@@ -1,0 +1,46 @@
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Datasets & Downloads
+archive*/
+*.zip
+*.tar.gz
+*.csv.gz
+
+# Cache & Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDEs & System
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary & Logs
+logs/
+*.log
+*.tmp
+*.temp
+chrome_*_profile/
+.system_generated/
+scratch/

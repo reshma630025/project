@@ -1,0 +1,23 @@
+{
+  "model_name": "DeepfakeCNN (Frame-Level Aggregation)",
+  "videoModelType": "frame_level_aggregation",
+  "evaluation_standard": "Video-Level Held-Out Testing",
+  "base_image_model": "models/image/best_model.pt",
+  "temporal_sampling": "16 evenly spaced deterministic keyframes",
+  "datasets": {
+    "celeb_df_v2": {
+      "source": "archive (16)",
+      "accuracy": "55.00%",
+      "f1": "60.87%",
+      "precision": "53.85%",
+      "recall": "70.00%"
+    },
+    "faceforensics_pp": {
+      "source": "archive (17)",
+      "accuracy": "35.00%",
+      "f1": "23.53%",
+      "precision": "28.57%",
+      "recall": "20.00%"
+    }
+  }
+}

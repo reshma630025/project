@@ -1,0 +1,153 @@
+
+=======================================================
+DATASET: archive (14) - train.csv (C:\Users\paruc\Downloads\archive (14)\train.csv)
+=======================================================
+Rows: 576
+Columns (12): ['profile pic', 'nums/length username', 'fullname words', 'nums/length fullname', 'name==username', 'description length', 'external URL', 'private', '#posts', '#followers', '#follows', 'fake']
+
+Data Types:
+  - profile pic: int64 (Nulls: 0)
+  - nums/length username: float64 (Nulls: 0)
+  - fullname words: int64 (Nulls: 0)
+  - nums/length fullname: float64 (Nulls: 0)
+  - name==username: int64 (Nulls: 0)
+  - description length: int64 (Nulls: 0)
+  - external URL: int64 (Nulls: 0)
+  - private: int64 (Nulls: 0)
+  - #posts: int64 (Nulls: 0)
+  - #followers: int64 (Nulls: 0)
+  - #follows: int64 (Nulls: 0)
+  - fake: int64 (Nulls: 0)
+
+Label Distribution for 'fake':
+fake
+0    288
+1    288
+Name: count, dtype: int64
+
+First 3 rows:
+   profile pic  nums/length username  fullname words  nums/length fullname  name==username  description length  external URL  private  #posts  #followers  #follows  fake
+0            1                  0.27               0                   0.0               0                  53             0        0      32        1000       955     0
+1            1                  0.00               2                   0.0               0                  44             0        0     286        2740       533     0
+2            1                  0.10               2                   0.0               0                   0             0        1      13         159        98     0
+
+=======================================================
+DATASET: archive (14) - test.csv (C:\Users\paruc\Downloads\archive (14)\test.csv)
+=======================================================
+Rows: 120
+Columns (12): ['profile pic', 'nums/length username', 'fullname words', 'nums/length fullname', 'name==username', 'description length', 'external URL', 'private', '#posts', '#followers', '#follows', 'fake']
+
+Data Types:
+  - profile pic: int64 (Nulls: 0)
+  - nums/length username: float64 (Nulls: 0)
+  - fullname words: int64 (Nulls: 0)
+  - nums/length fullname: float64 (Nulls: 0)
+  - name==username: int64 (Nulls: 0)
+  - description length: int64 (Nulls: 0)
+  - external URL: int64 (Nulls: 0)
+  - private: int64 (Nulls: 0)
+  - #posts: int64 (Nulls: 0)
+  - #followers: int64 (Nulls: 0)
+  - #follows: int64 (Nulls: 0)
+  - fake: int64 (Nulls: 0)
+
+Label Distribution for 'fake':
+fake
+0    60
+1    60
+Name: count, dtype: int64
+
+First 3 rows:
+   profile pic  nums/length username  fullname words  nums/length fullname  name==username  description length  external URL  private  #posts  #followers  #follows  fake
+0            1                  0.33               1                  0.33               1                  30             0        1      35         488       604     0
+1            1                  0.00               5                  0.00               0                  64             0        1       3          35         6     0
+2            1                  0.00               2                  0.00               0                  82             0        1     319         328       668     0
+
+=======================================================
+DATASET: archive (15) - raw_user_profiles.csv (C:\Users\paruc\Downloads\archive (15)\raw_user_profiles.csv)
+=======================================================
+Rows: 5,000
+Columns (25): ['user_id', 'username', 'full_name', 'first_name', 'last_name', 'email', 'creation_date', 'account_age_days', 'profile_completeness', 'home_country', 'home_region', 'home_city', 'followers_count', 'following_count', 'posts_count', 'is_private', 'is_verified', 'profile_picture', 'profile_banner', 'has_bio', 'has_website', 'has_location', 'account_type', 'is_fake', 'language_preference']
+
+Data Types:
+  - user_id: str (Nulls: 0)
+  - username: str (Nulls: 0)
+  - full_name: str (Nulls: 0)
+  - first_name: str (Nulls: 0)
+  - last_name: str (Nulls: 0)
+  - email: str (Nulls: 0)
+  - creation_date: str (Nulls: 0)
+  - account_age_days: int64 (Nulls: 0)
+  - profile_completeness: float64 (Nulls: 0)
+  - home_country: str (Nulls: 0)
+  - home_region: str (Nulls: 0)
+  - home_city: str (Nulls: 0)
+  - followers_count: int64 (Nulls: 0)
+  - following_count: int64 (Nulls: 0)
+  - posts_count: int64 (Nulls: 0)
+  - is_private: bool (Nulls: 0)
+  - is_verified: bool (Nulls: 0)
+  - profile_picture: bool (Nulls: 0)
+  - profile_banner: bool (Nulls: 0)
+  - has_bio: bool (Nulls: 0)
+  - has_website: bool (Nulls: 0)
+  - has_location: bool (Nulls: 0)
+  - account_type: str (Nulls: 0)
+  - is_fake: bool (Nulls: 0)
+  - language_preference: str (Nulls: 0)
+
+Label Distribution for 'is_fake':
+is_fake
+False    3751
+True     1249
+Name: count, dtype: int64
+
+First 3 rows:
+                                user_id               username      full_name first_name last_name                                  email creation_date  account_age_days  profile_completeness    home_country    home_region     home_city  followers_count  following_count  posts_count  is_private  is_verified  profile_picture  profile_banner  has_bio  has_website  has_location   account_type  is_fake language_preference
+0  b74f2b71-054b-4f53-a3af-7af090c283d3             peterkonda    Peter Konda      Peter     Konda                  peterkonda@icloud.com    2024-09-11               211              0.665228         Burundi           Utah   Higginsland              105               80           24       False        False             True            True    False        False          True    active_user    False                  ja
+1  ce876a7e-6760-4978-a62b-683102cef949            jhoffman600  Jesse Hoffman      Jesse   Hoffman                     jhoffman@yahoo.com    2024-07-19               265              0.688153        Djibouti  Niedersachsen  Lake Roberto                5              231           25        True        False             True           False    False        False         False    active_user    False                  en
+2  a45c299b-37a1-4dea-922c-432d3dc28c63  official_billgates634    Dörte Bassi      Dörte     Bassi  official_billgates634official@mail.ru    2024-12-30               101              0.817443  United Kingdom     California     Hollywood              651                5           28       False         True             True           False     True        False         False  impersonation     True                  hi
+
+=======================================================
+DATASET: archive (15) - raw_user_activities.csv (C:\Users\paruc\Downloads\archive (15)\raw_user_activities.csv)
+=======================================================
+Rows: 131,284
+Columns (24): ['activity_id', 'user_id', 'timestamp', 'content', 'post_country', 'post_region', 'post_city', 'device', 'platform', 'likes', 'comments', 'shares', 'hour_of_day', 'day_of_week', 'is_weekend', 'has_media', 'media_type', 'character_count', 'hashtag_count', 'mention_count', 'contains_url', 'content_type', 'is_fake', 'language']
+
+Data Types:
+  - activity_id: str (Nulls: 0)
+  - user_id: str (Nulls: 0)
+  - timestamp: str (Nulls: 0)
+  - content: str (Nulls: 0)
+  - post_country: str (Nulls: 0)
+  - post_region: str (Nulls: 0)
+  - post_city: str (Nulls: 0)
+  - device: str (Nulls: 0)
+  - platform: str (Nulls: 0)
+  - likes: int64 (Nulls: 0)
+  - comments: int64 (Nulls: 0)
+  - shares: int64 (Nulls: 0)
+  - hour_of_day: int64 (Nulls: 0)
+  - day_of_week: int64 (Nulls: 0)
+  - is_weekend: int64 (Nulls: 0)
+  - has_media: bool (Nulls: 0)
+  - media_type: str (Nulls: 0)
+  - character_count: int64 (Nulls: 0)
+  - hashtag_count: int64 (Nulls: 0)
+  - mention_count: int64 (Nulls: 0)
+  - contains_url: int64 (Nulls: 0)
+  - content_type: str (Nulls: 0)
+  - is_fake: bool (Nulls: 0)
+  - language: str (Nulls: 0)
+
+Label Distribution for 'is_fake':
+is_fake
+False    101439
+True      29845
+Name: count, dtype: int64
+
+First 3 rows:
+                              activity_id                               user_id            timestamp                                                           content post_country post_region    post_city   device    platform  likes  comments  shares  hour_of_day  day_of_week  is_weekend  has_media media_type  character_count  hashtag_count  mention_count  contains_url content_type  is_fake language
+0  b74f2b71-054b-4f53-a3af-7af090c283d3_0  b74f2b71-054b-4f53-a3af-7af090c283d3  2024-09-10 16:50:00  Highlight of my day was definitely beating my personal record. 👌      Burundi        Utah  Higginsland   iPhone  Mobile Web     43        17       1           16            1           0      False       none               64              0              0             0  active_user    False       ja
+1  b74f2b71-054b-4f53-a3af-7af090c283d3_1  b74f2b71-054b-4f53-a3af-7af090c283d3  2024-09-13 15:53:00             Just posted a new photo on my profile! Check it out 🌈      Burundi        Utah  Higginsland   iPhone  Mobile Web     21        21       4           15            4           0       True      image               53              0              0             0  active_user    False       ja
+2  b74f2b71-054b-4f53-a3af-7af090c283d3_2  b74f2b71-054b-4f53-a3af-7af090c283d3  2024-09-14 09:31:00       Feeling inspired after cleaning out my closet. Anyone else?      Burundi        Utah  Higginsland  Android  Mobile App     16         8       1            9            5           1      False       none               59              0              0             0  active_user    False       ja

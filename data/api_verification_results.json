@@ -1,0 +1,101 @@
+[
+  {
+    "endpoint": "/api/status",
+    "method": "GET",
+    "status_code": 200,
+    "latency_ms": 204.7,
+    "model_loaded": true,
+    "prediction": "System Online",
+    "risk_score": 0.0
+  },
+  {
+    "endpoint": "/api/analyze/image",
+    "method": "POST (Multipart)",
+    "status_code": 200,
+    "latency_ms": 114.8,
+    "model_loaded": true,
+    "prediction": "SUSPICIOUS",
+    "risk_score": 57.6
+  },
+  {
+    "endpoint": "/api/analyze/video",
+    "method": "POST (Multipart)",
+    "status_code": 200,
+    "latency_ms": 909.9,
+    "model_loaded": true,
+    "prediction": "AI-GENERATED",
+    "risk_score": 91.2
+  },
+  {
+    "endpoint": "/api/analyze/audio",
+    "method": "POST (Multipart)",
+    "status_code": 200,
+    "latency_ms": 112.3,
+    "model_loaded": true,
+    "prediction": "AI-GENERATED",
+    "risk_score": 95.4
+  },
+  {
+    "endpoint": "/api/analyze/live-audio",
+    "method": "POST (Stream Chunk)",
+    "status_code": 200,
+    "latency_ms": 105.8,
+    "model_loaded": true,
+    "prediction": "AI-GENERATED",
+    "risk_score": 95.4
+  },
+  {
+    "endpoint": "/api/analyze/text",
+    "method": "POST (JSON)",
+    "status_code": 200,
+    "latency_ms": 107.8,
+    "model_loaded": true,
+    "prediction": "SCAM",
+    "risk_score": 75.5
+  },
+  {
+    "endpoint": "/api/analyze/email",
+    "method": "POST (JSON)",
+    "status_code": 200,
+    "latency_ms": 55.7,
+    "model_loaded": true,
+    "prediction": "PHISHING",
+    "risk_score": 82.0
+  },
+  {
+    "endpoint": "/api/analyze/url",
+    "method": "POST (JSON)",
+    "status_code": 200,
+    "latency_ms": 34.7,
+    "model_loaded": true,
+    "prediction": "PHISHING-LIKELY",
+    "risk_score": 89.5
+  },
+  {
+    "endpoint": "/api/analyze/job",
+    "method": "POST (JSON)",
+    "status_code": 200,
+    "latency_ms": 62.4,
+    "model_loaded": true,
+    "prediction": "SCAM-LIKELY",
+    "risk_score": 58.0
+  },
+  {
+    "endpoint": "/api/analyze/internship",
+    "method": "POST (JSON)",
+    "status_code": 200,
+    "latency_ms": 59.0,
+    "model_loaded": true,
+    "prediction": "SCAM-LIKELY",
+    "risk_score": 58.0
+  },
+  {
+    "endpoint": "/api/analyze/social",
+    "method": "POST (JSON)",
+    "status_code": 200,
+    "latency_ms": 138.4,
+    "model_loaded": true,
+    "prediction": "GENUINE",
+    "risk_score": 0.0
+  }
+]
