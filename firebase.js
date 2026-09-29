@@ -50,7 +50,7 @@ onSnapshot(scansQ, snapshot=>{
   window.firebaseScanHistory = arr;
 }, error => {
   console.error('Firestore scans listener error', error);
-  showFirebaseToast('Firebase sync unavailable', 'FastAPI history remains active', 'warn');
+  // Silently ignore to prevent annoying users when Firebase rules block access
 });
 
 console.log('Firebase realtime listener initialized');
