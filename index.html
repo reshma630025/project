@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Real OCR engine, loaded from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="./config.js"></script>
 <script src="./api.js"></script>
 <style>
 /* ============ DESIGN TOKENS (IEEE AI CYBERSECURITY SOC) ============ */
@@ -4133,6 +4134,8 @@ async function checkBackendEngineStatus() {
   const offlineBanner = document.getElementById('backendOfflineBanner');
   const t0 = performance.now();
   const baseUrl = window.API_BASE_URL || (typeof getTrustGuardApiBase === 'function' ? getTrustGuardApiBase() : 'http://127.0.0.1:8000');
+  const isGitHub = window.location.hostname.includes('github.io') || window.location.hostname.includes('pages.dev');
+
   try {
     const res = await fetch(`${baseUrl}/api/status`);
     const lat = Math.max(1, Math.round(performance.now() - t0));
@@ -4143,23 +4146,29 @@ async function checkBackendEngineStatus() {
       const data = await res.json();
       if (offlineBanner) offlineBanner.style.display = 'none';
       if (badge) {
-        badge.innerHTML = `<i class="dot" style="background:var(--safe); box-shadow:0 0 6px var(--safe);"></i>● Local Backend Connected`;
+        badge.innerHTML = `<i class="dot" style="background:var(--safe); box-shadow:0 0 6px var(--safe);"></i>● ${isGitHub ? 'Live AI Backend Connected' : 'Local Backend Connected'}`;
         badge.style.color = 'var(--safe)';
       }
-      if (statusTxt) { statusTxt.textContent = '● Online (Local AI Ready)'; statusTxt.style.color = 'var(--safe)'; }
-      if (tag) { tag.textContent = 'ONLINE / LOCAL'; tag.style.color = 'var(--safe)'; }
+      if (statusTxt) { statusTxt.textContent = `● Online (${isGitHub ? 'Live AI Ready' : 'Local AI Ready'})`; statusTxt.style.color = 'var(--safe)'; }
+      if (tag) { tag.textContent = isGitHub ? 'ONLINE / LIVE' : 'ONLINE / LOCAL'; tag.style.color = 'var(--safe)'; }
     } else {
-      if (offlineBanner) offlineBanner.style.display = 'block';
-      if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● Local Backend Stopped`; badge.style.color = 'var(--danger-2)'; }
+      if (offlineBanner) {
+        offlineBanner.style.display = 'block';
+        if (isGitHub) offlineBanner.innerHTML = '<b>● Live AI Backend Unavailable.</b> Please try again later.';
+      }
+      if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● ${isGitHub ? 'Live AI Backend Unavailable' : 'Local Backend Stopped'}`; badge.style.color = 'var(--danger-2)'; }
       if (statusTxt) { statusTxt.textContent = '● Stopped'; statusTxt.style.color = 'var(--danger-2)'; }
       if (tag) { tag.textContent = 'STOPPED'; tag.style.color = 'var(--danger-2)'; }
     }
   } catch (e) {
-    if (offlineBanner) offlineBanner.style.display = 'block';
-    if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● Local Backend Stopped`; badge.style.color = 'var(--danger-2)'; }
+    if (offlineBanner) {
+      offlineBanner.style.display = 'block';
+      if (isGitHub) offlineBanner.innerHTML = '<b>● Live AI Backend Unavailable.</b> Please try again later.';
+    }
+    if (badge) { badge.innerHTML = `<i class="dot" style="background:var(--danger)"></i>● ${isGitHub ? 'Live AI Backend Unavailable' : 'Local Backend Stopped'}`; badge.style.color = 'var(--danger-2)'; }
     if (latEl) latEl.textContent = '—';
-    if (statusTxt) { statusTxt.textContent = '● Backend Stopped (Run start_trustguard.bat)'; statusTxt.style.color = 'var(--danger-2)'; }
-    if (tag) { tag.textContent = 'BACKEND STOPPED'; tag.style.color = 'var(--danger-2)'; }
+    if (statusTxt) { statusTxt.textContent = isGitHub ? '● Live Backend Offline (Please try again later)' : '● Backend Stopped (Run start_trustguard.bat)'; statusTxt.style.color = 'var(--danger-2)'; }
+    if (tag) { tag.textContent = isGitHub ? 'BACKEND UNAVAILABLE' : 'BACKEND STOPPED'; tag.style.color = 'var(--danger-2)'; }
   }
 }
 

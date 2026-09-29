@@ -4,30 +4,26 @@ TrustGuard AI is an enterprise-grade content authenticity platform designed to d
 
 ---
 
-## 🚀 How to Run in Localhost
+## 🚀 How to Run (Three Modes)
 
+### 1. LOCAL / OFFLINE MODE
 The FastAPI backend runs the server and directly hosts the frontend application at `http://127.0.0.1:8000`.
+- **Localhost URL:** http://127.0.0.1:8000
+- **Startup Command:** 
+  ```bash
+  python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
+  ```
+  *(Or just double-click `start_trustguard.bat`)*
 
-### Option 1: Quick Start (Windows)
-Double-click [`run.bat`](file:///c:/Users/paruc/OneDrive/Desktop/git5/run.bat) or run in PowerShell:
-```powershell
-.\run.ps1
-```
+### 2. LAN MODE (Any Device on Same Wi-Fi)
+Access the running server from your phone or tablet on the same Wi-Fi network.
+- **How to find LAN IP:** Run `start_trustguard.bat` or `python scripts/detect_lan_ip.py` to see your LAN IP.
+- **Access URL:** `http://<CURRENT-LAN-IP>:8000/` (e.g., `http://192.168.1.5:8000/`)
 
-### Option 2: Run via Command Line
-```powershell
-& "C:\Users\paruc\AppData\Local\Programs\Python\Python313\python.exe" -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
-```
-Or with standard python:
-```bash
-python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
-```
-
-### Option 3: Access the Web App in Your Browser
-Open your web browser and navigate to:
-```text
-http://127.0.0.1:8000
-```
+### 3. LIVE / GITHUB PAGES
+- **GitHub Pages URL:** https://reshma630025.github.io/project/
+- **Remote Backend Requirement:** GitHub Pages is ONLY the static frontend. It cannot run the FastAPI python backend. To perform live AI inference via GitHub Pages, you must deploy the TrustGuard FastAPI backend to a cloud provider (e.g. Render, Heroku) and place the deployed HTTPS URL inside `config.js`.
+- **Live Backend Status:** Currently NOT DEPLOYED. The live link will show "Live AI Backend Unavailable" until a remote backend is deployed and configured.
 
 ---
 

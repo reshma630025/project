@@ -5,9 +5,10 @@
  */
 
 function getTrustGuardApiBase() {
-  // 1. Explicit window override
-  if (typeof window !== 'undefined' && window.TRUSTGUARD_BACKEND_URL && typeof window.TRUSTGUARD_BACKEND_URL === 'string' && window.TRUSTGUARD_BACKEND_URL.trim()) {
-    return window.TRUSTGUARD_BACKEND_URL.trim().replace(/\/+$/, '');
+  // 1. Explicit window override (e.g. from config.js)
+  let remoteUrl = null;
+  if (typeof window !== 'undefined' && window.TRUSTGUARD_CONFIG && window.TRUSTGUARD_CONFIG.remoteBackend) {
+    remoteUrl = window.TRUSTGUARD_CONFIG.remoteBackend.trim().replace(/\/+$/, '');
   }
 
   // 2. LocalStorage override (e.g. set by user for remote LAN testing)
@@ -24,10 +25,11 @@ function getTrustGuardApiBase() {
   if (typeof window !== 'undefined' && window.location) {
     const origin = window.location.origin || '';
     const protocol = window.location.protocol || '';
+    const hostname = window.location.hostname || '';
 
-    // If hosted on GitHub Pages or other static CDNs, ALWAYS point to local FastAPI backend
-    if (origin.includes('github.io') || origin.includes('pages.dev') || origin.includes('netlify.app') || origin.includes('vercel.app')) {
-      return 'http://127.0.0.1:8000';
+    // If hosted on GitHub Pages or other static CDNs, ALWAYS point to the REMOTE backend.
+    if (hostname.includes('github.io') || hostname.includes('pages.dev') || hostname.includes('netlify.app') || hostname.includes('vercel.app')) {
+      return remoteUrl || 'https://unconfigured-remote-backend.com'; // Force a remote URL so it doesn't leak to localhost
     }
 
     // If opened via local file protocol (file://)
@@ -107,8 +109,7 @@ class TrustGuardAPI {
       throw new Error(
         `Backend connection failed on ${environment}. ` +
         `Received HTML response instead of JSON API response from ${activeUrl}. ` +
-        `GitHub Pages is static hosting and cannot directly run the FastAPI ML backend. ` +
-        `Please ensure your local TrustGuard AI backend is running (run start_trustguard.bat) and configure the correct API URL.`
+        (isGitHub ? `Live AI backend is currently unavailable.` : `Please ensure your local TrustGuard AI backend is running (run start_trustguard.bat) and configure the correct API URL.`)
       );
     }
 
@@ -171,7 +172,12 @@ class TrustGuardAPI {
         throw new Error(`Analysis request timed out after ${timeoutMs / 1000}s. Processing took longer than expected.`);
       }
       if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('fetch failed'))) {
-        throw new Error(`TrustGuard AI local backend is not running at ${this.baseUrl}. Start the FastAPI server on port 8000 and try again.`);
+        const isGitHub = window.location.hostname.includes('github.io');
+        if (isGitHub) {
+          throw new Error(`Live AI backend is currently unavailable. Please try again later.`);
+        } else {
+          throw new Error(`TrustGuard AI local backend is not running at ${this.baseUrl}. Start the FastAPI server on port 8000 and try again.`);
+        }
       }
       throw err;
     }
