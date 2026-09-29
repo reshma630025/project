@@ -2781,6 +2781,7 @@ function normalizePrediction(apiRes, defaultContentType = 'Content', fallbackLab
 
   return {
     valid: true,
+    scan_id: apiRes.scan_id || apiRes.id || null,
     isGenuine,
     riskScore,
     trustScore,
@@ -4247,6 +4248,117 @@ async function fetchHistoryFromBackend() {
       renderRecent();
     }
   } catch(e) { console.warn('Could not fetch history:', e); }
+}
+
+// --- AUDIO / VOICE ALERT SYSTEM ---
+let lastAnnouncedScanId = null;
+let speechVoices = [];
+
+if (window.speechSynthesis) {
+  speechVoices = window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => {
+    speechVoices = window.speechSynthesis.getVoices();
+  };
+}
+
+function isAlertSoundEnabled() {
+  const pref = localStorage.getItem('trustguard_alerts_enabled');
+  return pref === null ? true : pref === 'true';
+}
+
+function playSecurityBuzzer() {
+  if (!isAlertSoundEnabled()) return;
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(400, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.15);
+    
+    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
+  } catch (e) { console.warn('Buzzer error:', e); }
+}
+
+function speakDetectionAlert(normalizedResult) {
+  if (!isAlertSoundEnabled()) return;
+  if (normalizedResult.isGenuine) return; 
+  if (!window.speechSynthesis) return;
+
+  const msg = new SpeechSynthesisUtterance();
+  msg.rate = 0.95;
+  msg.pitch = 1.0;
+  msg.volume = 1.0;
+
+  const langSelect = document.getElementById('langSelect');
+  const lang = (langSelect && langSelect.value) ? langSelect.value.toLowerCase() : 'en';
+  
+  if (lang.includes('te')) {
+    msg.text = 'జాగ్రత్త. ఈ కంటెంట్ నకిలీగా గుర్తించబడింది.';
+    msg.lang = 'te-IN';
+  } else if (lang.includes('hi')) {
+    msg.text = 'सावधान। यह सामग्री नकली पाई गई है।';
+    msg.lang = 'hi-IN';
+  } else {
+    const cls = (normalizedResult.classification || '').toUpperCase();
+    if (cls === 'SUSPICIOUS' || cls === 'FRAUD' || cls === 'FRAUDULENT') {
+      msg.text = 'Warning. Suspicious content detected. Please review this content carefully.';
+    } else if (cls === 'MANIPULATED') {
+      msg.text = 'Warning. This content appears to be manipulated.';
+    } else {
+      msg.text = 'Warning. This content is detected as fake.';
+    }
+    msg.lang = 'en-US';
+  }
+
+  if (speechVoices.length > 0) {
+    const targetVoice = speechVoices.find(v => v.lang.toLowerCase().includes(msg.lang.toLowerCase()));
+    if (targetVoice) msg.voice = targetVoice;
+  }
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(msg);
+}
+
+function triggerHighRiskAlert(norm, contentType, contentLabel) {
+  const analysisId = norm.scan_id || norm.id || (contentLabel + "_" + norm.riskScore);
+  if (lastAnnouncedScanId === analysisId) return;
+  lastAnnouncedScanId = analysisId;
+
+  const alertContainer = document.getElementById('dashAlerts');
+  if (alertContainer) {
+    const div = document.createElement('div');
+    div.style.padding = '6px 0';
+    div.style.borderBottom = '1px solid var(--line)';
+    div.innerHTML = `<b style="color:var(--danger-2);">⚠ HIGH RISK DETECTED</b><span style="display:block; color:var(--text-faint); font-size:10.5px;">${contentType}: ${contentLabel} (${norm.riskScore}% Risk)</span>`;
+    alertContainer.prepend(div);
+  }
+  
+  playSecurityBuzzer();
+  setTimeout(() => speakDetectionAlert(norm), 300);
+}
+
+// Bind mute button directly
+const muteBtn = document.getElementById('muteAlertSoundBtn');
+if (muteBtn) {
+  const updateBtnState = () => {
+    muteBtn.innerHTML = isAlertSoundEnabled() ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+    muteBtn.style.color = isAlertSoundEnabled() ? 'var(--text)' : 'var(--danger-2)';
+  };
+  updateBtnState();
+  muteBtn.addEventListener('click', () => {
+    localStorage.setItem('trustguard_alerts_enabled', (!isAlertSoundEnabled()).toString());
+    updateBtnState();
+  });
 }
 
 function pushHistory(entry){
